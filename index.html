@@ -130,6 +130,9 @@ main{max-width:1240px;margin:0 auto;padding:22px 28px 60px}
 .bar-row .bv{font-weight:900;color:var(--blue06);font-size:12.5px}
 .bar-row.active .bar-fill{background:var(--yellow)}
 .bar-row.dim{opacity:.32}
+.bar-row.clickable{cursor:pointer;border-radius:6px;padding:4px 8px;margin:-4px -8px;transition:background .12s}
+.bar-row.clickable:hover{background:var(--blue01)}
+.bar-row.clickable:hover .bl{color:var(--blue05)}
 
 /* ---- choropleth map (inline SVG) ---- */
 .map-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;align-items:center;margin-top:6px}
@@ -364,7 +367,7 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
     <div class="grid two">
       <div class="card panel">
         <h3>Participants by profile group</h3>
-        <div class="ph">Number of individuals reached in each age–gender–diversity group</div>
+        <div class="ph">Number of individuals reached in each age–gender–diversity group · click a bar to filter</div>
         <div class="bars" id="barsGroup"></div>
       </div>
       <div class="card panel">
@@ -383,7 +386,7 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
       </div>
       <div class="card panel">
         <h3>Sessions &amp; sectors covered</h3>
-        <div class="ph">Number of coded findings per thematic area across all groups</div>
+        <div class="ph">Number of coded findings per thematic area · click a bar to filter</div>
         <div class="bars" id="barsSectorCount"></div>
       </div>
     </div>
@@ -460,6 +463,10 @@ const PROF_TO_GROUP = {
   "People of Pre-Retirement Age (50–55+)":"Pre-Retirement (50–59)",
   "Persons with Disabilities":"Persons with Disabilities"
 };
+/* reverse map (coverage group -> framework profile) for click-to-filter on bars */
+const GROUP_TO_PROF={};
+Object.entries(PROF_TO_GROUP).forEach(([prof,grp])=>{ if(!(grp in GROUP_TO_PROF)) GROUP_TO_PROF[grp]=prof; });
+
 const AREA_COLORS = {
   "Legal Status & Documentation":"var(--brown)","Integration & Inclusion":"var(--blue)",
   "Housing":"var(--red)","Healthcare":"var(--green)","Livelihoods & Basic Needs":"var(--yellow)",
@@ -526,25 +533,37 @@ function renderKpis(){
   ];
   $("#kpis").innerHTML=cards.map(c=>`<div class="card kpi ${c.c}"><div class="v">${c.v}</div><div class="l">${c.l}</div><div class="s">${c.s}</div></div>`).join("");
 }
-function hbars(el,rows,{activeKey=null}={}){
+function hbars(el,rows,{activeKey=null,pick=null}={}){
   const max=Math.max(...rows.map(r=>r.v),1);
-  el.innerHTML=rows.map(r=>{
+  el.innerHTML=rows.map((r,i)=>{
     const w=(r.v/max*100).toFixed(1);
     const act=activeKey && r.key===activeKey?"active":(activeKey?"dim":"");
-    return `<div class="bar-row ${act}"><div class="bl">${esc(r.l)}</div>
+    const clickable=pick && pick.resolve(r.l)!=null ? "clickable" : "";
+    return `<div class="bar-row ${act} ${clickable}" data-i="${i}"><div class="bl">${esc(r.l)}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${w}%"></div></div>
       <div class="bv">${r.v}</div></div>`;
   }).join("");
+  if(pick){
+    [...el.querySelectorAll(".bar-row.clickable")].forEach(row=>{
+      const val=pick.resolve(rows[+row.dataset.i].l);
+      row.addEventListener("click",()=>{
+        state[pick.dim] = state[pick.dim]===val ? "" : val;
+        const selEl={raion:"#fRaion",sector:"#fSector",profile:"#fProfile"}[pick.dim];
+        if(selEl) $(selEl).value=state[pick.dim];
+        applyFilters();
+      });
+    });
+  }
 }
 function renderOverview(){
   renderKpis();
   const g=PROF_TO_GROUP[state.profile]||null;
   const grpRows=Object.entries(DATA.agg.part_by_group).sort((a,b)=>b[1]-a[1])
     .map(([k,v])=>({l:k,v,key:k}));
-  hbars($("#barsGroup"),grpRows,{activeKey:g});
+  hbars($("#barsGroup"),grpRows,{activeKey:g,pick:{dim:"profile",resolve:l=>GROUP_TO_PROF[l]||null}});
   const raionRows=Object.entries(DATA.agg.part_by_raion).sort((a,b)=>b[1]-a[1])
     .map(([k,v])=>({l:k,v,key:k}));
-  hbars($("#barsRaion"),raionRows,{activeKey:state.raion||null});
+  hbars($("#barsRaion"),raionRows,{activeKey:state.raion||null,pick:{dim:"raion",resolve:l=>l}});
   const ageRows=DATA.age_labels.map((l,i)=>({l:l+" yrs",v:DATA.age_totals[i]})).filter(r=>r.v>0);
   hbars($("#barsAge"),ageRows);
   // gender
@@ -561,7 +580,7 @@ function renderOverview(){
   const secCount={};
   DATA.framework.forEach(f=>secCount[f.area]=(secCount[f.area]||0)+1);
   const secRows=Object.entries(secCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
-  hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null});
+  hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null,pick:{dim:"sector",resolve:l=>l}});
 }
 
 /* ================= RENDER: MAP (inline SVG choropleth) ================= */
@@ -628,8 +647,9 @@ function renderMatrix(){
     areas.forEach(a=>{
       const f=lookup[p+"|"+a];
       const dimCol=state.sector && state.sector!==a;
-      const dim=(dimRow||dimCol)?"dim":"";
-      if(!f){ html+=`<td><div class="cell empty ${dim}"></div></td>`; return; }
+      const dimSearch=f && state.q && !(f.finding+" "+f.recommendations.join(" ")+" "+f.profile+" "+f.area).toLowerCase().includes(state.q);
+      const dim=(dimRow||dimCol||dimSearch)?"dim":"";
+      if(!f){ html+=`<td><div class="cell empty ${(dimRow||dimCol)?"dim":""}"></div></td>`; return; }
       const n=f.recommendations.length;
       html+=`<td><div class="cell ${heat(n)} ${dim}" data-fid="${f.id}" title="${esc(p)} · ${esc(a)} — ${n} recommendation(s)"><span class="rc">${n}</span></div></td>`;
     });
