@@ -7,8 +7,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="lib/leaflet/leaflet.css">
-<script src="lib/leaflet/leaflet.js"></script>
 <style>
 /* ============ UNHCR DATA VIZ TOKENS ============ */
 :root{
@@ -65,7 +63,7 @@ header{
 nav.tabs{
   background:#fff;border-bottom:1px solid var(--line);position:sticky;top:60px;z-index:55;
 }
-.tabs-inner{max-width:1240px;margin:0 auto;padding:0 28px;display:flex;gap:2px;overflow-x:auto}
+.tabs-inner{max-width:1240px;margin:0 auto;padding:0 28px;display:flex;gap:2px;overflow-x:auto;justify-content:center}
 .tab{
   appearance:none;border:0;background:none;cursor:pointer;
   padding:15px 20px 13px;font-size:13.5px;font-weight:700;color:var(--grey04);
@@ -133,23 +131,27 @@ main{max-width:1240px;margin:0 auto;padding:22px 28px 60px}
 .bar-row.active .bar-fill{background:var(--yellow)}
 .bar-row.dim{opacity:.32}
 
-/* ---- choropleth map (Leaflet) ---- */
-.map-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;align-items:stretch;margin-top:6px}
-.map-holder{position:relative;min-height:460px}
-#map{position:absolute;inset:0;border-radius:10px;background:#EAF1F6;z-index:0}
-.leaflet-container{font-family:var(--f);background:#EAF1F6}
-.leaflet-interactive{transition:fill-opacity .15s}
-.raion-tip{background:var(--blue06);color:#fff;border:0;border-radius:7px;padding:6px 10px;
-  font-weight:700;font-size:12px;box-shadow:var(--shadow-lg)}
-.raion-tip::before{border-top-color:var(--blue06)}
-.raion-tip .tv{color:var(--cyan);font-weight:400;margin-left:3px}
-.leaflet-bar a{color:var(--blue06)}
+/* ---- choropleth map (inline SVG) ---- */
+.map-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;align-items:center;margin-top:6px}
+.map-holder{position:relative}
+#mapSvg{width:100%;height:auto;display:block;max-height:520px}
+#mapSvg path{stroke:#fff;stroke-width:1;transition:fill .2s,opacity .15s;cursor:default}
+#mapSvg path.hit{cursor:pointer}
+#mapSvg path.hit:hover{stroke:var(--blue06);stroke-width:1.6}
+#mapSvg path.sel{stroke:var(--blue06);stroke-width:2}
+#mapSvg path.faded{opacity:.3}
+.map-tip{position:absolute;pointer-events:none;background:var(--blue06);color:#fff;font-size:12px;
+  padding:8px 12px;border-radius:8px;opacity:0;transform:translate(-50%,-118%);transition:opacity .12s;
+  white-space:nowrap;z-index:5;box-shadow:var(--shadow-lg);line-height:1.4}
+.map-tip .tn{font-weight:900;display:block;margin-bottom:1px}
+.map-tip .tl{color:var(--cyan);font-weight:700} .map-tip .td{color:#CDE3F1;font-weight:400}
+.map-tip.on{opacity:1}
 .map-side{display:flex;flex-direction:column;gap:16px;justify-content:center}
 .map-legend{display:flex;flex-direction:column;gap:6px}
 .map-legend .row{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--grey05)}
 .map-legend .sw{width:20px;height:14px;border-radius:3px;flex-shrink:0;border:1px solid rgba(0,0,0,.05)}
 .map-side .bars{margin-top:2px}
-@media(max-width:820px){.map-grid{grid-template-columns:1fr;gap:18px}.map-holder{min-height:380px}}
+@media(max-width:820px){.map-grid{grid-template-columns:1fr;gap:18px}#mapSvg{max-height:none}.map-holder{max-width:420px;margin:0 auto}}
 
 /* ---- gender split ---- */
 .gender{display:flex;gap:0;height:30px;border-radius:6px;overflow:hidden;margin-top:4px}
@@ -271,6 +273,7 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
 }
 @media(max-width:560px){
   .head-inner,.tabs-inner,.filters,main,.fnote,.foot-inner{padding-left:16px;padding-right:16px}
+  .tabs-inner{justify-content:flex-start}
   .bar-row{grid-template-columns:96px 1fr 34px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
@@ -305,10 +308,12 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
 </header>
 
 <nav class="tabs" role="tablist">
+  <div class="tabs-inner">
   <button class="tab" role="tab" aria-selected="true" data-view="overview">Overview</button>
   <button class="tab" role="tab" aria-selected="false" data-view="matrix">Findings matrix <span class="c" id="tabMatrixC"></span></button>
   <button class="tab" role="tab" aria-selected="false" data-view="framework">Analysis framework <span class="c" id="tabFwC"></span></button>
-  <button class="tab" role="tab" aria-selected="false" data-view="voices">Voices <span class="c" id="tabVoiceC"></span></button>
+  <button class="tab" role="tab" aria-selected="false" data-view="voices">Quotes <span class="c" id="tabVoiceC"></span></button>
+  </div>
 </nav>
 
 <div class="filters">
@@ -346,7 +351,8 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
       <div class="ph">Admin-1 (raion) shaded by number of focus group participants · select a shaded raion to filter the dashboard</div>
       <div class="map-grid">
         <div class="map-holder">
-          <div id="map" role="img" aria-label="Map of Moldova showing focus group participation by raion"></div>
+          <svg id="mapSvg" role="img" aria-label="Choropleth map of Moldova showing focus group participation by raion"></svg>
+          <div class="map-tip" id="mapTip" aria-hidden="true"></div>
         </div>
         <div class="map-side">
           <div class="map-legend" id="mapLegend"></div>
@@ -409,7 +415,7 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
   <!-- VOICES -->
   <section class="view" id="view-voices" role="tabpanel">
     <div class="section-eyebrow">In their words</div>
-    <h2 class="section-title">Participant voices</h2>
+    <h2 class="section-title">Participant quotes</h2>
     <p class="section-sub">Verbatim quotes captured during the discussions, linked to the group and location where they were recorded.</p>
     <p class="lang-note">Quotes are shown in the original language of the discussion (Romanian / Russian). Identifiers have been removed.</p>
     <div class="grid quotes-grid" id="quotesGrid"></div>
@@ -558,56 +564,53 @@ function renderOverview(){
   hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null});
 }
 
-/* ================= RENDER: MAP (Leaflet choropleth) ================= */
-const RAION_COUNT={}, RAION_CANON={};
+/* ================= RENDER: MAP (inline SVG choropleth) ================= */
+const RAION_COUNT={}, RAION_FGDS={}, RAION_CANON={};
 Object.entries(DATA.agg.part_by_raion).forEach(([k,v])=>{RAION_COUNT[k.toLowerCase()]=v;RAION_CANON[k.toLowerCase()]=k;});
+Object.entries(DATA.agg.fgds_by_raion).forEach(([k,v])=>{RAION_FGDS[k.toLowerCase()]=v;});
 function raionCount(name){return RAION_COUNT[(name||"").toLowerCase()]||0;}
+function raionFgds(name){return RAION_FGDS[(name||"").toLowerCase()]||0;}
 function mapColor(n){
   if(n>=50)return"#0072BC"; if(n>=20)return"#4F9ED0"; if(n>=10)return"#8FC1E1";
   if(n>=1)return"#CDE3F1"; return"#EEF2F5";
 }
 const MAP_BUCKETS=[["#0072BC","50 +"],["#4F9ED0","20 – 49"],["#8FC1E1","10 – 19"],["#CDE3F1","1 – 9"],["#EEF2F5","Not consulted"]];
-let LMAP=null, GEOLAYER=null;
-function featStyle(f){
-  const n=raionCount(f.properties.name);
-  return {fillColor:mapColor(n),weight:1,color:"#ffffff",fillOpacity:n>0?0.9:0.75};
-}
 function buildMap(){
-  if(!DATA.geo || typeof L==="undefined"){ $(".map-panel").style.display="none"; return; }
-  LMAP=L.map("map",{scrollWheelZoom:false,zoomSnap:0.25,attributionControl:true});
-  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{
-    attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:"abcd", maxZoom:19
-  }).addTo(LMAP);
-  GEOLAYER=L.geoJSON(DATA.geo,{
-    style:featStyle,
-    onEachFeature:(f,layer)=>{
-      const name=f.properties.name, n=raionCount(name);
-      layer.bindTooltip(`<span>${esc(name)}</span><span class="tv">· ${n} participant${n===1?"":"s"}</span>`,
-        {sticky:true,direction:"top",className:"raion-tip"});
-      layer.on("mouseover",()=>{ if(!isSel(name)) layer.setStyle({weight:2,color:"#0B3754"}); layer.bringToFront(); });
-      layer.on("mouseout",()=>{ if(!isSel(name)) GEOLAYER.resetStyle(layer); });
-      if(n>0) layer.on("click",()=>{
-        const canon=RAION_CANON[name.toLowerCase()]||name;
-        state.raion = state.raion===canon ? "" : canon;
-        $("#fRaion").value=state.raion;
-        applyFilters();
-      });
-    }
-  }).addTo(LMAP);
-  LMAP.fitBounds(GEOLAYER.getBounds(),{padding:[8,8]});
-  setTimeout(()=>LMAP.invalidateSize(),200);
-  // legend
+  if(!DATA.geo){$(".map-panel").style.display="none";return;}
+  const svg=$("#mapSvg"), tip=$("#mapTip");
+  svg.setAttribute("viewBox",DATA.geo.viewBox);
+  svg.innerHTML=DATA.geo.features.map(f=>{
+    const n=raionCount(f.name), hit=n>0?"hit":"";
+    return `<path d="${f.path}" fill="${mapColor(n)}" data-raion="${esc(f.name)}" data-n="${n}" class="${hit}"></path>`;
+  }).join("");
   $("#mapLegend").innerHTML="<div class='row' style='font-weight:900;color:var(--grey06);margin-bottom:2px'>Participants</div>"+
     MAP_BUCKETS.map(([c,l])=>`<div class="row"><span class="sw" style="background:${c}"></span>${l}</div>`).join("");
+  const holder=$(".map-holder");
+  $$("#mapSvg path").forEach(p=>{
+    const name=p.dataset.raion, n=+p.dataset.n, f=raionFgds(name);
+    p.addEventListener("mousemove",e=>{
+      const r=holder.getBoundingClientRect();
+      tip.style.left=(e.clientX-r.left)+"px"; tip.style.top=(e.clientY-r.top)+"px";
+      tip.innerHTML=`<span class="tn">${esc(name)}</span>`+
+        (n>0 ? `<span class="tl">${n} participant${n===1?"":"s"}</span> · <span class="td">${f} FGD${f===1?"":"s"}</span>`
+             : `<span class="td">Not consulted</span>`);
+      tip.classList.add("on");
+    });
+    p.addEventListener("mouseleave",()=>tip.classList.remove("on"));
+    if(n>0) p.addEventListener("click",()=>{
+      const canon=RAION_CANON[name.toLowerCase()]||name;
+      state.raion = state.raion===canon ? "" : canon;
+      $("#fRaion").value=state.raion;
+      applyFilters();
+    });
+  });
 }
-function isSel(name){return state.raion && name.toLowerCase()===state.raion.toLowerCase();}
 function updateMap(){
-  if(!GEOLAYER) return;
-  const sel=!!state.raion;
-  GEOLAYER.eachLayer(layer=>{
-    const name=layer.feature.properties.name, n=raionCount(name);
-    if(isSel(name)) layer.setStyle({weight:2.5,color:"#0B3754",fillOpacity:1}).bringToFront();
-    else{ GEOLAYER.resetStyle(layer); if(sel && n>0) layer.setStyle({fillOpacity:0.35}); }
+  const sel=state.raion?state.raion.toLowerCase():"";
+  $$("#mapSvg path").forEach(p=>{
+    const name=p.dataset.raion.toLowerCase(), n=+p.dataset.n;
+    p.classList.toggle("sel",!!sel && name===sel);
+    p.classList.toggle("faded",!!sel && n>0 && name!==sel);
   });
 }
 
@@ -696,7 +699,7 @@ function openDrawer(fid){
   $("#drawerTitle").textContent=f.area+" — "+f.profile;
   const recs=f.recommendations.map(r=>`<li>${esc(r)}</li>`).join("");
   const qs=quotesForCell(f.profile,f.area).slice(0,3);
-  const qHtml=qs.length?`<div class="db-label">Related voices</div>`+qs.map(q=>
+  const qHtml=qs.length?`<div class="db-label">Related quotes</div>`+qs.map(q=>
     `<div class="mini-quote">${esc(q.text)}<div class="qm">${esc(q.group)}${q.location?" · "+esc(q.location):""}</div></div>`).join(""):"";
   $("#drawerBody").innerHTML=
     `<div class="db-label">Key finding</div><div class="finding-text">${esc(f.finding)}</div>`+
