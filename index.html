@@ -537,12 +537,13 @@ function aggCov(cov,sector){
   const ages=DATA.age_labels.map(()=>0); let participants=0,fgds=0;
   const raionSet=new Set(),groupSet=new Set();
   cov.forEach(c=>{
-    let n,mm,ff,oo;
+    let mm,ff,oo;
     if(sector){
       const t=c.topics&&c.topics[sector];
       if(!t) return;                 // FGD didn't cover this topic
-      n=t.n; mm=t.m; ff=t.f; oo=t.o;
-    } else { n=c.n||0; mm=c.male||0; ff=c.female||0; oo=c.other||0; }
+      mm=t.m; ff=t.f; oo=t.o;        // per-topic gender disaggregation
+    } else { mm=c.male||0; ff=c.female||0; oo=c.other||0; }  // intro-section gender
+    const n=mm+ff+oo;                // count and composition share one source, so they reconcile
     byGroup[c.group]=(byGroup[c.group]||0)+n;
     byRaion[c.raion]=(byRaion[c.raion]||0)+n;
     byRaionF[c.raion]=(byRaionF[c.raion]||0)+1;
@@ -615,7 +616,7 @@ function renderOverview(){
     `<span><i style="background:var(--purple)"></i>Other ${pc(other)}%</span>`;
   // topic bar — participants who discussed each topic (raion/profile-scoped, all topics shown)
   const secTot={};
-  covSubset(null).forEach(c=>Object.entries(c.topics||{}).forEach(([s,v])=>{secTot[s]=(secTot[s]||0)+v.n;}));
+  covSubset(null).forEach(c=>Object.entries(c.topics||{}).forEach(([s,v])=>{secTot[s]=(secTot[s]||0)+(v.m+v.f+v.o);}));
   const secRows=Object.entries(secTot).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
   hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null,pick:{dim:"sector",resolve:l=>l}});
   // map (recoloured for the current scope; highlights the raion selection)
