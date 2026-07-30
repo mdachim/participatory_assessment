@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Participatory Assessment 2026 · Q2 Focus Group Findings · UNHCR Moldova</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="lib/leaflet/leaflet.css">
+<script src="lib/leaflet/leaflet.js"></script>
+<style>
+/* ============ UNHCR DATA VIZ TOKENS ============ */
+:root{
+  --blue:#0072BC; --blue06:#0B3754; --blue05:#05568B; --blue04:#0072BC;
+  --blue03:#4F9ED0; --blue02:#8FC1E1; --blue01:#CDE3F1;
+  --yellow:#FFC740; --green:#32C189; --cyan:#6CD8FD; --red:#D25A45;
+  --purple:#A097E3; --brown:#7C3C36;
+  --blue-aaa:#05568B;
+  --grey01:#E5E5E5; --grey02:#BFBFBF; --grey03:#999999; --grey04:#737373;
+  --grey05:#4D4D4D; --grey06:#262626;
+  --ink:#1a1a1a; --canvas:#F5F8FB; --card:#FFFFFF;
+  --line:#E2E8EF;
+  --shadow:0 1px 2px rgba(11,55,84,.06),0 3px 14px rgba(11,55,84,.05);
+  --shadow-lg:0 8px 40px rgba(11,55,84,.16);
+  --f: "Lato", -apple-system, "Segoe UI", Arial, sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  margin:0;font-family:var(--f);color:var(--ink);background:var(--canvas);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased;
+}
+h1,h2,h3,h4{margin:0;font-weight:900;letter-spacing:-.01em;line-height:1.15}
+a{color:var(--blue-aaa)}
+button{font-family:var(--f)}
+::selection{background:var(--blue01)}
+
+/* ============ HEADER ============ */
+header{
+  background:#fff;border-bottom:3px solid var(--blue);
+  position:sticky;top:0;z-index:60;
+}
+.head-inner{
+  max-width:1240px;margin:0 auto;padding:14px 28px;
+  display:flex;align-items:center;gap:20px;
+}
+/* logo slot — replace .brandmark contents with official UNHCR SVG */
+.brandmark{
+  display:flex;flex-direction:column;line-height:1;flex-shrink:0;
+  padding-right:20px;border-right:1px solid var(--line);
+}
+.brandmark .logo-img{height:46px;width:auto;display:block}
+.brandmark .logo-fallback{display:flex;flex-direction:column;line-height:1}
+.brandmark .wm{font-weight:900;font-size:30px;letter-spacing:.02em;color:var(--blue);}
+.brandmark .tl{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey04);margin-top:3px;font-weight:700}
+.head-title h1{font-size:18px;color:var(--blue06)}
+.head-title p{margin:2px 0 0;font-size:12.5px;color:var(--grey04);font-weight:400}
+.head-badge{margin-left:auto;text-align:right;flex-shrink:0}
+.head-badge .q{display:inline-block;background:var(--blue);color:#fff;font-weight:900;
+  font-size:12px;padding:4px 11px;border-radius:3px;letter-spacing:.03em}
+.head-badge .dt{font-size:11px;color:var(--grey04);margin-top:5px}
+
+/* ============ TABS ============ */
+nav.tabs{
+  background:#fff;border-bottom:1px solid var(--line);position:sticky;top:60px;z-index:55;
+}
+.tabs-inner{max-width:1240px;margin:0 auto;padding:0 28px;display:flex;gap:2px;overflow-x:auto}
+.tab{
+  appearance:none;border:0;background:none;cursor:pointer;
+  padding:15px 20px 13px;font-size:13.5px;font-weight:700;color:var(--grey04);
+  border-bottom:3px solid transparent;white-space:nowrap;transition:color .15s;
+}
+.tab:hover{color:var(--blue05)}
+.tab[aria-selected="true"]{color:var(--blue);border-bottom-color:var(--blue)}
+.tab .c{font-size:11px;color:var(--grey03);font-weight:700;margin-left:5px}
+
+/* ============ FILTER BAR ============ */
+.filters{
+  max-width:1240px;margin:20px auto 0;padding:0 28px;
+  display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;
+}
+.fg{display:flex;flex-direction:column;gap:5px}
+.fg label{font-size:10px;font-weight:900;letter-spacing:.09em;text-transform:uppercase;color:var(--grey04)}
+.fg select,.fg input{
+  font-family:var(--f);font-size:13px;padding:8px 11px;border:1px solid var(--line);
+  border-radius:6px;background:#fff;color:var(--ink);min-width:150px;transition:border .15s;
+}
+.fg input{min-width:220px}
+.fg select:focus,.fg input:focus{outline:2px solid var(--blue02);outline-offset:0;border-color:var(--blue)}
+.reset{
+  padding:8px 14px;border:1px solid var(--line);background:#fff;border-radius:6px;
+  font-size:12.5px;font-weight:700;color:var(--grey05);cursor:pointer;height:35px;transition:.15s;
+}
+.reset:hover{border-color:var(--red);color:var(--red)}
+.fnote{max-width:1240px;margin:8px auto 0;padding:0 28px;font-size:11.5px;color:var(--grey03)}
+
+/* ============ LAYOUT ============ */
+main{max-width:1240px;margin:0 auto;padding:22px 28px 60px}
+.view{display:none;animation:fade .3s ease}
+.view.active{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.section-eyebrow{font-size:11px;font-weight:900;letter-spacing:.12em;text-transform:uppercase;color:var(--blue);margin-bottom:3px}
+.section-title{font-size:20px;color:var(--blue06);margin-bottom:2px}
+.section-sub{font-size:13px;color:var(--grey04);margin-bottom:18px;max-width:760px}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow)}
+.grid{display:grid;gap:16px}
+
+/* ---- KPI cards ---- */
+.kpis{grid-template-columns:repeat(4,1fr);margin-bottom:18px}
+.kpi{padding:18px 20px;position:relative;overflow:hidden}
+.kpi::before{content:"";position:absolute;left:0;top:0;bottom:0;width:4px;background:var(--blue)}
+.kpi .v{font-size:38px;font-weight:900;color:var(--blue06);line-height:1}
+.kpi .l{font-size:12px;color:var(--grey04);margin-top:6px;font-weight:700;letter-spacing:.02em}
+.kpi .s{font-size:11.5px;color:var(--grey03);margin-top:2px}
+.kpi.k2::before{background:var(--green)} .kpi.k2 .v{color:var(--green)}
+.kpi.k3::before{background:var(--cyan)}
+.kpi.k4::before{background:var(--purple)}
+
+.two{grid-template-columns:1fr 1fr}
+.panel{padding:20px 22px}
+.panel h3{font-size:14px;color:var(--blue06);margin-bottom:2px}
+.panel .ph{font-size:11.5px;color:var(--grey03);margin-bottom:16px}
+
+/* ---- horizontal bars ---- */
+.bars{display:flex;flex-direction:column;gap:10px}
+.bar-row{display:grid;grid-template-columns:130px 1fr 40px;align-items:center;gap:10px;font-size:12.5px}
+.bar-row .bl{color:var(--grey05);font-weight:700;text-align:right;line-height:1.2}
+.bar-track{background:var(--grey01);border-radius:4px;height:20px;overflow:hidden}
+.bar-fill{height:100%;border-radius:4px;background:var(--blue);transition:width .6s cubic-bezier(.2,.7,.2,1)}
+.bar-row .bv{font-weight:900;color:var(--blue06);font-size:12.5px}
+.bar-row.active .bar-fill{background:var(--yellow)}
+.bar-row.dim{opacity:.32}
+
+/* ---- choropleth map (Leaflet) ---- */
+.map-grid{display:grid;grid-template-columns:1.35fr 1fr;gap:26px;align-items:stretch;margin-top:6px}
+.map-holder{position:relative;min-height:460px}
+#map{position:absolute;inset:0;border-radius:10px;background:#EAF1F6;z-index:0}
+.leaflet-container{font-family:var(--f);background:#EAF1F6}
+.leaflet-interactive{transition:fill-opacity .15s}
+.raion-tip{background:var(--blue06);color:#fff;border:0;border-radius:7px;padding:6px 10px;
+  font-weight:700;font-size:12px;box-shadow:var(--shadow-lg)}
+.raion-tip::before{border-top-color:var(--blue06)}
+.raion-tip .tv{color:var(--cyan);font-weight:400;margin-left:3px}
+.leaflet-bar a{color:var(--blue06)}
+.map-side{display:flex;flex-direction:column;gap:16px;justify-content:center}
+.map-legend{display:flex;flex-direction:column;gap:6px}
+.map-legend .row{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--grey05)}
+.map-legend .sw{width:20px;height:14px;border-radius:3px;flex-shrink:0;border:1px solid rgba(0,0,0,.05)}
+.map-side .bars{margin-top:2px}
+@media(max-width:820px){.map-grid{grid-template-columns:1fr;gap:18px}.map-holder{min-height:380px}}
+
+/* ---- gender split ---- */
+.gender{display:flex;gap:0;height:30px;border-radius:6px;overflow:hidden;margin-top:4px}
+.gender span{display:flex;align-items:center;justify-content:center;color:#fff;font-weight:900;font-size:12px}
+.gseg-f{background:var(--blue)} .gseg-m{background:var(--blue02);color:var(--blue06)} .gseg-o{background:var(--purple)}
+.glegend{display:flex;gap:16px;margin-top:12px;font-size:12px;color:var(--grey05)}
+.glegend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:middle}
+
+/* ============ MATRIX ============ */
+.matrix-wrap{overflow-x:auto;padding-bottom:4px}
+table.matrix{border-collapse:separate;border-spacing:3px;width:100%;min-width:760px}
+table.matrix th{font-size:11px;font-weight:700;color:var(--grey05);vertical-align:bottom;padding:6px 4px;text-align:center}
+table.matrix th.rowh{text-align:left;vertical-align:middle;width:200px;color:var(--blue06);font-weight:900;font-size:12px;padding-right:12px}
+table.matrix thead th.rowh{background:none}
+.cell{
+  aspect-ratio:1.7/1;min-height:44px;border-radius:6px;cursor:pointer;position:relative;
+  display:flex;align-items:center;justify-content:center;transition:transform .12s,box-shadow .12s;
+  border:1px solid transparent;
+}
+.cell:hover{transform:scale(1.05);box-shadow:var(--shadow-lg);z-index:2;border-color:#fff}
+.cell .rc{font-weight:900;font-size:14px}
+.cell.empty{background:repeating-linear-gradient(45deg,#F1F4F7,#F1F4F7 4px,#fff 4px,#fff 8px);cursor:default}
+.cell.empty:hover{transform:none;box-shadow:none}
+.cell.h0{background:var(--blue01);color:var(--blue06)}
+.cell.h1{background:var(--blue02);color:var(--blue06)}
+.cell.h2{background:var(--blue03);color:#fff}
+.cell.h3{background:var(--blue04);color:#fff}
+.cell.dim{opacity:.2;pointer-events:none}
+.matrix-legend{display:flex;align-items:center;gap:6px;margin-top:16px;font-size:11.5px;color:var(--grey04);flex-wrap:wrap}
+.matrix-legend .sw{width:22px;height:14px;border-radius:3px;display:inline-block}
+
+/* ============ DETAIL DRAWER ============ */
+.overlay{position:fixed;inset:0;background:rgba(11,55,84,.42);backdrop-filter:blur(2px);
+  opacity:0;visibility:hidden;transition:.25s;z-index:100}
+.overlay.open{opacity:1;visibility:visible}
+.drawer{
+  position:fixed;top:0;right:0;bottom:0;width:min(560px,92vw);background:#fff;z-index:101;
+  transform:translateX(100%);transition:transform .3s cubic-bezier(.4,0,.2,1);
+  overflow-y:auto;box-shadow:var(--shadow-lg);
+}
+.drawer.open{transform:none}
+.drawer-head{padding:24px 28px 18px;border-bottom:1px solid var(--line);position:sticky;top:0;background:#fff;z-index:2}
+.drawer-head .kx{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:10px}
+.tag{font-size:10.5px;font-weight:900;letter-spacing:.05em;text-transform:uppercase;padding:4px 9px;border-radius:20px}
+.tag.prof{background:var(--blue01);color:var(--blue05)}
+.tag.area{background:var(--green);color:#fff;background:#DAF6EB;color:var(--green)}
+.tag.area{background:#DAF6EB;color:#1F5741}
+.drawer-head h2{font-size:19px;color:var(--blue06)}
+.drawer-close{position:absolute;top:20px;right:22px;border:0;background:var(--grey01);width:32px;height:32px;
+  border-radius:50%;cursor:pointer;font-size:17px;color:var(--grey05);line-height:1}
+.drawer-close:hover{background:var(--red);color:#fff}
+.drawer-body{padding:22px 28px 40px}
+.db-label{font-size:11px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:22px 0 8px}
+.db-label:first-child{margin-top:0}
+.finding-text{font-size:14.5px;line-height:1.62;color:var(--grey06)}
+.rec-list{list-style:none;padding:0;margin:0;display:flex;flex-direction:column;gap:9px}
+.rec-list li{position:relative;padding:11px 13px 11px 38px;background:#F0F7FC;border-radius:8px;font-size:13.5px;line-height:1.5;color:var(--blue06)}
+.rec-list li::before{content:"→";position:absolute;left:14px;top:11px;color:var(--blue);font-weight:900}
+.mini-quote{border-left:3px solid var(--yellow);padding:8px 0 8px 15px;margin:10px 0;font-style:italic;color:var(--grey05);font-size:13.5px}
+.mini-quote .qm{font-style:normal;font-size:11px;color:var(--grey03);margin-top:5px;font-weight:700}
+
+/* ============ FRAMEWORK (read) ============ */
+.fw-group{margin-bottom:14px}
+.fw-prof-head{display:flex;align-items:center;gap:12px;padding:14px 20px;background:var(--blue06);color:#fff;
+  border-radius:10px;cursor:pointer;user-select:none}
+.fw-prof-head:hover{background:var(--blue05)}
+.fw-prof-head h3{font-size:15px;color:#fff}
+.fw-prof-head .cnt{margin-left:auto;font-size:11.5px;color:var(--blue01);font-weight:700}
+.fw-prof-head .chev{transition:transform .2s;font-size:13px}
+.fw-group.collapsed .chev{transform:rotate(-90deg)}
+.fw-group.collapsed .fw-items{display:none}
+.fw-items{padding:6px 0 2px}
+.fw-item{border:1px solid var(--line);border-radius:10px;margin-top:10px;overflow:hidden;background:#fff}
+.fw-item-head{display:flex;align-items:center;gap:10px;padding:13px 18px;cursor:pointer;user-select:none}
+.fw-item-head:hover{background:var(--blue01)}
+.fw-item-head .area-dot{width:9px;height:9px;border-radius:50%;background:var(--blue);flex-shrink:0}
+.fw-item-head h4{font-size:13.5px;color:var(--blue06)}
+.fw-item-head .nrec{margin-left:auto;font-size:10.5px;font-weight:900;color:var(--grey04);background:var(--grey01);padding:3px 9px;border-radius:20px}
+.fw-item-body{padding:0 18px;max-height:0;overflow:hidden;transition:max-height .3s ease,padding .3s ease}
+.fw-item.open .fw-item-body{padding:4px 18px 20px;max-height:1400px}
+.fw-item.open .fw-item-head{background:var(--blue01)}
+.fw-body-label{font-size:10px;font-weight:900;letter-spacing:.1em;text-transform:uppercase;color:var(--blue);margin:16px 0 7px}
+.fw-body-label:first-child{margin-top:6px}
+.fw-finding{font-size:13.8px;line-height:1.6;color:var(--grey06)}
+
+/* ============ VOICES ============ */
+.quotes-grid{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))}
+.quote{padding:22px 22px 18px;position:relative;display:flex;flex-direction:column}
+.quote .mark{font-size:52px;font-weight:900;color:var(--blue01);line-height:.6;font-family:Georgia,serif;height:26px}
+.quote .qt{font-size:14.5px;line-height:1.55;color:var(--grey06);font-style:italic;flex:1;margin:6px 0 14px}
+.quote .qmeta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11px;padding-top:12px;border-top:1px solid var(--line)}
+.quote .qmeta .qg{font-weight:900;color:var(--blue05)}
+.quote .qmeta .ql{color:var(--grey04)}
+.quote::after{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;background:var(--yellow);border-radius:3px}
+.lang-note{font-size:11px;color:var(--grey03);margin-bottom:16px}
+
+/* ---- empty state ---- */
+.empty-state{padding:60px 20px;text-align:center;color:var(--grey03)}
+.empty-state .big{font-size:15px;font-weight:700;color:var(--grey04);margin-bottom:4px}
+
+/* ============ FOOTER ============ */
+footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
+.foot-inner{max-width:1240px;margin:0 auto;padding:26px 28px;font-size:11.5px;color:var(--grey04);
+  display:flex;gap:30px;flex-wrap:wrap;justify-content:space-between}
+.foot-inner strong{color:var(--grey05)}
+.foot-inner a{color:var(--blue05);text-decoration:none}
+
+/* ============ RESPONSIVE ============ */
+@media(max-width:880px){
+  .kpis{grid-template-columns:repeat(2,1fr)}
+  .two{grid-template-columns:1fr}
+  .head-title p{display:none}
+  .head-badge{display:none}
+}
+@media(max-width:640px){
+  .head-inner{flex-direction:column;align-items:flex-start;gap:10px}
+  .brandmark{border-right:0;padding-right:0}
+  .head-title h1{font-size:16px}
+}
+@media(max-width:560px){
+  .head-inner,.tabs-inner,.filters,main,.fnote,.foot-inner{padding-left:16px;padding-right:16px}
+  .bar-row{grid-template-columns:96px 1fr 34px}
+}
+@media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+@media print{
+  header,nav.tabs,.filters,.fnote,.drawer,.overlay{display:none!important}
+  .view{display:block!important}
+  .card{box-shadow:none;border:1px solid #ccc;break-inside:avoid}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="head-inner">
+    <!-- LOGO SLOT: place "blue logo Moldova.png" in the repo root; shown here. -->
+    <div class="brandmark">
+      <img class="logo-img" src="blue logo Moldova.png" alt="UNHCR Moldova"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='block'">
+      <span class="logo-fallback" style="display:none">
+        <span class="wm">UNHCR</span><span class="tl">Moldova</span>
+      </span>
+    </div>
+    <div class="head-title">
+      <h1>Participatory Assessment · Focus Group Findings</h1>
+      <p>Ukrainian refugees &amp; host communities in Moldova · Mid-year review</p>
+    </div>
+    <div class="head-badge">
+      <span class="q" id="badgeQ">Q2 2026</span>
+      <div class="dt" id="badgeDt">—</div>
+    </div>
+  </div>
+</header>
+
+<nav class="tabs" role="tablist">
+  <button class="tab" role="tab" aria-selected="true" data-view="overview">Overview</button>
+  <button class="tab" role="tab" aria-selected="false" data-view="matrix">Findings matrix <span class="c" id="tabMatrixC"></span></button>
+  <button class="tab" role="tab" aria-selected="false" data-view="framework">Analysis framework <span class="c" id="tabFwC"></span></button>
+  <button class="tab" role="tab" aria-selected="false" data-view="voices">Voices <span class="c" id="tabVoiceC"></span></button>
+</nav>
+
+<div class="filters">
+  <div class="fg">
+    <label for="fProfile">Profile group</label>
+    <select id="fProfile"><option value="">All groups</option></select>
+  </div>
+  <div class="fg">
+    <label for="fSector">Sector / theme</label>
+    <select id="fSector"><option value="">All sectors</option></select>
+  </div>
+  <div class="fg">
+    <label for="fRaion">Raion</label>
+    <select id="fRaion"><option value="">All raions</option></select>
+  </div>
+  <div class="fg">
+    <label for="fSearch">Search findings &amp; quotes</label>
+    <input id="fSearch" type="search" placeholder="e.g. housing, medicine, TP…" autocomplete="off">
+  </div>
+  <button class="reset" id="fReset">Reset</button>
+</div>
+<div class="fnote" id="fNote"></div>
+
+<main>
+  <!-- OVERVIEW -->
+  <section class="view active" id="view-overview" role="tabpanel">
+    <div class="section-eyebrow">Coverage</div>
+    <h2 class="section-title">Who was consulted</h2>
+    <p class="section-sub">Participation across the quarter, disaggregated by profile group, geography, age band and gender. Age and gender were recorded separately per session, so they are shown as two distributions rather than a single joint pyramid.</p>
+
+    <div class="grid kpis" id="kpis"></div>
+
+    <div class="card panel map-panel">
+      <h3>Where participants were consulted</h3>
+      <div class="ph">Admin-1 (raion) shaded by number of focus group participants · select a shaded raion to filter the dashboard</div>
+      <div class="map-grid">
+        <div class="map-holder">
+          <div id="map" role="img" aria-label="Map of Moldova showing focus group participation by raion"></div>
+        </div>
+        <div class="map-side">
+          <div class="map-legend" id="mapLegend"></div>
+          <div class="bars" id="barsRaion"></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="grid two">
+      <div class="card panel">
+        <h3>Participants by profile group</h3>
+        <div class="ph">Number of individuals reached in each age–gender–diversity group</div>
+        <div class="bars" id="barsGroup"></div>
+      </div>
+      <div class="card panel">
+        <h3>Participants by age band</h3>
+        <div class="ph">Distribution of the 152 participants across age groups</div>
+        <div class="bars" id="barsAge"></div>
+      </div>
+    </div>
+
+    <div class="grid two" style="margin-top:16px">
+      <div class="card panel">
+        <h3>Gender composition</h3>
+        <div class="ph">Women made up the large majority of participants</div>
+        <div class="gender" id="genderBar"></div>
+        <div class="glegend" id="genderLegend"></div>
+      </div>
+      <div class="card panel">
+        <h3>Sessions &amp; sectors covered</h3>
+        <div class="ph">Number of coded findings per thematic area across all groups</div>
+        <div class="bars" id="barsSectorCount"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MATRIX -->
+  <section class="view" id="view-matrix" role="tabpanel">
+    <div class="section-eyebrow">Differential impact</div>
+    <h2 class="section-title">Findings by group and sector</h2>
+    <p class="section-sub">The heart of a Participatory Assessment: which concerns each group raised, and where. Shading reflects the number of refugee-authored recommendations attached to each finding. Select any cell to read the full finding, recommendations and related quotes.</p>
+    <div class="card panel">
+      <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
+      <div class="matrix-legend" id="matrixLegend"></div>
+    </div>
+  </section>
+
+  <!-- FRAMEWORK -->
+  <section class="view" id="view-framework" role="tabpanel">
+    <div class="section-eyebrow">Full analysis</div>
+    <h2 class="section-title">Analysis framework — complete findings</h2>
+    <p class="section-sub">Every finding and recommendation from the Q2 coded framework, in full and verbatim. Expand a group, then a sector, to read it. Use the filters or search above to narrow, or print this view for a report annex.</p>
+    <div id="frameworkList"></div>
+    <div class="empty-state" id="fwEmpty" style="display:none">
+      <div class="big">No findings match your filters</div>
+      <div>Try clearing the search or selecting “All”.</div>
+    </div>
+  </section>
+
+  <!-- VOICES -->
+  <section class="view" id="view-voices" role="tabpanel">
+    <div class="section-eyebrow">In their words</div>
+    <h2 class="section-title">Participant voices</h2>
+    <p class="section-sub">Verbatim quotes captured during the discussions, linked to the group and location where they were recorded.</p>
+    <p class="lang-note">Quotes are shown in the original language of the discussion (Romanian / Russian). Identifiers have been removed.</p>
+    <div class="grid quotes-grid" id="quotesGrid"></div>
+    <div class="empty-state" id="voicesEmpty" style="display:none">
+      <div class="big">No quotes match your filters</div>
+      <div>Try a different group, raion or search term.</div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="foot-inner">
+    <div>
+      <strong>UNHCR Moldova — Participatory Assessment 2026.</strong> Findings from focus group discussions with refugees and host-community members.
+    </div>
+    <div id="footStats"></div>
+  </div>
+</footer>
+
+<!-- DETAIL DRAWER -->
+<div class="overlay" id="overlay"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <div class="drawer-head">
+    <button class="drawer-close" id="drawerClose" aria-label="Close">✕</button>
+    <div class="kx" id="drawerTags"></div>
+    <h2 id="drawerTitle"></h2>
+  </div>
+  <div class="drawer-body" id="drawerBody"></div>
+</aside>
+
+<script>
+/* ================= DATA (loaded at runtime from data/data.json) ================= */
+function start(DATA){
+
+/* profile ⇄ coverage-group mapping (framework profiles are canonical) */
+const PROF_TO_GROUP = {
+  "Adults Aged 30–49":"Adults (30–49)",
+  "Adults Aged 30–49 (Transnistria region)":"Adults (30–49)",
+  "Children & Adolescents (8–17)":"Children & Teens",
+  "Ethnic Roma":"Ethnic Roma",
+  "LGBTIQ+ Refugees":"LGBTIQ+",
+  "People of Pre-Retirement Age (50–55+)":"Pre-Retirement (50–59)",
+  "Persons with Disabilities":"Persons with Disabilities"
+};
+const AREA_COLORS = {
+  "Legal Status & Documentation":"var(--brown)","Integration & Inclusion":"var(--blue)",
+  "Housing":"var(--red)","Healthcare":"var(--green)","Livelihoods & Basic Needs":"var(--yellow)",
+  "Access to Information":"var(--cyan)","Education":"var(--purple)","Peaceful Coexistence":"var(--blue03)",
+  "Suggested Solutions / Next Steps":"var(--grey03)"
+};
+
+/* ================= STATE ================= */
+const state={profile:"",sector:"",raion:"",q:""};
+
+/* ================= HELPERS ================= */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>[...r.querySelectorAll(s)];
+const esc=s=>(s||"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+function heat(n){ if(n>=5)return"h3"; if(n>=3)return"h2"; if(n>=1)return"h1"; return"h0"; }
+
+/* profiles/sectors/raions lists */
+const PROFILES=[...new Set(DATA.framework.map(f=>f.profile))];
+const SECTORS=[...new Set(DATA.framework.map(f=>f.area))].sort();
+const RAIONS=[...new Set(DATA.coverage.map(c=>c.raion))];
+
+/* ================= INIT CONTROLS ================= */
+function fillSelect(el,items){ items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);}); }
+fillSelect($("#fProfile"),PROFILES);
+fillSelect($("#fSector"),SECTORS);
+fillSelect($("#fRaion"),RAIONS);
+$("#badgeDt").textContent=DATA.meta.date_range[0]+" – "+DATA.meta.date_range[1];
+$("#badgeQ").textContent=DATA.meta.quarter;
+$("#tabMatrixC").textContent=DATA.framework.length;
+$("#tabFwC").textContent=DATA.framework.length;
+$("#tabVoiceC").textContent=DATA.quotes.length;
+$("#footStats").innerHTML=`${DATA.meta.n_fgds} sessions · ${DATA.meta.n_participants} participants · ${DATA.framework.length} findings · ${DATA.quotes.length} quotes`;
+
+/* ================= FILTER LOGIC ================= */
+function fwMatch(f){
+  if(state.profile && f.profile!==state.profile) return false;
+  if(state.sector && f.area!==state.sector) return false;
+  if(state.q){const t=(f.finding+" "+f.recommendations.join(" ")+" "+f.profile+" "+f.area).toLowerCase();
+    if(!t.includes(state.q)) return false;}
+  return true;
+}
+function quoteMatch(qu){
+  if(state.raion){const loc=DATA.coverage.find(c=>c.location===qu.location);
+    // match by raion via location
+    const raionOfQuote=(DATA.coverage.find(c=>c.location===qu.location)||{}).raion;
+    if(raionOfQuote!==state.raion) return false;}
+  if(state.profile){const g=PROF_TO_GROUP[state.profile]; if(qu.group!==g) return false;}
+  if(state.q){if(!(qu.text+" "+qu.group+" "+qu.location).toLowerCase().includes(state.q)) return false;}
+  return true;
+}
+function quotesForCell(profile,area){
+  const g=PROF_TO_GROUP[profile];
+  return DATA.quotes.filter(q=>q.group===g);
+}
+
+/* ================= RENDER: OVERVIEW ================= */
+function renderKpis(){
+  const m=DATA.meta;
+  const cards=[
+    {v:m.n_fgds,l:"Focus groups",s:"discussions held",c:""},
+    {v:m.n_participants,l:"Participants",s:`${m.gender.female} women · ${m.gender.male} men`,c:"k2"},
+    {v:m.n_raions,l:"Raions reached",s:"across Moldova",c:"k3"},
+    {v:PROFILES.length,l:"Profile groups",s:"age · gender · diversity",c:"k4"}
+  ];
+  $("#kpis").innerHTML=cards.map(c=>`<div class="card kpi ${c.c}"><div class="v">${c.v}</div><div class="l">${c.l}</div><div class="s">${c.s}</div></div>`).join("");
+}
+function hbars(el,rows,{activeKey=null}={}){
+  const max=Math.max(...rows.map(r=>r.v),1);
+  el.innerHTML=rows.map(r=>{
+    const w=(r.v/max*100).toFixed(1);
+    const act=activeKey && r.key===activeKey?"active":(activeKey?"dim":"");
+    return `<div class="bar-row ${act}"><div class="bl">${esc(r.l)}</div>
+      <div class="bar-track"><div class="bar-fill" style="width:${w}%"></div></div>
+      <div class="bv">${r.v}</div></div>`;
+  }).join("");
+}
+function renderOverview(){
+  renderKpis();
+  const g=PROF_TO_GROUP[state.profile]||null;
+  const grpRows=Object.entries(DATA.agg.part_by_group).sort((a,b)=>b[1]-a[1])
+    .map(([k,v])=>({l:k,v,key:k}));
+  hbars($("#barsGroup"),grpRows,{activeKey:g});
+  const raionRows=Object.entries(DATA.agg.part_by_raion).sort((a,b)=>b[1]-a[1])
+    .map(([k,v])=>({l:k,v,key:k}));
+  hbars($("#barsRaion"),raionRows,{activeKey:state.raion||null});
+  const ageRows=DATA.age_labels.map((l,i)=>({l:l+" yrs",v:DATA.age_totals[i]})).filter(r=>r.v>0);
+  hbars($("#barsAge"),ageRows);
+  // gender
+  const {female,male,other}=DATA.meta.gender, tot=female+male+other;
+  $("#genderBar").innerHTML=
+    `<span class="gseg-f" style="width:${female/tot*100}%">${female}</span>`+
+    `<span class="gseg-m" style="width:${male/tot*100}%">${male}</span>`+
+    (other?`<span class="gseg-o" style="width:${other/tot*100}%">${other}</span>`:"");
+  $("#genderLegend").innerHTML=
+    `<span><i style="background:var(--blue)"></i>Women ${(female/tot*100).toFixed(0)}%</span>`+
+    `<span><i style="background:var(--blue02)"></i>Men ${(male/tot*100).toFixed(0)}%</span>`+
+    (other?`<span><i style="background:var(--purple)"></i>Other ${other}</span>`:"");
+  // sector coverage (count of findings per sector = how often surfaced)
+  const secCount={};
+  DATA.framework.forEach(f=>secCount[f.area]=(secCount[f.area]||0)+1);
+  const secRows=Object.entries(secCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
+  hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null});
+}
+
+/* ================= RENDER: MAP (Leaflet choropleth) ================= */
+const RAION_COUNT={}, RAION_CANON={};
+Object.entries(DATA.agg.part_by_raion).forEach(([k,v])=>{RAION_COUNT[k.toLowerCase()]=v;RAION_CANON[k.toLowerCase()]=k;});
+function raionCount(name){return RAION_COUNT[(name||"").toLowerCase()]||0;}
+function mapColor(n){
+  if(n>=50)return"#0072BC"; if(n>=20)return"#4F9ED0"; if(n>=10)return"#8FC1E1";
+  if(n>=1)return"#CDE3F1"; return"#EEF2F5";
+}
+const MAP_BUCKETS=[["#0072BC","50 +"],["#4F9ED0","20 – 49"],["#8FC1E1","10 – 19"],["#CDE3F1","1 – 9"],["#EEF2F5","Not consulted"]];
+let LMAP=null, GEOLAYER=null;
+function featStyle(f){
+  const n=raionCount(f.properties.name);
+  return {fillColor:mapColor(n),weight:1,color:"#ffffff",fillOpacity:n>0?0.9:0.75};
+}
+function buildMap(){
+  if(!DATA.geo || typeof L==="undefined"){ $(".map-panel").style.display="none"; return; }
+  LMAP=L.map("map",{scrollWheelZoom:false,zoomSnap:0.25,attributionControl:true});
+  L.tileLayer("https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",{
+    attribution:'&copy; OpenStreetMap &copy; CARTO', subdomains:"abcd", maxZoom:19
+  }).addTo(LMAP);
+  GEOLAYER=L.geoJSON(DATA.geo,{
+    style:featStyle,
+    onEachFeature:(f,layer)=>{
+      const name=f.properties.name, n=raionCount(name);
+      layer.bindTooltip(`<span>${esc(name)}</span><span class="tv">· ${n} participant${n===1?"":"s"}</span>`,
+        {sticky:true,direction:"top",className:"raion-tip"});
+      layer.on("mouseover",()=>{ if(!isSel(name)) layer.setStyle({weight:2,color:"#0B3754"}); layer.bringToFront(); });
+      layer.on("mouseout",()=>{ if(!isSel(name)) GEOLAYER.resetStyle(layer); });
+      if(n>0) layer.on("click",()=>{
+        const canon=RAION_CANON[name.toLowerCase()]||name;
+        state.raion = state.raion===canon ? "" : canon;
+        $("#fRaion").value=state.raion;
+        applyFilters();
+      });
+    }
+  }).addTo(LMAP);
+  LMAP.fitBounds(GEOLAYER.getBounds(),{padding:[8,8]});
+  setTimeout(()=>LMAP.invalidateSize(),200);
+  // legend
+  $("#mapLegend").innerHTML="<div class='row' style='font-weight:900;color:var(--grey06);margin-bottom:2px'>Participants</div>"+
+    MAP_BUCKETS.map(([c,l])=>`<div class="row"><span class="sw" style="background:${c}"></span>${l}</div>`).join("");
+}
+function isSel(name){return state.raion && name.toLowerCase()===state.raion.toLowerCase();}
+function updateMap(){
+  if(!GEOLAYER) return;
+  const sel=!!state.raion;
+  GEOLAYER.eachLayer(layer=>{
+    const name=layer.feature.properties.name, n=raionCount(name);
+    if(isSel(name)) layer.setStyle({weight:2.5,color:"#0B3754",fillOpacity:1}).bringToFront();
+    else{ GEOLAYER.resetStyle(layer); if(sel && n>0) layer.setStyle({fillOpacity:0.35}); }
+  });
+}
+
+/* ================= RENDER: MATRIX ================= */
+function renderMatrix(){
+  const profs=PROFILES, areas=SECTORS;
+  const lookup={};
+  DATA.framework.forEach(f=>{lookup[f.profile+"|"+f.area]=f;});
+  let html="<thead><tr><th class='rowh'></th>";
+  areas.forEach(a=>{html+=`<th><span style="display:inline-block;max-width:88px;line-height:1.2">${esc(a)}</span></th>`;});
+  html+="</tr></thead><tbody>";
+  profs.forEach(p=>{
+    const dimRow=state.profile && state.profile!==p;
+    html+=`<tr><th class='rowh'>${esc(p)}</th>`;
+    areas.forEach(a=>{
+      const f=lookup[p+"|"+a];
+      const dimCol=state.sector && state.sector!==a;
+      const dim=(dimRow||dimCol)?"dim":"";
+      if(!f){ html+=`<td><div class="cell empty ${dim}"></div></td>`; return; }
+      const n=f.recommendations.length;
+      html+=`<td><div class="cell ${heat(n)} ${dim}" data-fid="${f.id}" title="${esc(p)} · ${esc(a)} — ${n} recommendation(s)"><span class="rc">${n}</span></div></td>`;
+    });
+    html+="</tr>";
+  });
+  html+="</tbody>";
+  $("#matrix").innerHTML=html;
+  $("#matrixLegend").innerHTML=
+    `<span class="sw" style="background:var(--blue01)"></span><span>0</span>`+
+    `<span class="sw" style="background:var(--blue02)"></span><span>1–2</span>`+
+    `<span class="sw" style="background:var(--blue03)"></span><span>3–4</span>`+
+    `<span class="sw" style="background:var(--blue04)"></span><span>5+ recommendations</span>`+
+    `<span class="sw" style="background:repeating-linear-gradient(45deg,#F1F4F7,#F1F4F7 3px,#fff 3px,#fff 6px);margin-left:14px"></span><span>not raised / not covered</span>`;
+  $$(".cell[data-fid]").forEach(c=>c.addEventListener("click",()=>openDrawer(+c.dataset.fid)));
+}
+
+/* ================= RENDER: FRAMEWORK ================= */
+function renderFramework(){
+  const wrap=$("#frameworkList");
+  const groups={};
+  DATA.framework.filter(fwMatch).forEach(f=>{(groups[f.profile]=groups[f.profile]||[]).push(f);});
+  const keys=Object.keys(groups);
+  $("#fwEmpty").style.display=keys.length?"none":"block";
+  wrap.innerHTML=keys.map((p,gi)=>{
+    const items=groups[p].map(f=>{
+      const recs=f.recommendations.map(r=>`<li>${esc(r)}</li>`).join("");
+      return `<div class="fw-item" data-fid="${f.id}">
+        <div class="fw-item-head">
+          <span class="area-dot" style="background:${AREA_COLORS[f.area]||'var(--blue)'}"></span>
+          <h4>${esc(f.area)}</h4>
+          <span class="nrec">${f.recommendations.length} rec.</span>
+        </div>
+        <div class="fw-item-body">
+          <div class="fw-body-label">Key finding</div>
+          <div class="fw-finding">${esc(f.finding)}</div>
+          ${recs?`<div class="fw-body-label">Recommendations by refugees</div><ul class="rec-list">${recs}</ul>`:""}
+        </div>
+      </div>`;
+    }).join("");
+    return `<div class="fw-group ${gi>0?'collapsed':''}">
+      <div class="fw-prof-head"><span class="chev">▾</span><h3>${esc(p)}</h3><span class="cnt">${groups[p].length} finding(s)</span></div>
+      <div class="fw-items">${items}</div>
+    </div>`;
+  }).join("");
+  // interactions
+  $$(".fw-prof-head",wrap).forEach(h=>h.addEventListener("click",()=>h.parentElement.classList.toggle("collapsed")));
+  $$(".fw-item-head",wrap).forEach(h=>h.addEventListener("click",()=>h.parentElement.classList.toggle("open")));
+}
+
+/* ================= RENDER: VOICES ================= */
+function renderVoices(){
+  const list=DATA.quotes.filter(quoteMatch);
+  $("#voicesEmpty").style.display=list.length?"none":"block";
+  $("#quotesGrid").innerHTML=list.map(q=>`
+    <div class="card quote">
+      <div class="mark">“</div>
+      <div class="qt">${esc(q.text)}</div>
+      <div class="qmeta"><span class="qg">${esc(q.group||'—')}</span>
+        ${q.location?`<span class="ql">· ${esc(q.location)}</span>`:""}</div>
+    </div>`).join("");
+}
+
+/* ================= DRAWER ================= */
+function openDrawer(fid){
+  const f=DATA.framework.find(x=>x.id===fid); if(!f)return;
+  $("#drawerTags").innerHTML=`<span class="tag prof">${esc(f.profile)}</span><span class="tag area">${esc(f.area)}</span>`;
+  $("#drawerTitle").textContent=f.area+" — "+f.profile;
+  const recs=f.recommendations.map(r=>`<li>${esc(r)}</li>`).join("");
+  const qs=quotesForCell(f.profile,f.area).slice(0,3);
+  const qHtml=qs.length?`<div class="db-label">Related voices</div>`+qs.map(q=>
+    `<div class="mini-quote">${esc(q.text)}<div class="qm">${esc(q.group)}${q.location?" · "+esc(q.location):""}</div></div>`).join(""):"";
+  $("#drawerBody").innerHTML=
+    `<div class="db-label">Key finding</div><div class="finding-text">${esc(f.finding)}</div>`+
+    (recs?`<div class="db-label">Recommendations by refugees</div><ul class="rec-list">${recs}</ul>`:"")+
+    qHtml;
+  $("#overlay").classList.add("open");
+  $("#drawer").classList.add("open");
+  $("#drawer").setAttribute("aria-hidden","false");
+}
+function closeDrawer(){
+  $("#overlay").classList.remove("open");
+  $("#drawer").classList.remove("open");
+  $("#drawer").setAttribute("aria-hidden","true");
+}
+$("#overlay").addEventListener("click",closeDrawer);
+$("#drawerClose").addEventListener("click",closeDrawer);
+document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
+
+/* ================= TABS ================= */
+function switchView(v){
+  $$(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.view===v));
+  $$(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+$$(".tab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
+
+/* ================= FILTERS ================= */
+function updateNote(){
+  const parts=[];
+  if(state.profile)parts.push(state.profile);
+  if(state.sector)parts.push(state.sector);
+  if(state.raion)parts.push(state.raion);
+  if(state.q)parts.push(`“${state.q}”`);
+  $("#fNote").textContent=parts.length?"Filtered by: "+parts.join(" · "):"";
+}
+function applyFilters(){
+  updateNote();
+  renderOverview(); updateMap(); renderMatrix(); renderFramework(); renderVoices();
+}
+$("#fProfile").addEventListener("change",e=>{state.profile=e.target.value;applyFilters();});
+$("#fSector").addEventListener("change",e=>{state.sector=e.target.value;applyFilters();});
+$("#fRaion").addEventListener("change",e=>{state.raion=e.target.value;applyFilters();});
+let qt;$("#fSearch").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value.trim().toLowerCase();applyFilters();},160);});
+$("#fReset").addEventListener("click",()=>{
+  state.profile=state.sector=state.raion=state.q="";
+  $("#fProfile").value="";$("#fSector").value="";$("#fRaion").value="";$("#fSearch").value="";
+  applyFilters();
+});
+
+/* ================= BOOT ================= */
+  buildMap();
+  applyFilters();
+} /* end start(DATA) */
+
+fetch("data/data.json", {cache: "no-cache"})
+  .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
+  .then(start)
+  .catch(err => {
+    console.error("Data load failed:", err);
+    var m = document.getElementById("view-overview");
+    if(m) m.innerHTML =
+      '<div class="empty-state"><div class="big">Couldn\'t load the data</div>' +
+      '<div>This dashboard reads <code>data/data.json</code>. Check that the file is present next to the page, and open the page over http (GitHub Pages, or a local server such as <code>python -m http.server</code>) — opening the file directly from disk can block the request.</div></div>';
+  });
+</script>
+</body>
+</html>
