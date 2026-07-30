@@ -1,0 +1,1230 @@
+{
+ "meta": {
+  "quarter": "Q2 2026",
+  "n_fgds": 20,
+  "n_participants": 152,
+  "gender": {
+   "male": 30,
+   "female": 120,
+   "other": 2
+  },
+  "n_raions": 8,
+  "date_range": [
+   "2026-03-13",
+   "2026-06-25"
+  ]
+ },
+ "age_labels": [
+  "8-10",
+  "11-14",
+  "15-17",
+  "18-29",
+  "30-49",
+  "50-59",
+  "60-69",
+  "70-79",
+  "80+"
+ ],
+ "age_totals": [
+  18,
+  7,
+  2,
+  15,
+  50,
+  33,
+  16,
+  11,
+  0
+ ],
+ "coverage": [
+  {
+   "id": 117121338,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Older Persons (60+)",
+   "org": "KEYSTONE",
+   "date": "2026-03-13",
+   "n": 4,
+   "male": 0,
+   "female": 4,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    2,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 117909353,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Persons with Disabilities",
+   "org": "KEYSTONE",
+   "date": "2026-03-26",
+   "n": 7,
+   "male": 3,
+   "female": 4,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    1,
+    2,
+    3,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 117949241,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "LGBTIQ+",
+   "org": "CDA",
+   "date": "2026-03-27",
+   "n": 5,
+   "male": 2,
+   "female": 1,
+   "other": 2,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 118497812,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Children & Teens",
+   "org": "CCR",
+   "date": "2026-03-23",
+   "n": 25,
+   "male": 0,
+   "female": 25,
+   "other": 0,
+   "ages": [
+    0,
+    2,
+    2,
+    9,
+    8,
+    3,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 119585540,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Pre-Retirement (50–59)",
+   "org": "LAOLALTA",
+   "date": "2026-04-17",
+   "n": 7,
+   "male": 0,
+   "female": 7,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    4,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 121814809,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Pre-Retirement (50–59)",
+   "org": "CCR",
+   "date": "2026-04-03",
+   "n": 10,
+   "male": 0,
+   "female": 10,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    5,
+    1,
+    4,
+    0
+   ]
+  },
+  {
+   "id": 122284389,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Adults (30–49)",
+   "org": "LAOLALTA",
+   "date": "2026-05-15",
+   "n": 5,
+   "male": 0,
+   "female": 5,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    5,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 122647821,
+   "raion": "Nisporeni",
+   "location": "Nisporeni",
+   "group": "Ethnic Roma",
+   "org": "TARNA ROM",
+   "date": "2026-05-19",
+   "n": 9,
+   "male": 4,
+   "female": 5,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    4,
+    5,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 122995343,
+   "raion": "Bender",
+   "location": "Tighina (Bender)",
+   "group": "Ethnic Roma",
+   "org": "TARNA ROM",
+   "date": "2026-05-20",
+   "n": 4,
+   "male": 0,
+   "female": 4,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    2,
+    0,
+    2,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 123014232,
+   "raion": "Ungheni",
+   "location": "Ungheni",
+   "group": "Adults (30–49)",
+   "org": "OTHER",
+   "date": "2026-05-22",
+   "n": 11,
+   "male": 3,
+   "female": 8,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    1,
+    5,
+    5,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 123244202,
+   "raion": "Donduseni",
+   "location": "Donduşeni",
+   "group": "Pre-Retirement (50–59)",
+   "org": "OTHER",
+   "date": "2026-05-25",
+   "n": 8,
+   "male": 1,
+   "female": 7,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    3,
+    4,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 123315837,
+   "raion": "Soroca",
+   "location": "Soroca",
+   "group": "Ethnic Roma",
+   "org": "TARNA ROM",
+   "date": "2026-05-26",
+   "n": 4,
+   "male": 1,
+   "female": 3,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    1,
+    2,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 123661359,
+   "raion": "Balti",
+   "location": "Bălti",
+   "group": "Adults (30–49)",
+   "org": "OTHER",
+   "date": "2026-05-21",
+   "n": 9,
+   "male": 1,
+   "female": 8,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    4,
+    5,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 123663781,
+   "raion": "Balti",
+   "location": "Bălti",
+   "group": "Children & Teens",
+   "org": "AVE COPII",
+   "date": "2026-05-23",
+   "n": 6,
+   "male": 4,
+   "female": 2,
+   "other": 0,
+   "ages": [
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 123664488,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Children & Teens",
+   "org": "AVE COPII",
+   "date": "2026-05-22",
+   "n": 6,
+   "male": 5,
+   "female": 1,
+   "other": 0,
+   "ages": [
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 123752852,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Children & Teens",
+   "org": "AVE COPII",
+   "date": "2026-06-25",
+   "n": 5,
+   "male": 1,
+   "female": 4,
+   "other": 0,
+   "ages": [
+    0,
+    5,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 124385067,
+   "raion": "Transnistrian region",
+   "location": "Pervomaisc",
+   "group": "Adults (30–49)",
+   "org": "UNHCR",
+   "date": "2026-06-11",
+   "n": 5,
+   "male": 0,
+   "female": 5,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    4,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  {
+   "id": 124393189,
+   "raion": "Transnistrian region",
+   "location": "Tiraspol",
+   "group": "Adults (30–49)",
+   "org": "UNHCR",
+   "date": "2026-06-11",
+   "n": 11,
+   "male": 0,
+   "female": 11,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    5,
+    2,
+    4,
+    0,
+    0
+   ]
+  },
+  {
+   "id": 124393684,
+   "raion": "Chisinau",
+   "location": "Chişinău",
+   "group": "Persons with Disabilities",
+   "org": "KEYSTONE",
+   "date": "2026-06-11",
+   "n": 5,
+   "male": 1,
+   "female": 4,
+   "other": 0,
+   "ages": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    3,
+    0,
+    2,
+    0
+   ]
+  },
+  {
+   "id": 124930535,
+   "raion": "Balti",
+   "location": "Bălti",
+   "group": "Children & Teens",
+   "org": "AVE COPII",
+   "date": "2026-05-23",
+   "n": 6,
+   "male": 4,
+   "female": 2,
+   "other": 0,
+   "ages": [
+    6,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  }
+ ],
+ "framework": [
+  {
+   "id": 0,
+   "quarter": "Q2",
+   "profile": "Children & Adolescents (8–17)",
+   "area": "Education",
+   "area_original": "Education",
+   "finding": "All participating children were enrolled in education, either in Moldovan schools, Ukrainian online schools, or both simultaneously. Children attending Moldovan schools reported positive relationships with teachers and peers, feeling accepted and included. School attendance contributed significantly to socialization, friendship-building, and integration. However, the most frequently reported challenge across all FGDs was learning Romanian. An important challenge, particularly for newly arrived students, is passing the Romanian language examination after Grade 9. Children following both Moldovan and Ukrainian curricula highlighted increased academic workload and limited participation in extracurricular activities. Some adolescents expressed concerns regarding future educational pathways and language requirements for examinations and further studies.",
+   "recommendations": [
+    "Continue providing additional Romanian language classes adapted to refugee children’s learning needs.",
+    "Develop practical and interactive language-learning opportunities, including conversation clubs and peer-learning activities.",
+    "Consider flexible educational measures and support mechanisms for refugee children facing language-related challenges in examinations and transitions to higher levels of education.",
+    "Maintain opportunities for participation in extracurricular, sports, and cultural activities."
+   ]
+  },
+  {
+   "id": 1,
+   "quarter": "Q2",
+   "profile": "Children & Adolescents (8–17)",
+   "area": "Integration & Inclusion",
+   "area_original": "Integration & Inclusion",
+   "finding": "Children generally reported successful integration into local communities and schools. Many developed friendships with Moldovan peers and actively participated in school, sports, recreational and cultural activities. Access to child-friendly spaces and community activities was highly appreciated. At the same time, language barriers remained the primary obstacle to full participation and communication. Children living in accommodation centres expressed concerns about relocation, possible school transfers, and disruption of social connections already established. Several participants highlighted the importance of equal treatment and equal access to opportunities for children under Temporary Protection and local children, including access to education, extracurricular activities, youth programmes, camps, excursions, and community participation opportunities. Some children reported that Ukrainian students are not always welcomed in certain schools and may experience bullying and discrimination.",
+   "recommendations": [
+    "Continue organizing joint activities involving refugee and local children to strengthen social cohesion and friendships.",
+    "Expand access to recreational, cultural, educational and sports activities promoting inclusion.",
+    "Establish mentoring, peer-support and buddy programmes to facilitate integration of newly arrived children.",
+    "Promote intercultural dialogue and tolerance activities to reduce stereotypes and strengthen community cohesion.",
+    "Strengthen anti-bullying measures and foster safe, inclusive school environments for all children."
+   ]
+  },
+  {
+   "id": 2,
+   "quarter": "Q2",
+   "profile": "Children & Adolescents (8–17)",
+   "area": "Healthcare",
+   "area_original": "Healthcare",
+   "finding": "Participants generally reported good access to healthcare services and satisfaction with the quality of care received. Most children indicated that parents manage healthcare appointments and administrative procedures. Healthcare access was generally described as uncomplicated, although a small number of participants mentioned long waiting times for appointments or the high cost of medication. Awareness of healthcare procedures varied depending on age and parental involvement.",
+   "recommendations": [
+    "Continue providing information to families and children regarding available healthcare services and access procedures.",
+    "Strengthen awareness of healthcare rights and available assistance under Temporary Protection.",
+    "Ensure healthcare information is presented in child-friendly formats adapted to age and understanding."
+   ]
+  },
+  {
+   "id": 3,
+   "quarter": "Q2",
+   "profile": "Children & Adolescents (8–17)",
+   "area": "Suggested Solutions / Next Steps",
+   "area_original": "Suggested Solutions / Next Steps",
+   "finding": "Sustain comprehensive integration support combining education, language learning, psychosocial support and community engagement.",
+   "recommendations": [
+    "Facilitate access to stable and long-term housing solutions for refugee families.",
+    "Expand Romanian language support programmes tailored to different age groups.",
+    "Maintain child-friendly spaces and safe recreational opportunities.",
+    "Continue targeted financial and social assistance for vulnerable refugee families.",
+    "Strengthen children's participation in consultations and decision-making processes affecting their lives and well-being.",
+    "free transportation for children"
+   ]
+  },
+  {
+   "id": 4,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49",
+   "area": "Integration & Inclusion",
+   "area_original": "Integration & Inclusion",
+   "finding": "Overall, participants reported positive integration experiences and generally good relations with host communities. Several persons described Moldova as a second home. Positive relationships with neighbors and local communities supported integration. However, some participants reported occasional negative attitudes from members of the host community, perceptions of unequal treatment, feelings of being outsiders, and concerns about discrimination, particularly in temporary accommodation centres. While many participants remain uncertain about their long-term plans, others indicated their intention to remain in Moldova, mainly due to the destruction of their homes in Ukraine or their successful integration into local communities.",
+   "recommendations": [
+    "Continue promoting social cohesion and community-based activities involving refugees and host communities.",
+    "Expand opportunities for Romanian language learning, especially for working-age adults seeking employment.",
+    "Promote initiatives addressing discrimination, stereotypes, and social exclusion.",
+    "Maintain financial support for vulnerable groups living in temporary accommodation centres."
+   ]
+  },
+  {
+   "id": 5,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49",
+   "area": "Housing",
+   "area_original": "Housing",
+   "finding": "Housing affordability emerged as one of the most significant challenges. Most participants live in rented accommodation, while a small number continue to reside in temporary accommodation. Refugees reported increasing rental prices, rising utility costs, difficulties securing larger housing for families, and challenges maintaining stable housing without external support. Some families expressed concerns regarding the closure of accommodation centres and the lack of long-term housing solutions. Participants emphasized that housing costs are difficult to sustain on local salaries or pensions alone.",
+   "recommendations": [
+    "Access to affordable and long-term housing solutions for refugees.",
+    "Explore inclusion of vulnerable refugees in social housing and affordable housing alternatives.",
+    "Provide continued information and counselling on tenants’ rights, rental contracts, and housing assistance programmes."
+   ]
+  },
+  {
+   "id": 6,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49",
+   "area": "Healthcare",
+   "area_original": "Healthcare",
+   "finding": "Access to healthcare has improved significantly since the beginning of the displacement crisis. Nevertheless, several challenges remain, including long waiting times for appointments, frequent changes of family doctors, high medication costs, limited availability of specialized services, and insufficient services for persons with disabilities. Participants highlighted growing concerns about the mental health and psychosocial well-being of the forcibly displaced, particularly children and adolescents affected by prolonged exposure to conflict, displacement, and uncertainty. They emphasized that psychosocial needs are increasing, while the availability of specialized mental health and psychosocial support services remains limited, leaving many individuals without adequate support.",
+   "recommendations": [
+    "Improve access to specialized healthcare services, particularly for persons with disabilities and children with special needs.",
+    "Strengthen information dissemination regarding healthcare entitlements, available services, and referral pathways.",
+    "Consider introducing user-friendly appointment systems, including online booking options and notifications regarding appointment changes.",
+    "Continue support for vulnerable refugees requiring costly treatment or medication.",
+    "Strengthen mental health and psychosocial support services for refugees."
+   ]
+  },
+  {
+   "id": 7,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49",
+   "area": "Livelihoods & Basic Needs",
+   "area_original": "Livelihoods and basic needs",
+   "finding": "Livelihoods remain a major concern across all discussions. Employment opportunities are limited, particularly outside major urban centres. Lack of Romanian language skills was consistently identified as a key obstacle to finding decent employment, despite many participants possessing higher education qualifications and professional experience. Some participants successfully secured employment through personal networks or Ukrainian organizations, while many others remained unemployed or underemployed. Parents caring for children with disabilities reported being unable to work due to caregiving responsibilities. Refugees highlighted low wages, scarce job opportunities in rural areas, rising living costs, and the discontinuation of cash assistance as major sources of financial insecurity and stress. Cash assistance continues to be an important source of support for vulnerable households. However, participants expressed frustration regarding a lack of understanding of cash assistance eligibility criteria and repeated assessments conducted by cash assistance centres on the right bank. Some refugees perceived the process as burdensome and insufficiently transparent.",
+   "recommendations": [
+    "Strengthen partnerships with local employers to facilitate refugee employment opportunities.",
+    "Promote access to decent work opportunities with fair wages and sustainable working conditions.",
+    "Continue targeted cash assistance for vulnerable households and families with limited earning capacity.",
+    "Improve transparency and communication regarding cash assistance eligibility criteria and decision-making processes."
+   ]
+  },
+  {
+   "id": 8,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49",
+   "area": "Access to Information",
+   "area_original": "Access to Information",
+   "finding": "Access to information varied across locations. Most participants relied on social media platforms such as Viber, Telegram, Facebook, community groups, humanitarian centres, refugee leaders, local authorities, and peer networks. While information on Temporary Protection was generally accessible and participants reported few difficulties with registration or renewal, many refugees indicated insufficient awareness of available social assistance programmes, legal aid services, disability-related support, employment opportunities, and eligibility criteria for humanitarian assistance.",
+   "recommendations": [
+    "Strengthen communication through multiple channels, including social media, humanitarian centres, municipalities, and community networks.",
+    "Provide clear, regular, and accessible information on social benefits, legal assistance, healthcare, employment opportunities, and available support services.",
+    "Improve outreach to vulnerable groups, including persons with disabilities, older persons, and families with children.",
+    "Increase awareness of existing assistance programmes and eligibility criteria to reduce misinformation and uncertainty."
+   ]
+  },
+  {
+   "id": 9,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49",
+   "area": "Legal Status & Documentation",
+   "area_original": "Legal Status and Documentation",
+   "finding": "Uncertainty regarding the legal framework that will apply after the expiry of the current Temporary Protection (TP) regime on 1 March 2027 remains one of the main concerns expressed by participants. Participants voiced significant concerns about the potential discontinuation of Temporary Protection, noting that obtaining residence permits in Moldova may not be a viable option for many, as they do not meet the existing eligibility criteria. They highlighted the absence of clear information on future legal pathways and expressed hope that transitional arrangements would be introduced before any changes to the TP regime, ultimately enabling access to more durable legal solutions, including long-term residence and, where applicable, citizenship.",
+   "recommendations": [
+    "Provide clear and timely information regarding future legal pathways after Temporary Protection.",
+    "Develop transitional legal solutions for refugees who may not qualify for alternative residence permits.",
+    "Ensure refugees receive early information regarding any changes affecting their legal status and rights."
+   ]
+  },
+  {
+   "id": 10,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49",
+   "area": "Peaceful Coexistence",
+   "area_original": "Peaceful Coexistence",
+   "finding": "Most participants reported peaceful and supportive relations with host communities, with no major tensions affecting their daily lives.",
+   "recommendations": [
+    "Continue supporting social cohesion and community dialogue initiatives.",
+    "Expand community-based psychosocial support programmes."
+   ]
+  },
+  {
+   "id": 11,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Integration & Inclusion",
+   "area_original": "Integration & Inclusion",
+   "finding": "Most participants some prior links to the region or had relatives there, facilitating their return and integration. Many women described feeling \"at home\" and reported positive relations with local communities. While older participants expressed the desire to return to Ukraine after the war, younger participants and parents remained uncertain due to concerns about future educational opportunities, economic recovery, and psychological impact of war. Participants also spoke of significant emotional distress linked to the loss of family members and relatives due to hostilities in Ukraine.",
+   "recommendations": [
+    "Continue promoting social cohesion and community-based activities involving refugees and host communities.",
+    "Design and support programmes that promote constructive dialogue, mutual understanding, and the exchange of experiences between Ukrainian refugees living abroad and Ukrainians who have remained in the country."
+   ]
+  },
+  {
+   "id": 12,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Housing",
+   "area_original": "Housing",
+   "finding": "Housing arrangements were generally stable among participants. In Pervomaisc, two women were renting apartments, one participant had already purchased a flat, while others were able to stay in housing available through family connections as they originated from the region. However, participants in Tiraspol reported that rental prices have increased considerably, creating additional financial pressure on households amid rising living costs.",
+   "recommendations": []
+  },
+  {
+   "id": 13,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Healthcare",
+   "area_original": "Healthcare",
+   "finding": "Participants reported that healthcare services are paid for all residents, including refugees, with only emergency care remaining free of charge. Several participants were registered with family doctors either locally or in Moldova. A pregnant participant planned to give birth in Moldova to facilitate obtaining a Moldovan birth certificate for the child.",
+   "recommendations": []
+  },
+  {
+   "id": 14,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Livelihoods & Basic Needs",
+   "area_original": "Livelihoods and basic needs",
+   "finding": "Participants reported limited employment opportunities, low salaries, and rising living costs due to increasing prices for utilities, food, fuel, taxes, and a significant increase in patent fees. While some women were self-employed through the local patent system and considered it accessible, others relied on Ukrainian pensions, which were insufficient to cover living expenses. Some participants also reported discrimination against Ukrainians in the labour market. Participants raised concerns about cash assistance eligibility criteria. Winterization support received from UNHCR, including blankets and solar lamps, was highly appreciated. Additional priority needs included hygiene items, particularly adult diapers and products for older persons and persons with disabilities.",
+   "recommendations": [
+    "Strengthen partnerships with local employers to facilitate refugee employment opportunities.",
+    "Continue targeted cash assistance for vulnerable households and families with limited earning capacity.",
+    "Improve transparency and communication regarding cash assistance eligibility criteria and decision-making processes."
+   ]
+  },
+  {
+   "id": 15,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Access to Information",
+   "area_original": "Access to Information",
+   "finding": "Participants mainly receive information through social media channels managed by refugee leaders. Knowledge of complaint and feedback mechanisms is mostly limited. Participants expressed concerns about the lack of responses to feedback submissions and dissatisfaction with the transparency of assistance distribution. The limited availability of support programmes in the region contributes to perceptions of inequality and unfairness.",
+   "recommendations": [
+    "Improve awareness of available feedback mechanisms and strengthen communication regarding assistance eligibility and distribution."
+   ]
+  },
+  {
+   "id": 16,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Legal Status & Documentation",
+   "area_original": "Legal Status and Documentation",
+   "finding": "All participants reported holding TP in Moldova and having successfully extended their status. They also possess local registration or migration documents issued by the de facto authorities, which require regular renewal but are generally considered accessible and straightforward to obtain. Participants expressed concerns about the future of TP, as no clear long-term legal solutions are currently available. Regarding other civil documentation, participants reported preferring to travel to Odesa to renew Ukrainian documents, as the process is perceived to be faster, cheaper, and easier than accessing consular services. Several participants raised concerns about the expiry of Ukrainian passports, particularly for adolescent boys. In the absence of accessible solutions for renewing Ukrainian documentation, some families reported considering obtaining local Transnistrian passports for their children. Participants noted that possession of local documentation may, in their view, facilitate access to local citizenship procedures and subsequently create opportunities to acquire Russian citizenship. Interest in obtaining Russian citizenship was also observed among participants in Tiraspol, particularly among people originating from the temporarily occupied territories of Ukraine and those who own property there. These trends appear to be driven by documentation-related challenges and concerns about maintaining valid legal status and continued access to rights, housing, land and property (HLP), and essential services in the future.",
+   "recommendations": [
+    "Provide clear and timely information regarding future legal pathways after Temporary Protection.",
+    "Develop transitional legal solutions for refugees who may not qualify for alternative residence permits.",
+    "Ensure refugees receive early information regarding any changes affecting their legal status and rights."
+   ]
+  },
+  {
+   "id": 17,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Education",
+   "area_original": "Education",
+   "finding": "All school-aged children attend local schools, where they study in the Ukrainian language. At least five children are also enrolled in the recently established International Ukrainian School in the region, which is highly valued by parents for providing access to internationally recognized educational certificates.",
+   "recommendations": [
+    "Provide additional academic support to children who are enrolled in both local and Ukrainian International School.",
+    "Raise the communities’ awareness about the possibilities offered through the International Ukrainian Schools."
+   ]
+  },
+  {
+   "id": 18,
+   "quarter": "Q2",
+   "profile": "Adults Aged 30–49 (Transnistria region)",
+   "area": "Peaceful Coexistence",
+   "area_original": "Peaceful Coexistence",
+   "finding": "Participants reported positive relations with host communities and generally felt accepted and integrated, with many describing the region as home. However, some concealed their residence in the Transnistrian region when communicating with relatives and friends in Ukraine due to fear of stigma. Participants also expressed concerns about returning to Ukraine, citing both displacement-related challenges and potential discrimination linked to having lived in the Transnistrian region. Some felt marginalized by refugees and organizations on the right bank, while political differences were reported to have strained relationships with family and friends.",
+   "recommendations": [
+    "Continue supporting social cohesion and community dialogue initiatives."
+   ]
+  },
+  {
+   "id": 19,
+   "quarter": "Q2",
+   "profile": "People of Pre-Retirement Age (50–55+)",
+   "area": "Integration & Inclusion",
+   "area_original": "Integration & Inclusion",
+   "finding": "Participants generally reported feeling safe, welcomed, and well integrated in Moldova. Community centres and local organizations played an important role in reducing social isolation, supporting emotional well-being, and facilitating social interaction. Many women highlighted the value of community activities, language courses, cultural events, and psychosocial support in helping them cope with displacement. Although participants reported that their adaptation has improved over time, language barriers and limited employment opportunities, particularly in smaller localities, remain key challenges.",
+   "recommendations": [
+    "Continue supporting community centres and integration activities that bring together refugees and host communities.",
+    "Expand Romanian language courses adapted to older adults.",
+    "Increase opportunities for social, cultural, and recreational activities that strengthen emotional well-being and community participation."
+   ]
+  },
+  {
+   "id": 20,
+   "quarter": "Q2",
+   "profile": "People of Pre-Retirement Age (50–55+)",
+   "area": "Housing",
+   "area_original": "Housing",
+   "finding": "Housing security remains one of the main concerns for participants. Most women live in rented accommodation and reported that rising rental and utility costs place significant pressure on household budgets. Several participants do not have formal tenancy agreements and feel vulnerable to rent increases or sudden changes in housing arrangements. Some participants continue to reside in accommodation centres that are expected to close, creating uncertainty regarding future living arrangements. Many households continue to rely on cash assistance and financial support from relatives, to maintain housing stability, as limited job opportunities and barriers to employment reduce their ability to cover rental and other essential living costs.",
+   "recommendations": [
+    "Provide housing counselling and practical assistance related to rental agreements, tenant rights, and communication with landlords.",
+    "Ensure adequate transition support for residents affected by accommodation centre closures.",
+    "Improve information sharing regarding available housing support programmes and relocation options, if possible."
+   ]
+  },
+  {
+   "id": 21,
+   "quarter": "Q2",
+   "profile": "People of Pre-Retirement Age (50–55+)",
+   "area": "Healthcare",
+   "area_original": "Healthcare",
+   "finding": "Participants expressed uncertainty about the scope of healthcare services covered free of charge, including consultations, diagnostic tests, treatments, and medicines. High out-of-pocket costs for medicines, diagnostic procedures, and dental care remained a significant concern, particularly for individuals living on pensions or limited incomes. In addition, participants highlighted challenges in accessing compensated medicines and receiving clear and consistent information from healthcare providers about their entitlements and available services.",
+   "recommendations": [
+    "Improve communication on healthcare entitlements, including access to free services, diagnostic tests, and compensated medications.",
+    "Strengthen information and referral services to help refugees navigate the healthcare system."
+   ]
+  },
+  {
+   "id": 22,
+   "quarter": "Q2",
+   "profile": "People of Pre-Retirement Age (50–55+)",
+   "area": "Livelihoods & Basic Needs",
+   "area_original": "Livelihoods",
+   "finding": "Economic vulnerability remains a key concern among participants. Most households rely on pensions from Ukraine, financial support from family members, occasional informal work, or humanitarian assistance. Age, health limitations, limited Romanian language skills, and a lack of age-friendly employment opportunities significantly reduce access to stable livelihoods. Participants frequently reported feeling excluded from vocational programmes due to age restrictions and highlighted the lack of employment opportunities suitable for older adults. Rising living costs combined with reduced humanitarian assistance have further increased financial pressures.",
+   "recommendations": [
+    "Remove age barriers from vocational training and professional retraining programmes.",
+    "Increase access to Romanian language courses linked to employment opportunities.",
+    "Provide information on vacancies, legal employment procedures, and available work opportunities.",
+    "Continue targeted financial assistance for highly vulnerable households with limited earning capacity.",
+    "Promote age-inclusive employment initiatives and flexible work opportunities for older adults."
+   ]
+  },
+  {
+   "id": 23,
+   "quarter": "Q2",
+   "profile": "People of Pre-Retirement Age (50–55+)",
+   "area": "Access to Information",
+   "area_original": "Access to Information",
+   "finding": "Participants relied primarily on community centres, local organizations, social workers, community networks, and social media platforms such as Facebook, Telegram, and Viber. Community centres were repeatedly identified as trusted sources of information, referrals, and support. Participants reported that while they generally knew where and how to request assistance, they often received limited or delayed feedback on submitted applications, particularly regarding financial assistance and social support, creating uncertainty and highlighting the need for more timely, transparent, and accessible communication from service providers. Older participants particularly valued face-to-face communication and personalized guidance over digital channels alone.",
+   "recommendations": [
+    "Maintain and strengthen community centres as trusted information and support hubs.",
+    "Improve communication regarding available assistance, programme changes, and eligibility criteria for cash assistance.",
+    "Increase outreach to older refugees who may face barriers in accessing digital sources of information."
+   ]
+  },
+  {
+   "id": 24,
+   "quarter": "Q2",
+   "profile": "Persons with Disabilities",
+   "area": "Integration & Inclusion",
+   "area_original": "Integration & Inclusion",
+   "finding": "Participants generally reported feeling safe and welcomed in Moldova. Many highlighted positive attitudes from local communities, good relations with neighbours, support received from humanitarian organizations, and participation in church, community, and recreational activities. Several participants described Moldova as a place where they feel protected and socially included. However, displacement has created feelings of uncertainty about the future, family separation, and emotional distress. Participants also reported challenges related language barriers, limited interaction opportunities, and occasional experiences of exclusion or insensitive attitudes. Community activities, psychosocial support, and social engagement were viewed as essential for reducing isolation and improving well-being.",
+   "recommendations": [
+    "Continue community-based and psychosocial support activities that reduce isolation and strengthen inclusion.",
+    "Promote accessible cultural, recreational, and social activities for persons with disabilities."
+   ]
+  },
+  {
+   "id": 25,
+   "quarter": "Q2",
+   "profile": "Persons with Disabilities",
+   "area": "Housing",
+   "area_original": "Housing",
+   "finding": "Most participants were residing in specialized accommodation centres. Participants generally expressed satisfaction with living conditions and appreciated infrastructure improvements such as elevators, adapted bathrooms, hot water access, rehabilitation facilities, and mobility-related modifications supported by humanitarian actors. Nevertheless, concerns remain regarding long-term accommodation arrangements, privacy, accessibility, and uncertainty regarding future housing options. Some participants with complex medical conditions expressed a need for more individualized living arrangements and accessible housing solutions.",
+   "recommendations": [
+    "Ensure long-term housing solutions for refugees with disabilities requiring continuous support.",
+    "Explore individualized housing options for persons with complex health conditions and specific accessibility needs."
+   ]
+  },
+  {
+   "id": 26,
+   "quarter": "Q2",
+   "profile": "Persons with Disabilities",
+   "area": "Healthcare",
+   "area_original": "Healthcare",
+   "finding": "Healthcare was identified as one of the most important issues for participants. While respondents generally reported positive access to family doctors, emergency services, hospital care, rehabilitation support, and specialist referrals, significant challenges remain. Participants frequently reported difficulties covering the costs of specialized investigations, medications, dental services, cancer treatment, rehabilitation equipment, and long-term care. Long waiting times for specialist consultations, transportation barriers, and limited access to certain services without health insurance were also reported. Access to compensated medicines remains insufficient for some participants, particularly those with chronic illnesses and disabilities. A major gap identified was the absence of sufficient personal assistance services for persons with severe disabilities and those who are bedridden.",
+   "recommendations": [
+    "Improve access to specialized healthcare services, rehabilitation, and disability-related care.",
+    "Expand support for medications, medical equipment, assistive devices, hygiene products, and chronic disease management.",
+    "Address transportation barriers affecting access to healthcare services.",
+    "Increase availability of personal assistance services for persons with severe disabilities.",
+    "Reduce waiting times for specialist consultations and improve access to diagnostic investigations.",
+    "Continue targeted medical support for highly vulnerable individuals with complex health needs."
+   ]
+  },
+  {
+   "id": 27,
+   "quarter": "Q2",
+   "profile": "Persons with Disabilities",
+   "area": "Livelihoods & Basic Needs",
+   "area_original": "Livelihoods",
+   "finding": "Economic vulnerability remains extremely high among participants. Many rely on disability benefits, pensions from Ukraine, humanitarian assistance, or support from relatives. Most participants are unable to work due to age, disability, caregiving responsibilities, or health conditions. For those willing and able to work, barriers include limited accessible employment opportunities, language barriers, health limitations, lack of recognition of qualifications, and insufficient adaptation of workplaces to disability-related needs. Participants consistently emphasized that available income is insufficient to cover medication, hygiene products, transportation, and daily living expenses. Many noted significant reduction in humanitarian support compared to previous years.",
+   "recommendations": [
+    "Continue targeted financial assistance for highly vulnerable persons with disabilities.",
+    "Expand livelihood programmes adapted to the capacities and needs of persons with disabilities.",
+    "Promote inclusive employment opportunities and accessible workplaces.",
+    "Increase support for caregivers of persons with disabilities who face barriers to employment.",
+    "Facilitate access to vocational guidance and flexible income-generation opportunities where feasible.",
+    "Maintain humanitarian assistance for essential disability-related needs, including medical and hygiene supplies."
+   ]
+  },
+  {
+   "id": 28,
+   "quarter": "Q2",
+   "profile": "Persons with Disabilities",
+   "area": "Access to Information",
+   "area_original": "Access to Information",
+   "finding": "Participants reported receiving information mainly through humanitarian organizations, community centre staff, volunteers, hotlines, social media groups, Viber, Telegram, information leaflets, and refugee networks. While information on Temporary Protection and available services was generally accessible, participants preferred direct communication and face-to-face explanations rather than relying solely on digital platforms. Several respondents indicated that information regarding available services, humanitarian assistance, disability-related support, and legal rights can be difficult to understand or fragmented. Clear and individualized guidance was considered particularly important for persons with disabilities and older refugees.",
+   "recommendations": [
+    "Provide information through multiple accessible channels, including face-to-face consultations, community outreach, helplines, and printed materials.",
+    "Ensure disability-inclusive communication and accessible information formats.",
+    "Improve awareness of available medical, social, legal, and humanitarian services.",
+    "Continue outreach through trusted organizations, volunteers, and community workers.",
+    "Strengthen referral and case management systems for persons with complex support needs."
+   ]
+  },
+  {
+   "id": 29,
+   "quarter": "Q2",
+   "profile": "Ethnic Roma",
+   "area": "Integration & Inclusion",
+   "area_original": "Integration & Inclusion",
+   "finding": "Participants generally reported positive relationships with host communities and described residents as friendly, supportive, and welcoming. However, respondents consistently reported feelings of social and economic exclusion linked to poverty, unemployment, and discrimination. In Bender and Soroca, participants reported discrimination based on ethnicity when seeking employment, housing, and occasionally healthcare services. Despite these challenges, most participants indicated that they had adapted to life in Moldova and valued the safety and stability provided by the host country.",
+   "recommendations": [
+    "Strengthen the role of Roma mediators as trusted facilitators of integration.",
+    "Increase awareness among service providers regarding non-discrimination and equal access to services."
+   ]
+  },
+  {
+   "id": 30,
+   "quarter": "Q2",
+   "profile": "Ethnic Roma",
+   "area": "Legal Status & Documentation",
+   "area_original": "Legal Status",
+   "finding": "All participants were Temporary Protection beneficiaries and reported that the registration process was generally accessible, largely due to the support provided by Roma mediators and legal counsellors. However, despite successfully obtaining legal status, some participants, particularly those with lower literacy levels, demonstrated a limited understanding of their rights, entitlements, and the services available to them under Temporary Protection. As a result, uncertainty remained regarding access to certain forms of assistance and the procedures required to benefit from available support measures.",
+   "recommendations": [
+    "Continue legal counselling and support for legal status.",
+    "Strengthen awareness of rights, entitlements, and available services for Roma refugees."
+   ]
+  },
+  {
+   "id": 31,
+   "quarter": "Q2",
+   "profile": "Ethnic Roma",
+   "area": "Housing",
+   "area_original": "Housing",
+   "finding": "Housing conditions differed significantly depending on the type of accommodation. Participants living in Refugee Accommodation Centres expressed high satisfaction with both living conditions and the support provided by centre management. By contrast, those renting privately reported poor housing conditions, overcrowding, the absence of rental contracts, insecurity of tenure, and discrimination by landlords. Larger families experienced particular difficulties finding suitable accommodation and frequently relied on financial support from relatives or incurred debt to pay rent. Housing affordability remained a key concern throughout the discussions.",
+   "recommendations": [
+    "Increase housing support for vulnerable Roma refugee households.",
+    "Provide housing counselling and support regarding rental agreements and tenants’ rights."
+   ]
+  },
+  {
+   "id": 32,
+   "quarter": "Q2",
+   "profile": "Ethnic Roma",
+   "area": "Healthcare",
+   "area_original": "Healthcare",
+   "finding": "Most participants had accessed healthcare services in Moldova and generally reported receiving treatment when needed. However, affordability remains a significant challenge. Participants reported difficulties covering the costs of medicines, specialist consultations, hospitalizations, medical insurance, disability-related needs, and diagnostic services. Several respondents stated that they lacked information regarding compensated medicines and available medical benefits. Cases involving children with disabilities, chronic illnesses, and serious health conditions highlighted important gaps in access to specialized services and affordable treatment. Some participants also reported discriminatory attitudes in healthcare settings.",
+   "recommendations": [
+    "Improve access to compensated medicines, particularly for children and persons with chronic illnesses or disabilities.",
+    "Increase awareness regarding available healthcare entitlements and medical benefits.",
+    "Strengthen support for families caring for children with disabilities and complex medical needs.",
+    "Promote equal treatment and non-discrimination within healthcare services."
+   ]
+  },
+  {
+   "id": 33,
+   "quarter": "Q2",
+   "profile": "Ethnic Roma",
+   "area": "Livelihoods & Basic Needs",
+   "area_original": "Livelihoods",
+   "finding": "Lack of employment and stable income was one of the most significant concerns raised across all three FGDs. Many participants were unemployed and relied heavily on humanitarian assistance, informal work, support from relatives, or occasional day labour. Participants reported facing discrimination in recruitment processes, low levels of education, language barriers, limited literacy, lack of transportation, and poor awareness of available vacancies. Several respondents had previous experience in trade, small businesses, and market activities in Ukraine but were unable to re-establish their livelihoods in Moldova. Financial hardship was particularly severe among large families.",
+   "recommendations": [
+    "Increase livelihood and employment support specifically targeting Roma refugee households.",
+    "Facilitate job placement and vocational training opportunities.",
+    "Improve cooperation with ANOFM and employers to promote access to employment for Roma refugees.",
+    "Support small-business and income-generation initiatives, including assistance with equipment and start-up resources.",
+    "Maintain financial assistance for highly vulnerable households with no income sources."
+   ]
+  },
+  {
+   "id": 34,
+   "quarter": "Q2",
+   "profile": "Ethnic Roma",
+   "area": "Access to Information",
+   "area_original": "Access to Information",
+   "finding": "Information is primarily obtained through Roma mediators, RAC administrators, community volunteers, legal counsellors, social media platforms (Viber and Telegram), and personal networks. Participants repeatedly emphasized that written materials are often ineffective because many adults have limited literacy skills. Roma mediators were described as the most trusted source of information. Many respondents were unaware of available social services, complaints mechanisms, employment support, and assistance programmes. Participants preferred direct communication and verbal explanations.",
+   "recommendations": [
+    "Ensure information is shared through trusted community structures, including Roma mediators and centre administrators.",
+    "Use oral, visual, and community-based communication methods rather than relying solely on written materials.",
+    "Increase outreach regarding social assistance, healthcare services, financial support, and employment opportunities."
+   ]
+  },
+  {
+   "id": 35,
+   "quarter": "Q2",
+   "profile": "LGBTIQ+ Refugees",
+   "area": "Legal Status & Documentation",
+   "area_original": "Legal Status",
+   "finding": "All participants were asylum seekers. While they were ultimately able to register their asylum applications, several described challenges during the asylum procedure. Some participants reported feeling discouraged from applying for asylum during interactions with officials involved in the asylum procedure and stated that they were verbally informed that their claims were unlikely to be successful. Participants also described detailed questioning at the border and throughout the asylum process, which some perceived as distressing. Access to legal counselling and information provided by organizations such as CDA and Genderdoc-M was considered essential in navigating the asylum procedure and understanding their rights. Despite these challenges, participants expressed appreciation for being able to remain legally in Moldova and reported feeling safer than in their countries of origin.",
+   "recommendations": [
+    "Ensure asylum seekers receive clear information about their rights and available legal pathways."
+   ]
+  },
+  {
+   "id": 36,
+   "quarter": "Q2",
+   "profile": "LGBTIQ+ Refugees",
+   "area": "Integration & Inclusion",
+   "area_original": "Integration & Inclusion",
+   "finding": "Participants generally reported positive integration experiences and described Moldova as a safer environment where they can express their identity more openly. Several stated that for the first time they felt able to live without constantly hiding who they are. They appreciated the tolerant attitudes of many community members and reported no major conflicts with the host community. However, participants also highlighted the emotional impact of past persecution, bullying, discrimination, and family separation. Participants highlighted fears of xenophobia and discrimination based on their previous experiences in their countries of origin, while also emphasizing the need for emotional and psychosocial support.",
+   "recommendations": [
+    "Continue initiatives promoting inclusion, diversity, and non-discrimination.",
+    "Expand psychosocial support and mental health services.",
+    "Raise awareness of the specific protection risks faced by LGBTIQ+ refugees."
+   ]
+  },
+  {
+   "id": 37,
+   "quarter": "Q2",
+   "profile": "LGBTIQ+ Refugees",
+   "area": "Healthcare",
+   "area_original": "Healthcare",
+   "finding": "Overall, participants reported positive experiences when accessing healthcare services. Several had successfully received emergency medical assistance and specialized medical support. Positive feedback was provided regarding services offered by organizations such as Neovita and Respiro, including psychological support and medical assistance. No major discrimination in healthcare settings was reported. However, participants demonstrated limited awareness regarding available free or compensated medicines and available healthcare entitlements. Some participants experienced difficulties registering with healthcare providers due to the absence of health insurance.",
+   "recommendations": [
+    "Improve awareness of available healthcare services and entitlements for asylum seekers.",
+    "Develop accessible informational materials on healthcare rights, including compensated medicines.",
+    "Continue providing psychosocial and mental health support services."
+   ]
+  },
+  {
+   "id": 38,
+   "quarter": "Q2",
+   "profile": "LGBTIQ+ Refugees",
+   "area": "Livelihoods & Basic Needs",
+   "area_original": "Livelihoods and basic needs",
+   "finding": "Livelihood opportunities and access to financial services remain key challenges for some participants. While some participants were engaged in freelance activities without formal registration, others remained unemployed. One participant successfully transferred ongoing medical studies to Moldova and expressed the intention to continue working in the health sector. Participants highlighted limited awareness of employment opportunities, procedures for recognition of qualifications, and requirements for formalizing self-employment or freelance activities. Many expressed a desire to achieve greater economic independence and establish longer-term lives in Moldova. Access to banking services was identified as an additional barrier to financial inclusion. Participants reported difficulties opening personal bank accounts and obtaining bank cards, despite requiring these services to receive payments, manage finances, continue education, and access employment opportunities. Although information on banking procedures was available, participants noted that the process remained difficult to navigate in practice for asylum seekers, limiting their ability to achieve financial independence.",
+   "recommendations": [
+    "Improve access to information on employment opportunities, vacancies, and available support services.",
+    "Facilitate access to banking services and personal bank accounts for asylum seekers.",
+    "Strengthen career counselling and economic inclusion support for asylum seekers.",
+    "Facilitate Romanian language learning opportunities linked to labour market integration."
+   ]
+  },
+  {
+   "id": 39,
+   "quarter": "Q2",
+   "profile": "LGBTIQ+ Refugees",
+   "area": "Access to Information",
+   "area_original": "Access to Information",
+   "finding": "Access to information emerged as one of the most frequently discussed issues during the FGD. Participants repeatedly stressed the need for more comprehensive, reliable, and easily accessible information regarding legal status, healthcare, social assistance, employment, education, banking services, and integration opportunities. Most information was obtained through civil society organizations, particularly CDA and Genderdoc-M. Participants were often unaware of available social assistance services, Romanian language courses, and administrative procedures.",
+   "recommendations": [
+    "Develop accessible information materials covering key areas such as asylum procedures, healthcare, employment, education, banking services, and social assistance.",
+    "Distribute brochures with QR codes through airports, IGM offices, community centres, Queer Café, and partner organizations.",
+    "Strengthen orientation and information sessions for newly arrived asylum seekers.",
+    "Ensure information is provided through trusted organizations working with LGBTIQ+ refugees.",
+    "Improve visibility of available services and referral pathways."
+   ]
+  }
+ ],
+ "quotes": [
+  {
+   "id": 0,
+   "text": "Cind persoana este in aceasta situatie dificila, mai ales cu dizabilitate, ajutorul extern este esential\";\n\"nu toti sunt cazati in sanatorii, totul depinde de gestionarea locala\";\n\"persoanele dizabilitate singuratice sunt neajutorate\"\n\"cind trebuie sa se gindeasca pentru persoanele cu dizabilitati? - statul? nu stiu\".\n\" trebuie sa ne gindim cum sa ajutam persoanele cu dizabilitati. NU inteleg cum poti sta acasa daca nu ai dizabilitate",
+   "group": "Older Persons (60+)",
+   "location": "Chişinău",
+   "date": "2026-03-13"
+  },
+  {
+   "id": 1,
+   "text": "Traim fara viitor. Toata lumea traieste asa. Suntem cu totii in pericol\".",
+   "group": "Persons with Disabilities",
+   "location": "Chişinău",
+   "date": "2026-03-26"
+  },
+  {
+   "id": 2,
+   "text": "Ne trebuie o suma minima, macar sa supravietuim\".",
+   "group": "Persons with Disabilities",
+   "location": "Chişinău",
+   "date": "2026-03-26"
+  },
+  {
+   "id": 3,
+   "text": "La IGM de fiecare data ca la razboi- din citate. Ai impresia ca la IGM pentru fiecare cerere de azil depusa li se taie salariul. Atit de tare m-au speriat la IGM incit ma temeam sa ies la prînz.",
+   "group": "LGBTIQ+",
+   "location": "Chişinău",
+   "date": "2026-03-27"
+  },
+  {
+   "id": 4,
+   "text": "Fetele musulmane tinere nu au permisiunea de a ieși din casă singure, neînsoțite... ,, \nNoi am dori să participăm la sesiuni informative împreună cu fetele noastre ca să cunoaștem ce li se comunică, despre ce se vorbește, pe ce teme..,,\n\n,,Fetele noastre nu merg nicăieri singure, ele practic nu ies din casă singure...,,\n\n,,Fetele musulmane află de la mamele lor tot ce ține de educația sexuală, reproducere etc ... Nu se permite ca ele să comunice cu altcineva pe așa teme, care sunt prea ,,delicate,, mai ales la așa vârstă (14-19 ani). Ele află de la mama lor tot ce este important cu câteva luni înainte de nuntă, când deja sunt logodite",
+   "group": "Children & Teens",
+   "location": "Chişinău",
+   "date": "2026-04-03"
+  },
+  {
+   "id": 5,
+   "text": "To strengthen trust and collaboration between refugees and the local community, we need to talk more about common things, learn about each other’s cultures, and continue cultural and community events.\n\nThere is also a need for projects where children can socialise with each other\nIt is also important for the UN agencies to continue their support to facilitate these interaction",
+   "group": "Pre-Retirement (50–59)",
+   "location": "Chişinău",
+   "date": "2026-04-17"
+  },
+  {
+   "id": 6,
+   "text": "Traiesc cu ziua de azi!\nLa moment Aici e mai bine ca acasa!\nViata e scumpa aici, dar e pace.",
+   "group": "Pre-Retirement (50–59)",
+   "location": "Chişinău",
+   "date": "2026-05-11"
+  },
+  {
+   "id": 7,
+   "text": "I only had positive interaction. I had no conflicts, usually people switch to Russian when they see that I do not understand Romanian. I am glad there are different opportunities to learn Romanian and come to different activities. I feel like home here. I do not feel like I am in a foreign country. We often talk to each other, as we all miss home, and we give each other advice on where to find different opportunities. We have to help each other.",
+   "group": "Adults (30–49)",
+   "location": "Chişinău",
+   "date": "2026-05-15"
+  },
+  {
+   "id": 8,
+   "text": "Aici in Moldova suntem ca acasa! Copiii nostri vor la scoala, avem nevoie de bani si haine sa putem da copiii la scoala! Dupa acesta discutia parca ne-a stat mai usor pe suflet.",
+   "group": "Ethnic Roma",
+   "location": "Nisporeni",
+   "date": "2026-05-19"
+  },
+  {
+   "id": 9,
+   "text": "Este bine unde stăm că nu  cad bombele peste noi! Vrem acasă să trăim în pace. E bine aici că nu este război. \nNe place aici că avem așa mediatori buni.",
+   "group": "Ethnic Roma",
+   "location": "Tighina (Bender)",
+   "date": "2026-05-22"
+  },
+  {
+   "id": 10,
+   "text": "Жаловаться не на что. В школе после 3 лет обучения думали что моя дочь местная. Все у нас хорошо в Молдовею Хотели бы гражданство получить но не знаем как.",
+   "group": "Adults (30–49)",
+   "location": "Ungheni",
+   "date": "2026-05-22"
+  },
+  {
+   "id": 11,
+   "text": "Детям отвод от прививок по состоянию здоровья.\nА для жены запрос с Украины если это возможно.\nЕсли вы у вас есть возможность это сделать, то я дам данные супруги.\n\n«Даже вдали от дома человек чувствует себя сильнее там, где есть поддержка, понимание и люди, готовые протянуть руку помощи. Именно через доброту, уважение и единство начинается настоящее чувство общности и дома.»",
+   "group": "Pre-Retirement (50–59)",
+   "location": "Donduşeni",
+   "date": "2026-05-25"
+  },
+  {
+   "id": 12,
+   "text": "Mulțumim UNHCR măcar pentru acești bani care îi dă, fără ei am muri de foame la propriu. \nEste bine în Soroca că sunt romi mulți în comunitate și ne ajută. \nCe mai putem cere dacă alții nici atîta nu au în Ucraina. \nEste bine cum este, mai rău să nu fie.",
+   "group": "Ethnic Roma",
+   "location": "Soroca",
+   "date": "2026-05-26"
+  },
+  {
+   "id": 13,
+   "text": "Садики часто платные, работы нет в селах, на сезонные работы беженцев не берут, аренды дорогие. Как нам выжыть? В Молдове нам уютно и у нас одинаковый менталитет.",
+   "group": "Adults (30–49)",
+   "location": "Bălti",
+   "date": "2026-06-02"
+  },
+  {
+   "id": 14,
+   "text": "Unul dintre participanți a evidențiat importanța sprijinului social și a relațiilor pozitive din comunitate, menționând: „Acolo unde sunt oameni buni totul pare mai ușor și poți trece peste greutăți.”",
+   "group": "Children & Teens",
+   "location": "Bălti",
+   "date": "2026-06-02"
+  },
+  {
+   "id": 15,
+   "text": "Мы здесь временно...",
+   "group": "Children & Teens",
+   "location": "Chişinău",
+   "date": "2026-06-02"
+  },
+  {
+   "id": 16,
+   "text": "Я здесь сегодня не случайно.",
+   "group": "Children & Teens",
+   "location": "Chişinău",
+   "date": "2026-06-03"
+  },
+  {
+   "id": 17,
+   "text": "Услуги очень подорожали\", \"Налоги увеличились",
+   "group": "Adults (30–49)",
+   "location": "Pervomaisc",
+   "date": "2026-06-11"
+  },
+  {
+   "id": 18,
+   "text": "мы прекрасно понимаем, что нам на 5ый год нам нужно как-то выживать, пойдем улицы подметать, но если без документов, то даже и улицы подметать не получится. Если отменят ВЗ, то будет ужас.",
+   "group": "Adults (30–49)",
+   "location": "Tiraspol",
+   "date": "2026-06-11"
+  },
+  {
+   "id": 19,
+   "text": "Ne simtim aici ca acasa\"; (afirmatie a unui respondent UA)",
+   "group": "Persons with Disabilities",
+   "location": "Chişinău",
+   "date": "2026-06-11"
+  },
+  {
+   "id": 20,
+   "text": "Pleacati in Ucraina, am obosit de voi\" ( o replica md in adresa refugiatilor)",
+   "group": "Persons with Disabilities",
+   "location": "Chişinău",
+   "date": "2026-06-11"
+  },
+  {
+   "id": 21,
+   "text": "„Ne este frică să depunem o plângere, deoarece riscăm să fim alungați din centru.”",
+   "group": "Persons with Disabilities",
+   "location": "Chişinău",
+   "date": "2026-06-11"
+  },
+  {
+   "id": 22,
+   "text": "Unul dintre participanți a evidențiat importanța sprijinului social și a relațiilor pozitive din comunitate, menționând: „Acolo unde sunt oameni buni totul pare mai ușor și poți trece peste greutăți.”",
+   "group": "Children & Teens",
+   "location": "Bălti",
+   "date": "2026-06-17"
+  }
+ ],
+ "agg": {
+  "fgds_by_group": {
+   "Older Persons (60+)": 1,
+   "Persons with Disabilities": 2,
+   "LGBTIQ+": 1,
+   "Children & Teens": 5,
+   "Pre-Retirement (50–59)": 3,
+   "Adults (30–49)": 5,
+   "Ethnic Roma": 3
+  },
+  "part_by_group": {
+   "Older Persons (60+)": 4,
+   "Persons with Disabilities": 12,
+   "LGBTIQ+": 5,
+   "Children & Teens": 48,
+   "Pre-Retirement (50–59)": 25,
+   "Adults (30–49)": 41,
+   "Ethnic Roma": 17
+  },
+  "fgds_by_raion": {
+   "Chisinau": 10,
+   "Nisporeni": 1,
+   "Bender": 1,
+   "Ungheni": 1,
+   "Donduseni": 1,
+   "Soroca": 1,
+   "Balti": 3,
+   "Transnistrian region": 2
+  },
+  "part_by_raion": {
+   "Chisinau": 79,
+   "Nisporeni": 9,
+   "Bender": 4,
+   "Ungheni": 11,
+   "Donduseni": 8,
+   "Soroca": 4,
+   "Balti": 21,
+   "Transnistrian region": 16
+  }
+ }
+}
