@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Participatory Assessment 2026 · Q2 Focus Group Findings · UNHCR Moldova</title>
+<title>Moldova: Participatory Assessment Analysis</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;0,900;1,400&display=swap" rel="stylesheet">
@@ -300,7 +300,7 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
       </span>
     </div>
     <div class="head-title">
-      <h1>Participatory Assessment · Focus Group Findings</h1>
+      <h1>Moldova: Participatory Assessment Analysis</h1>
       <p>Ukrainian refugees &amp; host communities in Moldova · Mid-year review</p>
     </div>
     <div class="head-badge">
@@ -371,8 +371,8 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
         <div class="bars" id="barsGroup"></div>
       </div>
       <div class="card panel">
-        <h3>Participants by age band</h3>
-        <div class="ph">Distribution of the 152 participants across age groups</div>
+        <h3>Participants by age groups</h3>
+        <div class="ph">Distribution of participants across age groups</div>
         <div class="bars" id="barsAge"></div>
       </div>
     </div>
@@ -523,13 +523,36 @@ function quotesForCell(profile,area){
 }
 
 /* ================= RENDER: OVERVIEW ================= */
-function renderKpis(){
-  const m=DATA.meta;
+/* ---- live coverage aggregation under active filters ----
+   raion + profile map to who was consulted; sector/search are topic filters
+   and do not change coverage. covSubset(except) omits one dimension so a
+   filter's own chart keeps showing all options (standard cross-filter behaviour). */
+function covSubset(except){
+  const grp=(except!=="profile" && state.profile)?PROF_TO_GROUP[state.profile]:null;
+  const raion=(except!=="raion" && state.raion)?state.raion:null;
+  return DATA.coverage.filter(c=>(!raion||c.raion===raion)&&(!grp||c.group===grp));
+}
+function aggCov(cov){
+  const byGroup={},byRaion={},byRaionF={},gender={male:0,female:0,other:0};
+  const ages=DATA.age_labels.map(()=>0); let participants=0;
+  cov.forEach(c=>{
+    byGroup[c.group]=(byGroup[c.group]||0)+(c.n||0);
+    byRaion[c.raion]=(byRaion[c.raion]||0)+(c.n||0);
+    byRaionF[c.raion]=(byRaionF[c.raion]||0)+1;
+    gender.male+=c.male||0; gender.female+=c.female||0; gender.other+=c.other||0;
+    (c.ages||[]).forEach((v,i)=>ages[i]+=v);
+    participants+=c.n||0;
+  });
+  return {byGroup,byRaion,byRaionF,gender,ages,participants,
+          fgds:cov.length,raions:new Set(cov.map(c=>c.raion)).size,
+          groups:new Set(cov.map(c=>c.group)).size};
+}
+function renderKpis(a){
   const cards=[
-    {v:m.n_fgds,l:"Focus groups",s:"discussions held",c:""},
-    {v:m.n_participants,l:"Participants",s:`${m.gender.female} women · ${m.gender.male} men`,c:"k2"},
-    {v:m.n_raions,l:"Raions reached",s:"across Moldova",c:"k3"},
-    {v:PROFILES.length,l:"Profile groups",s:"age · gender · diversity",c:"k4"}
+    {v:a.fgds,l:"Focus groups",s:"discussions held",c:""},
+    {v:a.participants,l:"Participants",s:`${a.gender.female} female · ${a.gender.male} male`,c:"k2"},
+    {v:a.raions,l:"Raions reached",s:"across Moldova",c:"k3"},
+    {v:a.groups,l:"Profile groups",s:"age · gender · diversity",c:"k4"}
   ];
   $("#kpis").innerHTML=cards.map(c=>`<div class="card kpi ${c.c}"><div class="v">${c.v}</div><div class="l">${c.l}</div><div class="s">${c.s}</div></div>`).join("");
 }
@@ -556,31 +579,38 @@ function hbars(el,rows,{activeKey=null,pick=null}={}){
   }
 }
 function renderOverview(){
-  renderKpis();
+  const full=aggCov(covSubset(null));       // KPIs, age, gender (both filters)
+  const gA=aggCov(covSubset("profile"));    // group bars: all groups, raion-scoped
+  const rA=aggCov(covSubset("raion"));      // raion bars + map: all raions, profile-scoped
+  renderKpis(full);
+  // profile-group bars
   const g=PROF_TO_GROUP[state.profile]||null;
-  const grpRows=Object.entries(DATA.agg.part_by_group).sort((a,b)=>b[1]-a[1])
-    .map(([k,v])=>({l:k,v,key:k}));
+  const grpRows=Object.entries(gA.byGroup).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
   hbars($("#barsGroup"),grpRows,{activeKey:g,pick:{dim:"profile",resolve:l=>GROUP_TO_PROF[l]||null}});
-  const raionRows=Object.entries(DATA.agg.part_by_raion).sort((a,b)=>b[1]-a[1])
-    .map(([k,v])=>({l:k,v,key:k}));
+  // raion bars
+  const raionRows=Object.entries(rA.byRaion).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
   hbars($("#barsRaion"),raionRows,{activeKey:state.raion||null,pick:{dim:"raion",resolve:l=>l}});
-  const ageRows=DATA.age_labels.map((l,i)=>({l:l+" yrs",v:DATA.age_totals[i]})).filter(r=>r.v>0);
+  // age
+  const ageRows=DATA.age_labels.map((l,i)=>({l:l+" yrs",v:full.ages[i]})).filter(r=>r.v>0);
   hbars($("#barsAge"),ageRows);
-  // gender
-  const {female,male,other}=DATA.meta.gender, tot=female+male+other;
+  // gender — male / female / other, all shown as percentages
+  const {female,male,other}=full.gender, tot=(female+male+other)||1;
+  const pc=v=>Math.round(v/tot*100);
   $("#genderBar").innerHTML=
-    `<span class="gseg-f" style="width:${female/tot*100}%">${female}</span>`+
-    `<span class="gseg-m" style="width:${male/tot*100}%">${male}</span>`+
-    (other?`<span class="gseg-o" style="width:${other/tot*100}%">${other}</span>`:"");
+    `<span class="gseg-m" style="width:${male/tot*100}%">${male||""}</span>`+
+    `<span class="gseg-f" style="width:${female/tot*100}%">${female||""}</span>`+
+    `<span class="gseg-o" style="width:${other/tot*100}%">${other||""}</span>`;
   $("#genderLegend").innerHTML=
-    `<span><i style="background:var(--blue)"></i>Women ${(female/tot*100).toFixed(0)}%</span>`+
-    `<span><i style="background:var(--blue02)"></i>Men ${(male/tot*100).toFixed(0)}%</span>`+
-    (other?`<span><i style="background:var(--purple)"></i>Other ${other}</span>`:"");
-  // sector coverage (count of findings per sector = how often surfaced)
+    `<span><i style="background:var(--blue02)"></i>Male ${pc(male)}%</span>`+
+    `<span><i style="background:var(--blue)"></i>Female ${pc(female)}%</span>`+
+    `<span><i style="background:var(--purple)"></i>Other ${pc(other)}%</span>`;
+  // sector bars (findings per sector — topic dimension, highlight only)
   const secCount={};
   DATA.framework.forEach(f=>secCount[f.area]=(secCount[f.area]||0)+1);
   const secRows=Object.entries(secCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
   hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null,pick:{dim:"sector",resolve:l=>l}});
+  // map (recoloured for the profile scope; highlights the raion selection)
+  paintMap(rA);
 }
 
 /* ================= RENDER: MAP (inline SVG choropleth) ================= */
@@ -596,27 +626,25 @@ function mapColor(n){
 const MAP_BUCKETS=[["#0072BC","50 +"],["#4F9ED0","20 – 49"],["#8FC1E1","10 – 19"],["#CDE3F1","1 – 9"],["#EEF2F5","Not consulted"]];
 function buildMap(){
   if(!DATA.geo){$(".map-panel").style.display="none";return;}
-  const svg=$("#mapSvg"), tip=$("#mapTip");
+  const svg=$("#mapSvg"), tip=$("#mapTip"), holder=$(".map-holder");
   svg.setAttribute("viewBox",DATA.geo.viewBox);
-  svg.innerHTML=DATA.geo.features.map(f=>{
-    const n=raionCount(f.name), hit=n>0?"hit":"";
-    return `<path d="${f.path}" fill="${mapColor(n)}" data-raion="${esc(f.name)}" data-n="${n}" class="${hit}"></path>`;
-  }).join("");
+  svg.innerHTML=DATA.geo.features.map(f=>`<path d="${f.path}" data-raion="${esc(f.name)}"></path>`).join("");
   $("#mapLegend").innerHTML="<div class='row' style='font-weight:900;color:var(--grey06);margin-bottom:2px'>Participants</div>"+
     MAP_BUCKETS.map(([c,l])=>`<div class="row"><span class="sw" style="background:${c}"></span>${l}</div>`).join("");
-  const holder=$(".map-holder");
   $$("#mapSvg path").forEach(p=>{
-    const name=p.dataset.raion, n=+p.dataset.n, f=raionFgds(name);
+    const name=p.dataset.raion;
     p.addEventListener("mousemove",e=>{
       const r=holder.getBoundingClientRect();
       tip.style.left=(e.clientX-r.left)+"px"; tip.style.top=(e.clientY-r.top)+"px";
+      const n=+p.dataset.n||0, f=+p.dataset.fgds||0;
       tip.innerHTML=`<span class="tn">${esc(name)}</span>`+
         (n>0 ? `<span class="tl">${n} participant${n===1?"":"s"}</span> · <span class="td">${f} FGD${f===1?"":"s"}</span>`
-             : `<span class="td">Not consulted</span>`);
+             : `<span class="td">No participants in current view</span>`);
       tip.classList.add("on");
     });
     p.addEventListener("mouseleave",()=>tip.classList.remove("on"));
-    if(n>0) p.addEventListener("click",()=>{
+    p.addEventListener("click",()=>{
+      if((+p.dataset.n||0)<=0) return;
       const canon=RAION_CANON[name.toLowerCase()]||name;
       state.raion = state.raion===canon ? "" : canon;
       $("#fRaion").value=state.raion;
@@ -624,12 +652,20 @@ function buildMap(){
     });
   });
 }
-function updateMap(){
+function paintMap(rA){
+  if(!DATA.geo) return;
+  const cnt={},fgd={};
+  Object.entries(rA.byRaion).forEach(([k,v])=>cnt[k.toLowerCase()]=v);
+  Object.entries(rA.byRaionF).forEach(([k,v])=>fgd[k.toLowerCase()]=v);
   const sel=state.raion?state.raion.toLowerCase():"";
   $$("#mapSvg path").forEach(p=>{
-    const name=p.dataset.raion.toLowerCase(), n=+p.dataset.n;
-    p.classList.toggle("sel",!!sel && name===sel);
-    p.classList.toggle("faded",!!sel && n>0 && name!==sel);
+    const key=p.dataset.raion.toLowerCase();
+    const n=cnt[key]||0, f=fgd[key]||0;
+    p.dataset.n=n; p.dataset.fgds=f;
+    p.setAttribute("fill",mapColor(n));
+    p.classList.toggle("hit",n>0);
+    p.classList.toggle("sel",!!sel && key===sel);
+    p.classList.toggle("faded",!!sel && n>0 && key!==sel);
   });
 }
 
@@ -757,7 +793,7 @@ function updateNote(){
 }
 function applyFilters(){
   updateNote();
-  renderOverview(); updateMap(); renderMatrix(); renderFramework(); renderVoices();
+  renderOverview(); renderMatrix(); renderFramework(); renderVoices();
 }
 $("#fProfile").addEventListener("change",e=>{state.profile=e.target.value;applyFilters();});
 $("#fSector").addEventListener("change",e=>{state.sector=e.target.value;applyFilters();});
