@@ -385,8 +385,8 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
         <div class="glegend" id="genderLegend"></div>
       </div>
       <div class="card panel">
-        <h3>Sessions &amp; sectors covered</h3>
-        <div class="ph">Number of coded findings per thematic area · click a bar to filter</div>
+        <h3>Participants by topic</h3>
+        <div class="ph">Number of participants who discussed each topic · click a bar to filter</div>
         <div class="bars" id="barsSectorCount"></div>
       </div>
     </div>
@@ -532,20 +532,26 @@ function covSubset(except){
   const raion=(except!=="raion" && state.raion)?state.raion:null;
   return DATA.coverage.filter(c=>(!raion||c.raion===raion)&&(!grp||c.group===grp));
 }
-function aggCov(cov){
+function aggCov(cov,sector){
   const byGroup={},byRaion={},byRaionF={},gender={male:0,female:0,other:0};
-  const ages=DATA.age_labels.map(()=>0); let participants=0;
+  const ages=DATA.age_labels.map(()=>0); let participants=0,fgds=0;
+  const raionSet=new Set(),groupSet=new Set();
   cov.forEach(c=>{
-    byGroup[c.group]=(byGroup[c.group]||0)+(c.n||0);
-    byRaion[c.raion]=(byRaion[c.raion]||0)+(c.n||0);
+    let n,mm,ff,oo;
+    if(sector){
+      const t=c.topics&&c.topics[sector];
+      if(!t) return;                 // FGD didn't cover this topic
+      n=t.n; mm=t.m; ff=t.f; oo=t.o;
+    } else { n=c.n||0; mm=c.male||0; ff=c.female||0; oo=c.other||0; }
+    byGroup[c.group]=(byGroup[c.group]||0)+n;
+    byRaion[c.raion]=(byRaion[c.raion]||0)+n;
     byRaionF[c.raion]=(byRaionF[c.raion]||0)+1;
-    gender.male+=c.male||0; gender.female+=c.female||0; gender.other+=c.other||0;
-    (c.ages||[]).forEach((v,i)=>ages[i]+=v);
-    participants+=c.n||0;
+    gender.male+=mm; gender.female+=ff; gender.other+=oo;
+    (c.ages||[]).forEach((v,i)=>ages[i]+=v);   // age stays FGD-level (not captured per topic)
+    participants+=n; fgds++; raionSet.add(c.raion); groupSet.add(c.group);
   });
   return {byGroup,byRaion,byRaionF,gender,ages,participants,
-          fgds:cov.length,raions:new Set(cov.map(c=>c.raion)).size,
-          groups:new Set(cov.map(c=>c.group)).size};
+          fgds,raions:raionSet.size,groups:groupSet.size};
 }
 function renderKpis(a){
   const cards=[
@@ -579,9 +585,12 @@ function hbars(el,rows,{activeKey=null,pick=null}={}){
   }
 }
 function renderOverview(){
-  const full=aggCov(covSubset(null));       // KPIs, age, gender (both filters)
-  const gA=aggCov(covSubset("profile"));    // group bars: all groups, raion-scoped
-  const rA=aggCov(covSubset("raion"));      // raion bars + map: all raions, profile-scoped
+  const sec=state.sector||null;
+  // a sector only rescopes coverage if the survey actually has topic counts for it
+  const effSec = (sec && DATA.coverage.some(c=>c.topics && c.topics[sec])) ? sec : null;
+  const full=aggCov(covSubset(null),effSec);       // KPIs, age, gender
+  const gA=aggCov(covSubset("profile"),effSec);    // group bars: all groups, raion-scoped
+  const rA=aggCov(covSubset("raion"),effSec);      // raion bars + map: all raions, profile-scoped
   renderKpis(full);
   // profile-group bars
   const g=PROF_TO_GROUP[state.profile]||null;
@@ -604,12 +613,12 @@ function renderOverview(){
     `<span><i style="background:var(--blue02)"></i>Male ${pc(male)}%</span>`+
     `<span><i style="background:var(--blue)"></i>Female ${pc(female)}%</span>`+
     `<span><i style="background:var(--purple)"></i>Other ${pc(other)}%</span>`;
-  // sector bars (findings per sector — topic dimension, highlight only)
-  const secCount={};
-  DATA.framework.forEach(f=>secCount[f.area]=(secCount[f.area]||0)+1);
-  const secRows=Object.entries(secCount).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
+  // topic bar — participants who discussed each topic (raion/profile-scoped, all topics shown)
+  const secTot={};
+  covSubset(null).forEach(c=>Object.entries(c.topics||{}).forEach(([s,v])=>{secTot[s]=(secTot[s]||0)+v.n;}));
+  const secRows=Object.entries(secTot).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
   hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null,pick:{dim:"sector",resolve:l=>l}});
-  // map (recoloured for the profile scope; highlights the raion selection)
+  // map (recoloured for the current scope; highlights the raion selection)
   paintMap(rA);
 }
 
