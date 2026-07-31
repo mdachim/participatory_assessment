@@ -163,12 +163,12 @@ main{max-width:1240px;margin:0 auto;padding:22px 28px 60px}
 
 /* ============ MATRIX ============ */
 .matrix-wrap{overflow-x:auto;padding-bottom:4px}
-table.matrix{border-collapse:separate;border-spacing:3px;width:100%;min-width:760px}
+table.matrix{border-collapse:separate;border-spacing:3px;width:100%;min-width:760px;table-layout:fixed}
 table.matrix th{font-size:11px;font-weight:700;color:var(--grey05);vertical-align:bottom;padding:6px 4px;text-align:center}
 table.matrix th.rowh{text-align:left;vertical-align:middle;width:200px;color:var(--blue06);font-weight:900;font-size:12px;padding-right:12px}
 table.matrix thead th.rowh{background:none}
 .cell{
-  aspect-ratio:1.7/1;min-height:44px;border-radius:6px;cursor:pointer;position:relative;
+  height:52px;border-radius:6px;cursor:pointer;position:relative;
   display:flex;align-items:center;justify-content:center;transition:transform .12s,box-shadow .12s;
   border:1px solid transparent;
 }
