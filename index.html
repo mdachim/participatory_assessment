@@ -363,12 +363,12 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
 
     <div class="grid two">
       <div class="card panel">
-        <h3>Participants by profile group</h3>
+        <h3>All participants by profile group</h3>
         <div class="ph">Number of individuals reached in each age–gender–diversity group · click a bar to filter</div>
         <div class="bars" id="barsGroup"></div>
       </div>
       <div class="card panel">
-        <h3>Participants by age groups</h3>
+        <h3>All participants by age groups</h3>
         <div class="ph">Distribution of participants across age groups</div>
         <div class="bars" id="barsAge"></div>
       </div>
@@ -463,6 +463,10 @@ const PROF_TO_GROUP = {
 /* reverse map (coverage group -> framework profile) for click-to-filter on bars */
 const GROUP_TO_PROF={};
 Object.entries(PROF_TO_GROUP).forEach(([prof,grp])=>{ if(!(grp in GROUP_TO_PROF)) GROUP_TO_PROF[grp]=prof; });
+/* group -> ALL matching framework profiles (Adults (30–49) covers both the general
+   and the Transnistria-region profile) */
+const GROUP_TO_PROFS={};
+Object.entries(PROF_TO_GROUP).forEach(([prof,grp])=>{ (GROUP_TO_PROFS[grp]=GROUP_TO_PROFS[grp]||[]).push(prof); });
 
 const AREA_COLORS = {
   "Legal Status & Documentation":"var(--brown)","Integration & Inclusion":"var(--blue)",
@@ -482,12 +486,13 @@ function heat(n){ if(n>=5)return"h3"; if(n>=3)return"h2"; if(n>=1)return"h1"; re
 
 /* profiles/sectors/raions lists */
 const PROFILES=[...new Set(DATA.framework.map(f=>f.profile))];
+const GROUPS=[...new Set(DATA.coverage.map(c=>c.group))].sort();
 const SECTORS=[...new Set(DATA.framework.map(f=>f.area))].sort();
 const RAIONS=[...new Set(DATA.coverage.map(c=>c.raion))];
 
 /* ================= INIT CONTROLS ================= */
 function fillSelect(el,items){ items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);}); }
-fillSelect($("#fProfile"),PROFILES);
+fillSelect($("#fProfile"),GROUPS);
 fillSelect($("#fSector"),SECTORS);
 fillSelect($("#fRaion"),RAIONS);
 $("#badgeDt").textContent=DATA.meta.date_range[0]+" – "+DATA.meta.date_range[1];
@@ -499,7 +504,7 @@ $("#footStats").innerHTML=`${DATA.meta.n_fgds} sessions · ${DATA.meta.n_partici
 
 /* ================= FILTER LOGIC ================= */
 function fwMatch(f){
-  if(state.profile && f.profile!==state.profile) return false;
+  if(state.profile){const profs=GROUP_TO_PROFS[state.profile]||[]; if(!profs.includes(f.profile)) return false;}
   if(state.sector && f.area!==state.sector) return false;
   if(state.q){const t=(f.finding+" "+f.recommendations.join(" ")+" "+f.profile+" "+f.area).toLowerCase();
     if(!t.includes(state.q)) return false;}
@@ -510,7 +515,7 @@ function quoteMatch(qu){
     // match by raion via location
     const raionOfQuote=(DATA.coverage.find(c=>c.location===qu.location)||{}).raion;
     if(raionOfQuote!==state.raion) return false;}
-  if(state.profile){const g=PROF_TO_GROUP[state.profile]; if(qu.group!==g) return false;}
+  if(state.profile){ if(qu.group!==state.profile) return false;}
   if(state.q){if(!(qu.text+" "+qu.group+" "+qu.location).toLowerCase().includes(state.q)) return false;}
   return true;
 }
@@ -525,7 +530,7 @@ function quotesForCell(profile,area){
    and do not change coverage. covSubset(except) omits one dimension so a
    filter's own chart keeps showing all options (standard cross-filter behaviour). */
 function covSubset(except){
-  const grp=(except!=="profile" && state.profile)?PROF_TO_GROUP[state.profile]:null;
+  const grp=(except!=="profile" && state.profile)?state.profile:null;
   const raion=(except!=="raion" && state.raion)?state.raion:null;
   return DATA.coverage.filter(c=>(!raion||c.raion===raion)&&(!grp||c.group===grp));
 }
@@ -590,10 +595,9 @@ function renderOverview(){
   const gA=aggCov(covSubset("profile"),effSec);    // group bars: all groups, raion-scoped
   const rA=aggCov(covSubset("raion"),effSec);      // raion bars + map: all raions, profile-scoped
   renderKpis(full);
-  // profile-group bars
-  const g=PROF_TO_GROUP[state.profile]||null;
+  // profile-group bars — every group is clickable (state.profile holds the group)
   const grpRows=Object.entries(gA.byGroup).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
-  hbars($("#barsGroup"),grpRows,{activeKey:g,pick:{dim:"profile",resolve:l=>GROUP_TO_PROF[l]||null}});
+  hbars($("#barsGroup"),grpRows,{activeKey:state.profile||null,pick:{dim:"profile",resolve:l=>l}});
   // raion bars
   const raionRows=Object.entries(rA.byRaion).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
   hbars($("#barsRaion"),raionRows,{activeKey:state.raion||null,pick:{dim:"raion",resolve:l=>l}});
@@ -679,7 +683,7 @@ function renderMatrix(){
   areas.forEach(a=>{html+=`<th><span style="display:inline-block;max-width:88px;line-height:1.2">${esc(a)}</span></th>`;});
   html+="</tr></thead><tbody>";
   profs.forEach(p=>{
-    const dimRow=state.profile && state.profile!==p;
+    const dimRow=state.profile && !(GROUP_TO_PROFS[state.profile]||[]).includes(p);
     html+=`<tr><th class='rowh'>${esc(p)}</th>`;
     areas.forEach(a=>{
       const f=lookup[p+"|"+a];
