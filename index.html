@@ -163,10 +163,11 @@ main{max-width:1240px;margin:0 auto;padding:22px 28px 60px}
 
 /* ============ MATRIX ============ */
 .matrix-wrap{overflow-x:auto;padding-bottom:4px}
-table.matrix{border-collapse:separate;border-spacing:3px;width:100%;min-width:760px;table-layout:fixed}
-table.matrix th{font-size:11px;font-weight:700;color:var(--grey05);vertical-align:bottom;padding:6px 4px;text-align:center}
-table.matrix th.rowh{text-align:left;vertical-align:middle;width:200px;color:var(--blue06);font-weight:900;font-size:12px;padding-right:12px}
-table.matrix thead th.rowh{background:none}
+table.matrix{border-collapse:separate;border-spacing:3px;width:100%;min-width:1040px;table-layout:fixed}
+table.matrix th{font-size:11px;font-weight:700;color:var(--grey05);vertical-align:bottom;padding:6px 4px;text-align:center;overflow-wrap:break-word}
+table.matrix th span{display:block;line-height:1.2}
+table.matrix th.rowh{text-align:left;vertical-align:middle;width:200px;color:var(--blue06);font-weight:900;font-size:12px;padding-right:12px;
+  position:sticky;left:0;background:var(--card);box-shadow:3px 0 0 var(--card);z-index:1}
 .cell{
   height:52px;border-radius:6px;cursor:pointer;position:relative;
   display:flex;align-items:center;justify-content:center;transition:transform .12s,box-shadow .12s;
@@ -276,6 +277,8 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
   .head-inner,.tabs-inner,.filters,main,.fnote,.foot-inner{padding-left:16px;padding-right:16px}
   .tabs-inner{justify-content:flex-start}
   .bar-row{grid-template-columns:96px 1fr 34px}
+  table.matrix{min-width:960px}
+  table.matrix th.rowh{width:120px;font-size:11px;padding-right:8px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{
@@ -680,7 +683,7 @@ function renderMatrix(){
   const lookup={};
   DATA.framework.forEach(f=>{lookup[f.profile+"|"+f.area]=f;});
   let html="<thead><tr><th class='rowh'></th>";
-  areas.forEach(a=>{html+=`<th><span style="display:inline-block;max-width:88px;line-height:1.2">${esc(a)}</span></th>`;});
+  areas.forEach(a=>{html+=`<th><span>${esc(a)}</span></th>`;});
   html+="</tr></thead><tbody>";
   profs.forEach(p=>{
     const dimRow=state.profile && !(GROUP_TO_PROFS[state.profile]||[]).includes(p);
