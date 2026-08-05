@@ -396,11 +396,6 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
       </div>
     </div>
 
-    <div class="card panel" style="margin-top:16px">
-      <h3>Geographic reach</h3>
-      <div class="ph">Participants by geographic area · click a bar to filter</div>
-      <div class="bars" id="barsRaion"></div>
-    </div>
   </section>
 
   <!-- FRAMEWORK -->
@@ -605,7 +600,6 @@ function renderOverview(){
   hbars($("#barsGroup"),grpRows,{activeKey:state.profile||null,pick:{dim:"profile",resolve:l=>l}});
   // raion bars
   const raionRows=Object.entries(rA.byRaion).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
-  hbars($("#barsRaion"),raionRows,{activeKey:state.raion||null,pick:{dim:"raion",resolve:l=>l}});
   // age
   const ageRows=DATA.age_labels.map((l,i)=>({l:l+" yrs",v:full.ages[i]})).filter(r=>r.v>0);
   hbars($("#barsAge"),ageRows);
