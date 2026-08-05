@@ -147,7 +147,14 @@ main{max-width:1240px;margin:0 auto;padding:22px 28px 60px}
 .raion-tip .tl{color:var(--cyan);font-weight:700} .raion-tip .td{color:#CDE3F1;font-weight:400}
 .raion-tip::before{display:none}
 .leaflet-bar a{color:var(--blue06)}
-.map-side{display:flex;flex-direction:column;gap:16px;justify-content:center}
+.map-side{display:flex;flex-direction:column;gap:20px;justify-content:center}
+.side-block .side-h{font-size:13px;color:var(--blue06);margin-bottom:10px}
+.about-card{margin-bottom:18px}
+.about-card h3{font-size:14px;color:var(--blue06);margin-bottom:8px}
+.about-text{font-size:13.5px;line-height:1.6;color:var(--grey05);margin:0 0 14px;max-width:900px}
+.report-link{display:inline-flex;align-items:center;gap:6px;background:var(--blue);color:#fff;
+  font-weight:700;font-size:13px;text-decoration:none;padding:9px 16px;border-radius:7px;transition:.15s}
+.report-link:hover{background:var(--blue05)}
 .map-legend{display:flex;flex-direction:column;gap:6px}
 .map-legend .row{display:flex;align-items:center;gap:9px;font-size:12px;color:var(--grey05)}
 .map-legend .sw{width:20px;height:14px;border-radius:3px;flex-shrink:0;border:1px solid rgba(0,0,0,.05)}
@@ -163,11 +170,10 @@ main{max-width:1240px;margin:0 auto;padding:22px 28px 60px}
 
 /* ============ MATRIX ============ */
 .matrix-wrap{overflow-x:auto;padding-bottom:4px}
-table.matrix{border-collapse:separate;border-spacing:3px;width:100%;min-width:1040px;table-layout:fixed}
-table.matrix th{font-size:11px;font-weight:700;color:var(--grey05);vertical-align:bottom;padding:6px 4px;text-align:center;overflow-wrap:break-word}
-table.matrix th span{display:block;line-height:1.2}
-table.matrix th.rowh{text-align:left;vertical-align:middle;width:200px;color:var(--blue06);font-weight:900;font-size:12px;padding-right:12px;
-  position:sticky;left:0;background:var(--card);box-shadow:3px 0 0 var(--card);z-index:1}
+table.matrix{border-collapse:separate;border-spacing:3px;width:100%;min-width:760px;table-layout:fixed}
+table.matrix th{font-size:11px;font-weight:700;color:var(--grey05);vertical-align:bottom;padding:6px 4px;text-align:center}
+table.matrix th.rowh{text-align:left;vertical-align:middle;width:200px;color:var(--blue06);font-weight:900;font-size:12px;padding-right:12px}
+table.matrix thead th.rowh{background:none}
 .cell{
   height:52px;border-radius:6px;cursor:pointer;position:relative;
   display:flex;align-items:center;justify-content:center;transition:transform .12s,box-shadow .12s;
@@ -249,6 +255,16 @@ table.matrix th.rowh{text-align:left;vertical-align:middle;width:200px;color:var
 .quote .qmeta .ql{color:var(--grey04)}
 .quote::after{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;background:var(--yellow);border-radius:3px}
 .lang-note{font-size:11px;color:var(--grey03);margin-bottom:16px}
+.qlang-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
+.qlang-bar .lang-note{margin:0;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--grey04)}
+.qlang-toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.qlang-toggle .qlang{appearance:none;border:0;background:#fff;cursor:pointer;font-family:var(--f);
+  font-size:12.5px;font-weight:700;color:var(--grey05);padding:7px 14px;border-right:1px solid var(--line);transition:.12s}
+.qlang-toggle .qlang:last-child{border-right:0}
+.qlang-toggle .qlang:hover{background:var(--blue01)}
+.qlang-toggle .qlang[aria-pressed="true"]{background:var(--blue);color:#fff}
+.quote .qtopic{background:#DAF6EB;color:#1F5741;font-weight:900;font-size:10px;letter-spacing:.03em;
+  text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-left:auto}
 
 /* ---- empty state ---- */
 .empty-state{padding:60px 20px;text-align:center;color:var(--grey03)}
@@ -277,8 +293,6 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
   .head-inner,.tabs-inner,.filters,main,.fnote,.foot-inner{padding-left:16px;padding-right:16px}
   .tabs-inner{justify-content:flex-start}
   .bar-row{grid-template-columns:96px 1fr 34px}
-  table.matrix{min-width:960px}
-  table.matrix th.rowh{width:120px;font-size:11px;padding-right:8px}
 }
 @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 @media print{
@@ -314,7 +328,6 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
 <nav class="tabs" role="tablist">
   <div class="tabs-inner">
   <button class="tab" role="tab" aria-selected="true" data-view="overview">Overview</button>
-  <button class="tab" role="tab" aria-selected="false" data-view="matrix">Findings matrix <span class="c" id="tabMatrixC"></span></button>
   <button class="tab" role="tab" aria-selected="false" data-view="framework">Analysis framework <span class="c" id="tabFwC"></span></button>
   <button class="tab" role="tab" aria-selected="false" data-view="voices">Quotes <span class="c" id="tabVoiceC"></span></button>
   </div>
@@ -326,14 +339,10 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
     <select id="fProfile"><option value="">All groups</option></select>
   </div>
   <div class="fg">
-    <label for="fSector">Sector / theme</label>
-    <select id="fSector"><option value="">All sectors</option></select>
+    <label for="fRaion">Geographic area</label>
+    <select id="fRaion"><option value="">All areas</option></select>
   </div>
-  <div class="fg">
-    <label for="fRaion">Raion</label>
-    <select id="fRaion"><option value="">All raions</option></select>
-  </div>
-  <div class="fg">
+  <div class="fg" id="searchFg">
     <label for="fSearch">Search findings &amp; quotes</label>
     <input id="fSearch" type="search" placeholder="e.g. housing, medicine, TP…" autocomplete="off">
   </div>
@@ -346,20 +355,30 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
   <section class="view active" id="view-overview" role="tabpanel">
     <div class="section-eyebrow">Coverage</div>
     <h2 class="section-title">Who was consulted</h2>
-    <p class="section-sub">Participation across the quarter, disaggregated by profile group, geography, age band and gender. Age and gender were recorded separately per session, so they are shown as two distributions rather than a single joint pyramid.</p>
+    <p class="section-sub">Participation across the semester, disaggregated by profile group, geographic area, age group and gender.</p>
 
     <div class="grid kpis" id="kpis"></div>
 
+    <div class="card panel about-card">
+      <h3>About this assessment</h3>
+      <p class="about-text">[Placeholder — add a short methodology / about note here: who was consulted, how the focus group discussions were run, sampling, objectives and any limitations. Replace this text.]</p>
+      <a class="report-link" href="https://data.unhcr.org/en/documents/details/121313" target="_blank" rel="noopener">Read the full report ↗</a>
+    </div>
+
     <div class="card panel map-panel">
       <h3>Where participants were consulted</h3>
-      <div class="ph">Admin-1 (raion) shaded by number of focus group participants · select a shaded raion to filter the dashboard</div>
+      <div class="ph">Geographic areas with at least one focus group are shaded · select an area to filter</div>
       <div class="map-grid">
         <div class="map-holder">
-          <div id="map" role="img" aria-label="Map of Moldova showing focus group participation by raion"></div>
+          <div id="map" role="img" aria-label="Map of Moldova showing focus group coverage by area"></div>
         </div>
         <div class="map-side">
+          <div class="side-block">
+            <h4 class="side-h">Gender composition</h4>
+            <div class="gender" id="genderBar"></div>
+            <div class="glegend" id="genderLegend"></div>
+          </div>
           <div class="map-legend" id="mapLegend"></div>
-          <div class="bars" id="barsRaion"></div>
         </div>
       </div>
     </div>
@@ -377,29 +396,10 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
       </div>
     </div>
 
-    <div class="grid two" style="margin-top:16px">
-      <div class="card panel">
-        <h3>Gender composition</h3>
-        <div class="ph">Women made up the large majority of participants</div>
-        <div class="gender" id="genderBar"></div>
-        <div class="glegend" id="genderLegend"></div>
-      </div>
-      <div class="card panel">
-        <h3>Participants by topic</h3>
-        <div class="ph">Number of participants who discussed each topic · click a bar to filter</div>
-        <div class="bars" id="barsSectorCount"></div>
-      </div>
-    </div>
-  </section>
-
-  <!-- MATRIX -->
-  <section class="view" id="view-matrix" role="tabpanel">
-    <div class="section-eyebrow">Differential impact</div>
-    <h2 class="section-title">Findings by group and sector</h2>
-    <p class="section-sub">The heart of a Participatory Assessment: which concerns each group raised, and where. Shading reflects the number of refugee-authored recommendations attached to each finding. Select any cell to read the full finding, recommendations and related quotes.</p>
-    <div class="card panel">
-      <div class="matrix-wrap"><table class="matrix" id="matrix"></table></div>
-      <div class="matrix-legend" id="matrixLegend"></div>
+    <div class="card panel" style="margin-top:16px">
+      <h3>Geographic reach</h3>
+      <div class="ph">Participants by geographic area · click a bar to filter</div>
+      <div class="bars" id="barsRaion"></div>
     </div>
   </section>
 
@@ -420,7 +420,14 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
     <div class="section-eyebrow">In their words</div>
     <h2 class="section-title">Participant quotes</h2>
     <p class="section-sub">Verbatim quotes captured during the discussions, linked to the group and location where they were recorded.</p>
-    <p class="lang-note">Quotes are shown in the original language of the discussion (Romanian / Russian). Identifiers have been removed.</p>
+    <div class="qlang-bar">
+      <span class="lang-note">Language:</span>
+      <div id="qlangToggle" class="qlang-toggle">
+        <button class="qlang" data-lang="en" aria-pressed="true">English</button>
+        <button class="qlang" data-lang="ro" aria-pressed="false">Română</button>
+        <button class="qlang" data-lang="ru" aria-pressed="false">Русский</button>
+      </div>
+    </div>
     <div class="grid quotes-grid" id="quotesGrid"></div>
     <div class="empty-state" id="voicesEmpty" style="display:none">
       <div class="big">No quotes match your filters</div>
@@ -479,7 +486,8 @@ const AREA_COLORS = {
 };
 
 /* ================= STATE ================= */
-const state={profile:"",sector:"",raion:"",q:""};
+const state={profile:"",sector:"",raion:"",q:"",qlang:"en"};
+function qtext(q){ const t=q.text||{}; return t[state.qlang]||t.en||t.ro||t.ru||""; }
 
 /* ================= HELPERS ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -496,11 +504,9 @@ const RAIONS=[...new Set(DATA.coverage.map(c=>c.raion))];
 /* ================= INIT CONTROLS ================= */
 function fillSelect(el,items){ items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);}); }
 fillSelect($("#fProfile"),GROUPS);
-fillSelect($("#fSector"),SECTORS);
 fillSelect($("#fRaion"),RAIONS);
 $("#badgeDt").textContent=DATA.meta.date_range[0]+" – "+DATA.meta.date_range[1];
 $("#badgeQ").textContent=DATA.meta.quarter;
-$("#tabMatrixC").textContent=DATA.framework.length;
 $("#tabFwC").textContent=DATA.framework.length;
 $("#tabVoiceC").textContent=DATA.quotes.length;
 $("#footStats").innerHTML=`${DATA.meta.n_fgds} sessions · ${DATA.meta.n_participants} participants · ${DATA.framework.length} findings · ${DATA.quotes.length} quotes`;
@@ -514,17 +520,16 @@ function fwMatch(f){
   return true;
 }
 function quoteMatch(qu){
-  if(state.raion){const loc=DATA.coverage.find(c=>c.location===qu.location);
-    // match by raion via location
-    const raionOfQuote=(DATA.coverage.find(c=>c.location===qu.location)||{}).raion;
-    if(raionOfQuote!==state.raion) return false;}
-  if(state.profile){ if(qu.group!==state.profile) return false;}
-  if(state.q){if(!(qu.text+" "+qu.group+" "+qu.location).toLowerCase().includes(state.q)) return false;}
+  if(state.raion && qu.raion!==state.raion) return false;
+  if(state.profile && qu.group!==state.profile) return false;
+  if(state.sector && qu.topic && qu.topic!==state.sector) return false;
+  if(state.q){const t=(Object.values(qu.text||{}).join(" ")+" "+qu.group+" "+qu.location+" "+(qu.topic||"")).toLowerCase();
+    if(!t.includes(state.q)) return false;}
   return true;
 }
 function quotesForCell(profile,area){
   const g=PROF_TO_GROUP[profile];
-  return DATA.quotes.filter(q=>q.group===g);
+  return DATA.quotes.filter(q=>q.group===g && (!q.topic || q.topic===area));
 }
 
 /* ================= RENDER: OVERVIEW ================= */
@@ -563,7 +568,7 @@ function renderKpis(a){
   const cards=[
     {v:a.fgds,l:"Focus groups",s:"discussions held",c:""},
     {v:a.participants,l:"Participants",s:`${a.gender.female} female · ${a.gender.male} male`,c:"k2"},
-    {v:a.raions,l:"Raions reached",s:"across Moldova",c:"k3"},
+    {v:a.raions,l:"Geographic areas covered",s:"across Moldova",c:"k3"},
     {v:a.groups,l:"Profile groups",s:"age · gender · diversity",c:"k4"}
   ];
   $("#kpis").innerHTML=cards.map(c=>`<div class="card kpi ${c.c}"><div class="v">${c.v}</div><div class="l">${c.l}</div><div class="s">${c.s}</div></div>`).join("");
@@ -591,12 +596,9 @@ function hbars(el,rows,{activeKey=null,pick=null}={}){
   }
 }
 function renderOverview(){
-  const sec=state.sector||null;
-  // a sector only rescopes coverage if the survey actually has topic counts for it
-  const effSec = (sec && DATA.coverage.some(c=>c.topics && c.topics[sec])) ? sec : null;
-  const full=aggCov(covSubset(null),effSec);       // KPIs, age, gender
-  const gA=aggCov(covSubset("profile"),effSec);    // group bars: all groups, raion-scoped
-  const rA=aggCov(covSubset("raion"),effSec);      // raion bars + map: all raions, profile-scoped
+  const full=aggCov(covSubset(null),null);       // KPIs, age, gender
+  const gA=aggCov(covSubset("profile"),null);    // group bars: all groups, raion-scoped
+  const rA=aggCov(covSubset("raion"),null);      // raion bars + map: all raions, profile-scoped
   renderKpis(full);
   // profile-group bars — every group is clickable (state.profile holds the group)
   const grpRows=Object.entries(gA.byGroup).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
@@ -618,28 +620,20 @@ function renderOverview(){
     `<span><i style="background:var(--blue02)"></i>Male ${pc(male)}%</span>`+
     `<span><i style="background:var(--blue)"></i>Female ${pc(female)}%</span>`+
     `<span><i style="background:var(--purple)"></i>Other ${pc(other)}%</span>`;
-  // topic bar — participants who discussed each topic (raion/profile-scoped, all topics shown)
-  const secTot={};
-  covSubset(null).forEach(c=>Object.entries(c.topics||{}).forEach(([s,v])=>{secTot[s]=(secTot[s]||0)+(v.m+v.f+v.o);}));
-  const secRows=Object.entries(secTot).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
-  hbars($("#barsSectorCount"),secRows,{activeKey:state.sector||null,pick:{dim:"sector",resolve:l=>l}});
-  // map (recoloured for the current scope; highlights the raion selection)
+  // map (single colour for covered areas; highlights the area selection)
   paintMap(rA);
 }
 
 /* ================= RENDER: MAP (Leaflet, no basemap) ================= */
 const RAION_CANON={};
 Object.keys(DATA.agg.part_by_raion).forEach(k=>{RAION_CANON[k.toLowerCase()]=k;});
-function mapColor(n){
-  if(n>=50)return"#0072BC"; if(n>=20)return"#4F9ED0"; if(n>=10)return"#8FC1E1";
-  if(n>=1)return"#CDE3F1"; return"#EEF2F5";
-}
-const MAP_BUCKETS=[["#0072BC","50 +"],["#4F9ED0","20 – 49"],["#8FC1E1","10 – 19"],["#CDE3F1","1 – 9"],["#EEF2F5","Not consulted"]];
+function mapColor(n){ return n>0 ? "#0072BC" : "#EEF2F5"; }
+const MAP_BUCKETS=[["#0072BC","At least one focus group"],["#EEF2F5","Not covered"]];
 let LMAP=null, MAPLAYER=null, MAP_FITTED=false;
 function buildMap(){
   if(!DATA.geo || typeof L==="undefined"){ $(".map-panel").style.display="none"; return; }
   LMAP=L.map("map",{zoomControl:true,attributionControl:false,scrollWheelZoom:false});
-  $("#mapLegend").innerHTML="<div class='row' style='font-weight:900;color:var(--grey06);margin-bottom:2px'>Participants</div>"+
+  $("#mapLegend").innerHTML="<div class='row' style='font-weight:900;color:var(--grey06);margin-bottom:2px'>Coverage</div>"+
     MAP_BUCKETS.map(([c,l])=>`<div class="row"><span class="sw" style="background:${c}"></span>${l}</div>`).join("");
 }
 function paintMap(rA){
@@ -651,9 +645,9 @@ function paintMap(rA){
   if(MAPLAYER) MAPLAYER.remove();
   MAPLAYER=L.geoJSON(DATA.geo,{
     style:f=>{
-      const n=cnt[f.properties.key]||0, isSel=!!sel && f.properties.key===sel;
+      const fg=fgd[f.properties.key]||0, isSel=!!sel && f.properties.key===sel;
       return {color:isSel?"#0B3754":"#ffffff", weight:isSel?2.5:1,
-              fillColor:mapColor(n), fillOpacity:(!sel||n===0||isSel)?0.9:0.4};
+              fillColor:mapColor(fg), fillOpacity:(!sel||fg===0||isSel)?0.9:0.4};
     },
     onEachFeature:(f,layer)=>{
       const key=f.properties.key, n=cnt[key]||0, fg=fgd[key]||0;
@@ -662,7 +656,7 @@ function paintMap(rA){
         (n>0 ? `<br><span class="tl">${n} participant${n===1?"":"s"}</span> · <span class="td">${fg} FGD${fg===1?"":"s"}</span>`
              : `<br><span class="td">No participants in current view</span>`),
         {className:"raion-tip",sticky:true});
-      if(n>0){
+      if(fg>0){
         layer.on("click",()=>{
           const canon=RAION_CANON[key]||f.properties.name;
           state.raion = state.raion===canon ? "" : canon;
@@ -683,7 +677,7 @@ function renderMatrix(){
   const lookup={};
   DATA.framework.forEach(f=>{lookup[f.profile+"|"+f.area]=f;});
   let html="<thead><tr><th class='rowh'></th>";
-  areas.forEach(a=>{html+=`<th><span>${esc(a)}</span></th>`;});
+  areas.forEach(a=>{html+=`<th><span style="display:inline-block;max-width:88px;line-height:1.2">${esc(a)}</span></th>`;});
   html+="</tr></thead><tbody>";
   profs.forEach(p=>{
     const dimRow=state.profile && !(GROUP_TO_PROFS[state.profile]||[]).includes(p);
@@ -745,15 +739,18 @@ function renderFramework(){
 
 /* ================= RENDER: VOICES ================= */
 function renderVoices(){
+  $$("#qlangToggle .qlang").forEach(bqu=>bqu.setAttribute("aria-pressed", bqu.dataset.lang===state.qlang));
   const list=DATA.quotes.filter(quoteMatch);
   $("#voicesEmpty").style.display=list.length?"none":"block";
-  $("#quotesGrid").innerHTML=list.map(q=>`
-    <div class="card quote">
+  $("#quotesGrid").innerHTML=list.map(q=>{
+    const txt=qtext(q);
+    return `<div class="card quote">
       <div class="mark">“</div>
-      <div class="qt">${esc(q.text)}</div>
+      <div class="qt">${esc(txt)}</div>
       <div class="qmeta"><span class="qg">${esc(q.group||'—')}</span>
-        ${q.location?`<span class="ql">· ${esc(q.location)}</span>`:""}</div>
-    </div>`).join("");
+        ${q.location?`<span class="ql">· ${esc(q.location)}</span>`:""}
+        ${q.topic?`<span class="qtopic">${esc(q.topic)}</span>`:""}</div>
+    </div>`;}).join("");
 }
 
 /* ================= DRAWER ================= */
@@ -764,7 +761,7 @@ function openDrawer(fid){
   const recs=f.recommendations.map(r=>`<li>${esc(r)}</li>`).join("");
   const qs=quotesForCell(f.profile,f.area).slice(0,3);
   const qHtml=qs.length?`<div class="db-label">Related quotes</div>`+qs.map(q=>
-    `<div class="mini-quote">${esc(q.text)}<div class="qm">${esc(q.group)}${q.location?" · "+esc(q.location):""}</div></div>`).join(""):"";
+    `<div class="mini-quote">${esc(qtext(q))}<div class="qm">${esc(q.group)}${q.location?" · "+esc(q.location):""}</div></div>`).join(""):"";
   $("#drawerBody").innerHTML=
     `<div class="db-label">Key finding</div><div class="finding-text">${esc(f.finding)}</div>`+
     (recs?`<div class="db-label">Recommendations by refugees</div><ul class="rec-list">${recs}</ul>`:"")+
@@ -786,9 +783,11 @@ document.addEventListener("keydown",e=>{if(e.key==="Escape")closeDrawer();});
 function switchView(v){
   $$(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.view===v));
   $$(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v));
+  $("#searchFg").style.display = v==="overview" ? "none" : "";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 $$(".tab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
+$$("#qlangToggle .qlang").forEach(bqu=>bqu.addEventListener("click",()=>{state.qlang=bqu.dataset.lang;renderVoices();}));
 
 /* ================= FILTERS ================= */
 function updateNote(){
@@ -801,32 +800,33 @@ function updateNote(){
 }
 function applyFilters(){
   updateNote();
-  renderOverview(); renderMatrix(); renderFramework(); renderVoices();
+  renderOverview(); renderFramework(); renderVoices();
 }
 $("#fProfile").addEventListener("change",e=>{state.profile=e.target.value;applyFilters();});
-$("#fSector").addEventListener("change",e=>{state.sector=e.target.value;applyFilters();});
 $("#fRaion").addEventListener("change",e=>{state.raion=e.target.value;applyFilters();});
 let qt;$("#fSearch").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value.trim().toLowerCase();applyFilters();},160);});
 $("#fReset").addEventListener("click",()=>{
   state.profile=state.sector=state.raion=state.q="";
-  $("#fProfile").value="";$("#fSector").value="";$("#fRaion").value="";$("#fSearch").value="";
+  $("#fProfile").value="";$("#fRaion").value="";$("#fSearch").value="";
   applyFilters();
 });
 
 /* ================= BOOT ================= */
   buildMap();
   applyFilters();
+  $("#searchFg").style.display="none"; /* Overview is the default view */
 } /* end start(DATA) */
 
-fetch("data/data.json", {cache: "no-cache"})
-  .then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); })
-  .then(start)
+Promise.all([
+  fetch("data/data.json", {cache: "no-cache"}).then(r => { if(!r.ok) throw new Error("HTTP " + r.status); return r.json(); }),
+  fetch("data/quotes.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : []).catch(() => [])
+]).then(([data, quotes]) => { data.quotes = quotes; start(data); })
   .catch(err => {
     console.error("Data load failed:", err);
     var m = document.getElementById("view-overview");
     if(m) m.innerHTML =
       '<div class="empty-state"><div class="big">Couldn\'t load the data</div>' +
-      '<div>This dashboard reads <code>data/data.json</code>. Check that the file is present next to the page, and open the page over http (GitHub Pages, or a local server such as <code>python -m http.server</code>) — opening the file directly from disk can block the request.</div></div>';
+      '<div>This dashboard reads <code>data/data.json</code> and <code>data/quotes.json</code>. Check both files are present next to the page, and open the page over http (GitHub Pages, or a local server such as <code>python -m http.server</code>) — opening the file directly from disk can block the request.</div></div>';
   });
 </script>
 </body>
