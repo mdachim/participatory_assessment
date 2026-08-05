@@ -253,7 +253,7 @@ table.matrix thead th.rowh{background:none}
 .quote .qmeta{display:flex;gap:8px;flex-wrap:wrap;align-items:center;font-size:11px;padding-top:12px;border-top:1px solid var(--line)}
 .quote .qmeta .qg{font-weight:900;color:var(--blue05)}
 .quote .qmeta .ql{color:var(--grey04)}
-.quote::after{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;background:var(--yellow);border-radius:3px}
+.quote::after{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;background:var(--tc,var(--yellow));border-radius:3px}
 .lang-note{font-size:11px;color:var(--grey03);margin-bottom:16px}
 .qlang-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
 .qlang-bar .lang-note{margin:0;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--grey04)}
@@ -263,8 +263,10 @@ table.matrix thead th.rowh{background:none}
 .qlang-toggle .qlang:last-child{border-right:0}
 .qlang-toggle .qlang:hover{background:var(--blue01)}
 .qlang-toggle .qlang[aria-pressed="true"]{background:var(--blue);color:#fff}
-.quote .qtopic{background:#DAF6EB;color:#1F5741;font-weight:900;font-size:10px;letter-spacing:.03em;
+.quote .qtopic{background:var(--tcbg,#DAF6EB);color:var(--grey06);font-weight:900;font-size:10px;letter-spacing:.03em;
   text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-left:auto}
+.quote .qtopic::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
+  background:var(--tc,var(--yellow));margin-right:5px;vertical-align:middle;margin-top:-1px}
 
 /* ---- empty state ---- */
 .empty-state{padding:60px 20px;text-align:center;color:var(--grey03)}
@@ -500,6 +502,19 @@ const GROUPS=[...new Set(DATA.coverage.map(c=>c.group))].sort();
 const SECTORS=[...new Set(DATA.framework.map(f=>f.area))].sort();
 const RAIONS=[...new Set(DATA.coverage.map(c=>c.raion))];
 const QTOPICS=[...new Set(DATA.quotes.map(q=>q.topic).filter(Boolean))].sort();
+const TOPIC_COLORS={
+  "Access to basic needs":"#D25A45",
+  "Access to information":"#0072BC",
+  "Access to medical assistance":"#E5709B",
+  "Access to Social Services and Assistance":"#7A5AA6",
+  "Education":"#E0A400",
+  "Employment and livelihoods":"#32C189",
+  "Housing":"#C6702A",
+  "Integration and Inclusion":"#2CA6C4",
+  "Legal Status":"#05568B",
+  "Peaceful co-existence and community cohesion":"#17A398"
+};
+const topicColor=t=>TOPIC_COLORS[t]||"#999999";
 
 /* ================= INIT CONTROLS ================= */
 function fillSelect(el,items){ items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);}); }
@@ -745,7 +760,9 @@ function renderVoices(){
   $("#voicesEmpty").style.display=list.length?"none":"block";
   $("#quotesGrid").innerHTML=list.map(q=>{
     const txt=qtext(q);
-    return `<div class="card quote">
+    const c=q.topic?topicColor(q.topic):"";
+    const cstyle=q.topic?` style="--tc:${c};--tcbg:${c}22"`:"";
+    return `<div class="card quote"${cstyle}>
       <div class="mark">“</div>
       <div class="qt">${esc(txt)}</div>
       <div class="qmeta"><span class="qg">${esc(q.group||'—')}</span>
