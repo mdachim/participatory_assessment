@@ -342,6 +342,10 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
     <label for="fRaion">Geographic area</label>
     <select id="fRaion"><option value="">All areas</option></select>
   </div>
+  <div class="fg" id="topicFg">
+    <label for="fTopic">Topic</label>
+    <select id="fTopic"><option value="">All topics</option></select>
+  </div>
   <div class="fg" id="searchFg">
     <label for="fSearch">Search findings &amp; quotes</label>
     <input id="fSearch" type="search" placeholder="e.g. housing, medicine, TP…" autocomplete="off">
@@ -481,7 +485,7 @@ const AREA_COLORS = {
 };
 
 /* ================= STATE ================= */
-const state={profile:"",sector:"",raion:"",q:"",qlang:"en"};
+const state={profile:"",sector:"",qtopic:"",raion:"",q:"",qlang:"en"};
 function qtext(q){ const t=q.text||{}; return t[state.qlang]||t.en||t.ro||t.ru||""; }
 
 /* ================= HELPERS ================= */
@@ -495,11 +499,13 @@ const PROFILES=[...new Set(DATA.framework.map(f=>f.profile))];
 const GROUPS=[...new Set(DATA.coverage.map(c=>c.group))].sort();
 const SECTORS=[...new Set(DATA.framework.map(f=>f.area))].sort();
 const RAIONS=[...new Set(DATA.coverage.map(c=>c.raion))];
+const QTOPICS=[...new Set(DATA.quotes.map(q=>q.topic).filter(Boolean))].sort();
 
 /* ================= INIT CONTROLS ================= */
 function fillSelect(el,items){ items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);}); }
 fillSelect($("#fProfile"),GROUPS);
 fillSelect($("#fRaion"),RAIONS);
+fillSelect($("#fTopic"),QTOPICS);
 $("#badgeDt").textContent=DATA.meta.date_range[0]+" – "+DATA.meta.date_range[1];
 $("#badgeQ").textContent=DATA.meta.quarter;
 $("#tabFwC").textContent=DATA.framework.length;
@@ -518,6 +524,7 @@ function quoteMatch(qu){
   if(state.raion && qu.raion!==state.raion) return false;
   if(state.profile && qu.group!==state.profile) return false;
   if(state.sector && qu.topic && qu.topic!==state.sector) return false;
+  if(state.qtopic && qu.topic!==state.qtopic) return false;
   if(state.q){const t=(Object.values(qu.text||{}).join(" ")+" "+qu.group+" "+qu.location+" "+(qu.topic||"")).toLowerCase();
     if(!t.includes(state.q)) return false;}
   return true;
@@ -778,6 +785,7 @@ function switchView(v){
   $$(".tab").forEach(t=>t.setAttribute("aria-selected",t.dataset.view===v));
   $$(".view").forEach(s=>s.classList.toggle("active",s.id==="view-"+v));
   $("#searchFg").style.display = v==="overview" ? "none" : "";
+  $("#topicFg").style.display = v==="voices" ? "" : "none";
   window.scrollTo({top:0,behavior:"smooth"});
 }
 $$(".tab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
@@ -788,6 +796,7 @@ function updateNote(){
   const parts=[];
   if(state.profile)parts.push(state.profile);
   if(state.sector)parts.push(state.sector);
+  if(state.qtopic)parts.push(state.qtopic);
   if(state.raion)parts.push(state.raion);
   if(state.q)parts.push(`“${state.q}”`);
   $("#fNote").textContent=parts.length?"Filtered by: "+parts.join(" · "):"";
@@ -798,10 +807,11 @@ function applyFilters(){
 }
 $("#fProfile").addEventListener("change",e=>{state.profile=e.target.value;applyFilters();});
 $("#fRaion").addEventListener("change",e=>{state.raion=e.target.value;applyFilters();});
+$("#fTopic").addEventListener("change",e=>{state.qtopic=e.target.value;applyFilters();});
 let qt;$("#fSearch").addEventListener("input",e=>{clearTimeout(qt);qt=setTimeout(()=>{state.q=e.target.value.trim().toLowerCase();applyFilters();},160);});
 $("#fReset").addEventListener("click",()=>{
-  state.profile=state.sector=state.raion=state.q="";
-  $("#fProfile").value="";$("#fRaion").value="";$("#fSearch").value="";
+  state.profile=state.sector=state.qtopic=state.raion=state.q="";
+  $("#fProfile").value="";$("#fRaion").value="";$("#fTopic").value="";$("#fSearch").value="";
   applyFilters();
 });
 
@@ -809,6 +819,7 @@ $("#fReset").addEventListener("click",()=>{
   buildMap();
   applyFilters();
   $("#searchFg").style.display="none"; /* Overview is the default view */
+  $("#topicFg").style.display="none"; /* topic filter is quotes-only */
 } /* end start(DATA) */
 
 Promise.all([
