@@ -56,10 +56,18 @@ header{
 .brandmark .tl{font-size:8.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--grey04);margin-top:3px;font-weight:700}
 .head-title h1{font-size:18px;color:var(--blue06)}
 .head-title p{margin:2px 0 0;font-size:12.5px;color:var(--grey04);font-weight:400}
-.head-badge{margin-left:auto;text-align:right;flex-shrink:0}
+.head-right{margin-left:auto;display:flex;align-items:center;gap:18px;flex-shrink:0}
+.head-badge{text-align:right}
 .head-badge .q{display:inline-block;background:var(--blue);color:#fff;font-weight:900;
   font-size:12px;padding:4px 11px;border-radius:3px;letter-spacing:.03em}
 .head-badge .dt{font-size:11px;color:var(--grey04);margin-top:5px}
+/* language switcher */
+.lang-switch{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden;flex-shrink:0}
+.lang-switch button{appearance:none;border:0;background:#fff;cursor:pointer;font-family:var(--f);
+  font-size:12.5px;font-weight:700;color:var(--grey05);padding:7px 13px;border-right:1px solid var(--line);transition:.12s}
+.lang-switch button:last-child{border-right:0}
+.lang-switch button:hover{background:var(--blue01)}
+.lang-switch button[aria-pressed="true"]{background:var(--blue);color:#fff}
 
 /* ============ TABS ============ */
 nav.tabs{
@@ -254,15 +262,7 @@ table.matrix thead th.rowh{background:none}
 .quote .qmeta .qg{font-weight:900;color:var(--blue05)}
 .quote .qmeta .ql{color:var(--grey04)}
 .quote::after{content:"";position:absolute;left:0;top:22px;bottom:22px;width:3px;background:var(--tc,var(--yellow));border-radius:3px}
-.lang-note{font-size:11px;color:var(--grey03);margin-bottom:16px}
-.qlang-bar{display:flex;align-items:center;gap:10px;margin-bottom:18px}
-.qlang-bar .lang-note{margin:0;font-weight:900;letter-spacing:.06em;text-transform:uppercase;color:var(--grey04)}
-.qlang-toggle{display:inline-flex;border:1px solid var(--line);border-radius:8px;overflow:hidden}
-.qlang-toggle .qlang{appearance:none;border:0;background:#fff;cursor:pointer;font-family:var(--f);
-  font-size:12.5px;font-weight:700;color:var(--grey05);padding:7px 14px;border-right:1px solid var(--line);transition:.12s}
-.qlang-toggle .qlang:last-child{border-right:0}
-.qlang-toggle .qlang:hover{background:var(--blue01)}
-.qlang-toggle .qlang[aria-pressed="true"]{background:var(--blue);color:#fff}
+.lang-note{font-size:12px;color:var(--grey04);margin:0 0 16px;font-style:italic}
 .quote .qtopic{background:var(--tcbg,#DAF6EB);color:var(--grey06);font-weight:900;font-size:10px;letter-spacing:.03em;
   text-transform:uppercase;padding:3px 8px;border-radius:20px;margin-left:auto}
 .quote .qtopic::before{content:"";display:inline-block;width:7px;height:7px;border-radius:50%;
@@ -317,70 +317,77 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
       </span>
     </div>
     <div class="head-title">
-      <h1>Moldova: Participatory Assessment Analysis</h1>
-      <p>Ukrainian refugees &amp; host communities in Moldova · Mid-year review</p>
+      <h1 data-i18n="head_title">Moldova: Participatory Assessment Analysis</h1>
+      <p data-i18n="head_sub">Ukrainian refugees &amp; host communities in Moldova · Mid-year review</p>
     </div>
-    <div class="head-badge">
-      <span class="q" id="badgeQ">Q2 2026</span>
-      <div class="dt" id="badgeDt">—</div>
+    <div class="head-right">
+      <div class="lang-switch" id="langSwitch" role="group" aria-label="Language">
+        <button data-lang="en" aria-pressed="true">EN</button>
+        <button data-lang="ro" aria-pressed="false">RO</button>
+        <button data-lang="uk" aria-pressed="false">UK</button>
+      </div>
+      <div class="head-badge">
+        <span class="q" id="badgeQ">Q2 2026</span>
+        <div class="dt" id="badgeDt">—</div>
+      </div>
     </div>
   </div>
 </header>
 
 <nav class="tabs" role="tablist">
   <div class="tabs-inner">
-  <button class="tab" role="tab" aria-selected="true" data-view="overview">Overview</button>
-  <button class="tab" role="tab" aria-selected="false" data-view="framework">Analysis framework <span class="c" id="tabFwC"></span></button>
-  <button class="tab" role="tab" aria-selected="false" data-view="voices">Quotes <span class="c" id="tabVoiceC"></span></button>
+  <button class="tab" role="tab" aria-selected="true" data-view="overview"><span data-i18n="tab_overview">Overview</span></button>
+  <button class="tab" role="tab" aria-selected="false" data-view="framework"><span data-i18n="tab_framework">Analysis framework</span> <span class="c" id="tabFwC"></span></button>
+  <button class="tab" role="tab" aria-selected="false" data-view="voices"><span data-i18n="tab_voices">Quotes</span> <span class="c" id="tabVoiceC"></span></button>
   </div>
 </nav>
 
 <div class="filters">
   <div class="fg">
-    <label for="fProfile">Profile group</label>
-    <select id="fProfile"><option value="">All groups</option></select>
+    <label for="fProfile" data-i18n="f_profile">Profile group</label>
+    <select id="fProfile"><option value="" data-i18n="all_groups">All groups</option></select>
   </div>
   <div class="fg">
-    <label for="fRaion">Geographic area</label>
-    <select id="fRaion"><option value="">All areas</option></select>
+    <label for="fRaion" data-i18n="f_raion">Geographic area</label>
+    <select id="fRaion"><option value="" data-i18n="all_areas">All areas</option></select>
   </div>
   <div class="fg" id="topicFg">
-    <label for="fTopic">Topic</label>
-    <select id="fTopic"><option value="">All topics</option></select>
+    <label for="fTopic" data-i18n="f_topic">Topic</label>
+    <select id="fTopic"><option value="" data-i18n="all_topics">All topics</option></select>
   </div>
   <div class="fg" id="searchFg">
-    <label for="fSearch">Search findings &amp; quotes</label>
-    <input id="fSearch" type="search" placeholder="e.g. housing, medicine, TP…" autocomplete="off">
+    <label for="fSearch" data-i18n="f_search">Search findings &amp; quotes</label>
+    <input id="fSearch" type="search" data-i18n-ph="f_search_ph" placeholder="e.g. housing, medicine, TP…" autocomplete="off">
   </div>
-  <button class="reset" id="fReset">Reset</button>
+  <button class="reset" id="fReset" data-i18n="reset">Reset</button>
 </div>
 <div class="fnote" id="fNote"></div>
 
 <main>
   <!-- OVERVIEW -->
   <section class="view active" id="view-overview" role="tabpanel">
-    <div class="section-eyebrow">Coverage</div>
-    <h2 class="section-title">Who was consulted</h2>
-    <p class="section-sub">Participation across the semester, disaggregated by profile group, geographic area, age group and gender.</p>
+    <div class="section-eyebrow" data-i18n="ov_eyebrow">Coverage</div>
+    <h2 class="section-title" data-i18n="ov_title">Who was consulted</h2>
+    <p class="section-sub" data-i18n="ov_sub">Participation across the semester, disaggregated by profile group, geographic area, age group and gender.</p>
 
     <div class="grid kpis" id="kpis"></div>
 
     <div class="card panel about-card">
-      <h3>About this assessment</h3>
-      <p class="about-text">The Participatory Assessment is a UNHCR community-based protection tool that promotes meaningful engagement with affected populations to better understand their experiences, capacities, priorities and protection concerns. Using a qualitative methodology, the PA gathers and analyses information through Focus Group Discussions conducted with diverse community members, ensuring that different age, gender, diversity and vulnerability perspectives are reflected. The findings support evidence-based protection and programme planning, advocacy, accountability and decision-making, while strengthening the participation of affected communities in shaping responses that impact their lives. In Moldova, the PA is implemented through continuous data collection across both banks of the Nistru River, with significant contributions from members of the AAP Task Force and RCF partners. Findings are consolidated and published in semi-annual reports, accompanied by updates to this dashboard to support ongoing analysis and response planning.</p>
-      <a class="report-link" href="https://data.unhcr.org/en/documents/details/121313" target="_blank" rel="noopener">Read the most recent report ↗</a>
+      <h3 data-i18n="about_title">About this assessment</h3>
+      <p class="about-text" data-i18n="about_body">The Participatory Assessment is a UNHCR community-based protection tool that promotes meaningful engagement with affected populations to better understand their experiences, capacities, priorities and protection concerns. Using a qualitative methodology, the PA gathers and analyses information through Focus Group Discussions conducted with diverse community members, ensuring that different age, gender, diversity and vulnerability perspectives are reflected. The findings support evidence-based protection and programme planning, advocacy, accountability and decision-making, while strengthening the participation of affected communities in shaping responses that impact their lives. In Moldova, the PA is implemented through continuous data collection across both banks of the Nistru River, with significant contributions from members of the AAP Task Force and RCF partners. Findings are consolidated and published in semi-annual reports, accompanied by updates to this dashboard to support ongoing analysis and response planning.</p>
+      <a class="report-link" href="https://data.unhcr.org/en/documents/details/121313" target="_blank" rel="noopener" data-i18n="report_link">Read the most recent report ↗</a>
     </div>
 
     <div class="card panel map-panel">
-      <h3>Where participants were consulted</h3>
-      <div class="ph">Geographic areas with at least one focus group are shaded · select an area to filter</div>
+      <h3 data-i18n="map_title">Where participants were consulted</h3>
+      <div class="ph" data-i18n="map_sub">Geographic areas with at least one focus group are shaded · select an area to filter</div>
       <div class="map-grid">
         <div class="map-holder">
           <div id="map" role="img" aria-label="Map of Moldova showing focus group coverage by area"></div>
         </div>
         <div class="map-side">
           <div class="side-block">
-            <h4 class="side-h">Gender composition</h4>
+            <h4 class="side-h" data-i18n="gender_comp">Gender composition</h4>
             <div class="gender" id="genderBar"></div>
             <div class="glegend" id="genderLegend"></div>
           </div>
@@ -391,13 +398,13 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
 
     <div class="grid two">
       <div class="card panel">
-        <h3>All participants by profile group</h3>
-        <div class="ph">Number of individuals reached in each age–gender–diversity group · click a bar to filter</div>
+        <h3 data-i18n="bars_group_title">All participants by profile group</h3>
+        <div class="ph" data-i18n="bars_group_sub">Number of individuals reached in each age–gender–diversity group · click a bar to filter</div>
         <div class="bars" id="barsGroup"></div>
       </div>
       <div class="card panel">
-        <h3>All participants by age groups</h3>
-        <div class="ph">Distribution of participants across age groups</div>
+        <h3 data-i18n="bars_age_title">All participants by age groups</h3>
+        <div class="ph" data-i18n="bars_age_sub">Distribution of participants across age groups</div>
         <div class="bars" id="barsAge"></div>
       </div>
     </div>
@@ -406,33 +413,26 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
 
   <!-- FRAMEWORK -->
   <section class="view" id="view-framework" role="tabpanel">
-    <div class="section-eyebrow">Full analysis</div>
-    <h2 class="section-title">Analysis framework — complete findings</h2>
-    <p class="section-sub">Every finding and recommendation from the Q2 coded framework, in full and verbatim. Expand a group, then a sector, to read it. Use the filters or search above to narrow, or print this view for a report annex.</p>
+    <div class="section-eyebrow" data-i18n="fw_eyebrow">Full analysis</div>
+    <h2 class="section-title" data-i18n="fw_title">Analysis framework — complete findings</h2>
+    <p class="section-sub" data-i18n="fw_sub">Every finding and recommendation from the Q2 coded framework, in full and verbatim. Expand a group, then a sector, to read it. Use the filters or search above to narrow, or print this view for a report annex.</p>
     <div id="frameworkList"></div>
     <div class="empty-state" id="fwEmpty" style="display:none">
-      <div class="big">No findings match your filters</div>
-      <div>Try clearing the search or selecting “All”.</div>
+      <div class="big" data-i18n="fw_empty_big">No findings match your filters</div>
+      <div data-i18n="fw_empty_sub">Try clearing the search or selecting “All”.</div>
     </div>
   </section>
 
   <!-- VOICES -->
   <section class="view" id="view-voices" role="tabpanel">
-    <div class="section-eyebrow">In their words</div>
-    <h2 class="section-title">Participant quotes</h2>
-    <p class="section-sub">Verbatim quotes captured during the discussions, linked to the group and location where they were recorded.</p>
-    <div class="qlang-bar">
-      <span class="lang-note">Language:</span>
-      <div id="qlangToggle" class="qlang-toggle">
-        <button class="qlang" data-lang="en" aria-pressed="true">English</button>
-        <button class="qlang" data-lang="ro" aria-pressed="false">Română</button>
-        <button class="qlang" data-lang="ru" aria-pressed="false">Русский</button>
-      </div>
-    </div>
+    <div class="section-eyebrow" data-i18n="vo_eyebrow">In their words</div>
+    <h2 class="section-title" data-i18n="vo_title">Participant quotes</h2>
+    <p class="section-sub" data-i18n="vo_sub">Verbatim quotes captured during the discussions, linked to the group and location where they were recorded.</p>
+    <p class="lang-note" id="quotesLangNote" style="display:none"></p>
     <div class="grid quotes-grid" id="quotesGrid"></div>
     <div class="empty-state" id="voicesEmpty" style="display:none">
-      <div class="big">No quotes match your filters</div>
-      <div>Try a different group, raion or search term.</div>
+      <div class="big" data-i18n="vo_empty_big">No quotes match your filters</div>
+      <div data-i18n="vo_empty_sub">Try a different group, raion or search term.</div>
     </div>
   </section>
 </main>
@@ -440,7 +440,7 @@ footer{border-top:1px solid var(--line);background:#fff;margin-top:20px}
 <footer>
   <div class="foot-inner">
     <div>
-      <strong>UNHCR Moldova — Participatory Assessment 2026.</strong> Findings from focus group discussions with refugees and host-community members.
+      <strong data-i18n="footer_strong">UNHCR Moldova — Participatory Assessment 2026.</strong> <span data-i18n="footer_text">Findings from focus group discussions with refugees and host-community members.</span>
     </div>
     <div id="footStats"></div>
   </div>
@@ -486,9 +486,136 @@ const AREA_COLORS = {
   "Suggested Solutions / Next Steps":"var(--grey03)"
 };
 
+/* ================= I18N ================= */
+const LANGS=["en","ro","uk"];
+/* UI chrome strings. {template} tokens are filled at render time. */
+const I18N={
+ head_title:{en:"Moldova: Participatory Assessment Analysis",ro:"Moldova: Analiza evaluării participative",uk:"Молдова: Аналіз партисипативного оцінювання"},
+ head_sub:{en:"Ukrainian refugees & host communities in Moldova · Mid-year review",ro:"Refugiați ucraineni și comunități-gazdă din Moldova · Analiză de mijloc de an",uk:"Українські біженці та приймаючі громади в Молдові · Піврічний огляд"},
+ tab_overview:{en:"Overview",ro:"Prezentare generală",uk:"Огляд"},
+ tab_framework:{en:"Analysis framework",ro:"Cadru de analiză",uk:"Аналітична рамка"},
+ tab_voices:{en:"Quotes",ro:"Citate",uk:"Цитати"},
+ f_profile:{en:"Profile group",ro:"Grup de profil",uk:"Профільна група"},
+ f_raion:{en:"Geographic area",ro:"Zonă geografică",uk:"Географічна зона"},
+ f_topic:{en:"Topic",ro:"Subiect",uk:"Тема"},
+ f_search:{en:"Search findings & quotes",ro:"Caută în constatări și citate",uk:"Пошук у висновках і цитатах"},
+ f_search_ph:{en:"e.g. housing, medicine, TP…",ro:"ex. locuințe, medicamente, PT…",uk:"напр. житло, ліки, ТЗ…"},
+ reset:{en:"Reset",ro:"Resetează",uk:"Скинути"},
+ all_groups:{en:"All groups",ro:"Toate grupurile",uk:"Усі групи"},
+ all_areas:{en:"All areas",ro:"Toate zonele",uk:"Усі зони"},
+ all_topics:{en:"All topics",ro:"Toate subiectele",uk:"Усі теми"},
+ ov_eyebrow:{en:"Coverage",ro:"Acoperire",uk:"Охоплення"},
+ ov_title:{en:"Who was consulted",ro:"Cine a fost consultat",uk:"Кого було залучено"},
+ ov_sub:{en:"Participation across the semester, disaggregated by profile group, geographic area, age group and gender.",ro:"Participarea pe parcursul semestrului, dezagregată pe grup de profil, zonă geografică, grupă de vârstă și gen.",uk:"Участь протягом півріччя з розбивкою за профільною групою, географічною зоною, віковою групою та статтю."},
+ about_title:{en:"About this assessment",ro:"Despre această evaluare",uk:"Про це оцінювання"},
+ about_body:{en:"The Participatory Assessment is a UNHCR community-based protection tool that promotes meaningful engagement with affected populations to better understand their experiences, capacities, priorities and protection concerns. Using a qualitative methodology, the PA gathers and analyses information through Focus Group Discussions conducted with diverse community members, ensuring that different age, gender, diversity and vulnerability perspectives are reflected. The findings support evidence-based protection and programme planning, advocacy, accountability and decision-making, while strengthening the participation of affected communities in shaping responses that impact their lives. In Moldova, the PA is implemented through continuous data collection across both banks of the Nistru River, with significant contributions from members of the AAP Task Force and RCF partners. Findings are consolidated and published in semi-annual reports, accompanied by updates to this dashboard to support ongoing analysis and response planning.",
+  ro:"Evaluarea participativă este un instrument de protecție bazat pe comunitate al UNHCR, care promovează implicarea semnificativă a populațiilor afectate pentru a înțelege mai bine experiențele, capacitățile, prioritățile și preocupările lor de protecție. Folosind o metodologie calitativă, EP colectează și analizează informații prin grupuri de discuție desfășurate cu membri diverși ai comunității, asigurând reflectarea diferitelor perspective de vârstă, gen, diversitate și vulnerabilitate. Constatările sprijină planificarea protecției și a programelor bazată pe dovezi, advocacy-ul, responsabilizarea și luarea deciziilor, consolidând totodată participarea comunităților afectate la modelarea răspunsurilor care le afectează viața. În Moldova, EP este implementată prin colectarea continuă a datelor pe ambele maluri ale râului Nistru, cu contribuții semnificative din partea membrilor Grupului operativ AAP și ai partenerilor RCF. Constatările sunt consolidate și publicate în rapoarte semestriale, însoțite de actualizări ale acestui tablou de bord pentru a sprijini analiza continuă și planificarea răspunsului.",
+  uk:"Партисипативне оцінювання — це інструмент захисту на рівні громад УВКБ ООН, який сприяє змістовному залученню постраждалого населення для кращого розуміння його досвіду, спроможностей, пріоритетів і потреб у захисті. Використовуючи якісну методологію, ПО збирає та аналізує інформацію через обговорення у фокус-групах із різними членами громади, забезпечуючи відображення різних перспектив за віком, статтю, різноманіттям і вразливістю. Висновки підтримують планування захисту та програм на основі фактичних даних, адвокацію, підзвітність і прийняття рішень, водночас посилюючи участь постраждалих громад у формуванні заходів, що впливають на їхнє життя. У Молдові ПО впроваджується шляхом безперервного збору даних на обох берегах річки Дністер за значного внеску членів Робочої групи AAP і партнерів RCF. Висновки узагальнюються та публікуються у піврічних звітах, що супроводжуються оновленнями цієї інформаційної панелі для підтримки поточного аналізу та планування реагування."},
+ report_link:{en:"Read the most recent report ↗",ro:"Citește cel mai recent raport ↗",uk:"Читати останній звіт ↗"},
+ map_title:{en:"Where participants were consulted",ro:"Unde au fost consultați participanții",uk:"Де залучали учасників"},
+ map_sub:{en:"Geographic areas with at least one focus group are shaded · select an area to filter",ro:"Zonele geografice cu cel puțin un grup de discuție sunt colorate · selectează o zonă pentru filtrare",uk:"Географічні зони щонайменше з однією фокус-групою затінені · оберіть зону для фільтрування"},
+ gender_comp:{en:"Gender composition",ro:"Componența pe gen",uk:"Гендерний склад"},
+ cov_legend:{en:"Coverage",ro:"Acoperire",uk:"Охоплення"},
+ cov_yes:{en:"At least one focus group",ro:"Cel puțin un grup de discuție",uk:"Щонайменше одна фокус-група"},
+ cov_no:{en:"Not covered",ro:"Neacoperit",uk:"Не охоплено"},
+ bars_group_title:{en:"All participants by profile group",ro:"Toți participanții pe grup de profil",uk:"Усі учасники за профільною групою"},
+ bars_group_sub:{en:"Number of individuals reached in each age–gender–diversity group · click a bar to filter",ro:"Numărul de persoane atinse în fiecare grup de vârstă–gen–diversitate · dă clic pe o bară pentru filtrare",uk:"Кількість осіб, охоплених у кожній групі за віком, статтю та різноманіттям · натисніть смугу для фільтрування"},
+ bars_age_title:{en:"All participants by age groups",ro:"Toți participanții pe grupe de vârstă",uk:"Усі учасники за віковими групами"},
+ bars_age_sub:{en:"Distribution of participants across age groups",ro:"Distribuția participanților pe grupe de vârstă",uk:"Розподіл учасників за віковими групами"},
+ fw_eyebrow:{en:"Full analysis",ro:"Analiză completă",uk:"Повний аналіз"},
+ fw_title:{en:"Analysis framework — complete findings",ro:"Cadru de analiză — constatări complete",uk:"Аналітична рамка — повні висновки"},
+ fw_sub:{en:"Every finding and recommendation from the coded framework, in full and verbatim. Expand a group, then a sector, to read it. Use the filters or search above to narrow, or print this view for a report annex.",ro:"Fiecare constatare și recomandare din cadrul codificat, integral și textual. Extinde un grup, apoi un sector, pentru a citi. Folosește filtrele sau căutarea de mai sus pentru a restrânge sau tipărește această vizualizare ca anexă de raport.",uk:"Кожен висновок і рекомендація з кодованої аналітичної рамки, повністю та дослівно. Розгорніть групу, потім сектор, щоб прочитати. Скористайтеся фільтрами або пошуком угорі, щоб звузити, або роздрукуйте це подання як додаток до звіту."},
+ fw_empty_big:{en:"No findings match your filters",ro:"Nicio constatare nu corespunde filtrelor",uk:"Жоден висновок не відповідає фільтрам"},
+ fw_empty_sub:{en:"Try clearing the search or selecting “All”.",ro:"Încearcă să ștergi căutarea sau să selectezi „Toate”.",uk:"Спробуйте очистити пошук або обрати «Усі»."},
+ vo_eyebrow:{en:"In their words",ro:"În cuvintele lor",uk:"Їхніми словами"},
+ vo_title:{en:"Participant quotes",ro:"Citatele participanților",uk:"Цитати учасників"},
+ vo_sub:{en:"Verbatim quotes captured during the discussions, linked to the group and location where they were recorded.",ro:"Citate textuale surprinse în timpul discuțiilor, asociate grupului și locației unde au fost înregistrate.",uk:"Дослівні цитати, зафіксовані під час обговорень, прив’язані до групи та місця, де їх записали."},
+ vo_empty_big:{en:"No quotes match your filters",ro:"Niciun citat nu corespunde filtrelor",uk:"Жодна цитата не відповідає фільтрам"},
+ vo_empty_sub:{en:"Try a different group, raion or search term.",ro:"Încearcă alt grup, raion sau termen de căutare.",uk:"Спробуйте іншу групу, район або пошуковий запит."},
+ quotes_uk_note:{en:"",ro:"",uk:"Українські переклади цитат ще готуються — наразі показано англійський оригінал."},
+ kpi_fgds:{en:"Focus groups",ro:"Grupuri de discuție",uk:"Фокус-групи"},
+ kpi_fgds_s:{en:"discussions held",ro:"discuții desfășurate",uk:"проведених обговорень"},
+ kpi_part:{en:"Participants",ro:"Participanți",uk:"Учасники"},
+ kpi_part_s:{en:"{f} female · {m} male",ro:"{f} femei · {m} bărbați",uk:"{f} жінок · {m} чоловіків"},
+ kpi_areas:{en:"Geographic areas covered",ro:"Zone geografice acoperite",uk:"Охоплені географічні зони"},
+ kpi_areas_s:{en:"across Moldova",ro:"în toată Moldova",uk:"по всій Молдові"},
+ kpi_groups:{en:"Profile groups",ro:"Grupuri de profil",uk:"Профільні групи"},
+ kpi_groups_s:{en:"age · gender · diversity",ro:"vârstă · gen · diversitate",uk:"вік · стать · різноманіття"},
+ g_male:{en:"Male",ro:"Bărbați",uk:"Чоловіки"},
+ g_female:{en:"Female",ro:"Femei",uk:"Жінки"},
+ g_other:{en:"Other",ro:"Altul",uk:"Інші"},
+ yrs:{en:"yrs",ro:"ani",uk:"р."},
+ fw_findings_n:{en:"{n} finding(s)",ro:"{n} constatări",uk:"{n} висновків"},
+ fw_rec_n:{en:"{n} rec.",ro:"{n} rec.",uk:"{n} рек."},
+ lbl_key_finding:{en:"Key finding",ro:"Constatare cheie",uk:"Основний висновок"},
+ lbl_recs:{en:"Recommendations by refugees",ro:"Recomandări formulate de refugiați",uk:"Рекомендації біженців"},
+ lbl_related_quotes:{en:"Related quotes",ro:"Citate asociate",uk:"Пов’язані цитати"},
+ footer_strong:{en:"UNHCR Moldova — Participatory Assessment 2026.",ro:"UNHCR Moldova — Evaluare participativă 2026.",uk:"УВКБ ООН Молдова — Партисипативне оцінювання 2026."},
+ footer_text:{en:"Findings from focus group discussions with refugees and host-community members.",ro:"Constatări din grupurile de discuție cu refugiați și membri ai comunităților-gazdă.",uk:"Висновки з обговорень у фокус-групах з біженцями та членами приймаючих громад."},
+ foot_stats:{en:"{s} sessions · {p} participants · {fi} findings · {q} quotes",ro:"{s} sesiuni · {p} participanți · {fi} constatări · {q} citate",uk:"{s} сесій · {p} учасників · {fi} висновків · {q} цитат"},
+ filtered_by:{en:"Filtered by: ",ro:"Filtrat după: ",uk:"Відфільтровано за: "},
+ tip_participants:{en:"{n} participants",ro:"{n} participanți",uk:"{n} учасників"},
+ tip_fgds:{en:"{n} FGDs",ro:"{n} GD",uk:"{n} ФГД"},
+ tip_none:{en:"No participants in current view",ro:"Niciun participant în vizualizarea curentă",uk:"Немає учасників у поточному поданні"}
+};
+/* coverage-group / raion / quote-topic labels (English key -> ro/uk display) */
+const I18N_GROUP={
+ "Adults (30–49)":{ro:"Adulți (30–49)",uk:"Дорослі (30–49)"},
+ "Children & Teens":{ro:"Copii și adolescenți",uk:"Діти та підлітки"},
+ "Ethnic Roma":{ro:"Etnia romă",uk:"Етнічні роми"},
+ "LGBTIQ+":{ro:"LGBTIQ+",uk:"ЛГБТІК+"},
+ "Older Persons (60+)":{ro:"Persoane vârstnice (60+)",uk:"Люди похилого віку (60+)"},
+ "Persons with Disabilities":{ro:"Persoane cu dizabilități",uk:"Особи з інвалідністю"},
+ "Pre-Retirement (50–59)":{ro:"Pre-pensionare (50–59)",uk:"Передпенсійний вік (50–59)"}
+};
+const I18N_RAION={
+ "Balti":{ro:"Bălți",uk:"Бєльці"},
+ "Bender":{ro:"Bender",uk:"Бендери"},
+ "Chisinau":{ro:"Chișinău",uk:"Кишинів"},
+ "Donduseni":{ro:"Dondușeni",uk:"Дондушени"},
+ "Left Bank of Dniester":{ro:"Malul stâng al Nistrului",uk:"Лівобережжя Дністра"},
+ "Nisporeni":{ro:"Nisporeni",uk:"Ніспорень"},
+ "Soroca":{ro:"Soroca",uk:"Сорока"},
+ "Ungheni":{ro:"Ungheni",uk:"Унгень"}
+};
+const I18N_TOPIC={
+ "Access to Social Services and Assistance":{ro:"Acces la servicii sociale și asistență",uk:"Доступ до соціальних послуг і допомоги"},
+ "Access to basic needs":{ro:"Acces la nevoi de bază",uk:"Доступ до базових потреб"},
+ "Daily Life and Public Services":{ro:"Viața cotidiană și serviciile publice",uk:"Повсякденне життя та державні послуги"},
+ "Education":{ro:"Educație",uk:"Освіта"},
+ "Employment and livelihoods":{ro:"Ocuparea forței de muncă și mijloace de trai",uk:"Зайнятість і засоби до існування"},
+ "General Perception":{ro:"Percepție generală",uk:"Загальне сприйняття"},
+ "Housing":{ro:"Locuințe",uk:"Житло"},
+ "Information and Support":{ro:"Informare și sprijin",uk:"Інформація та підтримка"},
+ "Integration and Inclusion":{ro:"Integrare și incluziune",uk:"Інтеграція та інклюзія"},
+ "Legal Status":{ro:"Statut juridic",uk:"Правовий статус"},
+ "Peaceful co-existence and community cohesion":{ro:"Coexistență pașnică și coeziune comunitară",uk:"Мирне співіснування та громадська згуртованість"},
+ "Plans and Intentions":{ro:"Planuri și intenții",uk:"Плани та наміри"},
+ "Social Cohesion and Interaction":{ro:"Coeziune socială și interacțiune",uk:"Соціальна згуртованість і взаємодія"}
+};
+const I18N_PROFILE=(DATA.i18n&&DATA.i18n.profile)||{};
+const I18N_AREA=(DATA.i18n&&DATA.i18n.area)||{};
+
 /* ================= STATE ================= */
-const state={profile:"",sector:"",qtopic:"",raion:"",q:"",qlang:"en"};
-function qtext(q){ const t=q.text||{}; return t[state.qlang]||t.en||t.ro||t.ru||""; }
+const state={profile:"",sector:"",qtopic:"",raion:"",q:"",lang:"en"};
+/* translation helpers — all fall back to the English key/original text */
+function t(key,vars){ const e=I18N[key]; let s=e?(e[state.lang]||e.en||""):key;
+  if(vars) for(const k in vars) s=s.replace("{"+k+"}",vars[k]); return s; }
+function pick(map,key){ const e=map[key]; if(!e) return key; return e[state.lang]||e.en||key; }
+const tp=p=>pick(I18N_PROFILE,p);              // framework profile
+const ta=a=>pick(I18N_AREA,a);                 // framework area / sector
+const tg=g=>pick(I18N_GROUP,g);                // coverage group
+const traion=r=>pick(I18N_RAION,r);            // raion
+const ttopic=x=>pick(I18N_TOPIC,x);            // quote topic
+function tf(o){ if(o==null) return ""; if(typeof o==="string") return o;
+  return o[state.lang]||o.en||o.ro||o.uk||""; }   // multilingual finding/recommendation
+function qtext(q){ const x=q.text||{}; return x[state.lang]||x.en||x.ro||x.uk||""; }
+function badgeText(v){
+  const m=String(v||"").match(/^Semester\s+(\d+)\s+(\d+)$/);
+  if(m){ if(state.lang==="ro") return "Semestrul "+m[1]+" "+m[2];
+         if(state.lang==="uk") return m[1]+" півріччя "+m[2]; }
+  return v;
+}
 
 /* ================= HELPERS ================= */
 const $=(s,r=document)=>r.querySelector(s);
@@ -517,22 +644,43 @@ const TOPIC_COLORS={
 const topicColor=t=>TOPIC_COLORS[t]||"#999999";
 
 /* ================= INIT CONTROLS ================= */
-function fillSelect(el,items){ items.forEach(v=>{const o=document.createElement("option");o.value=v;o.textContent=v;el.appendChild(o);}); }
-fillSelect($("#fProfile"),GROUPS);
-fillSelect($("#fRaion"),RAIONS);
-fillSelect($("#fTopic"),QTOPICS);
+function fillSelect(el,items,tr){ items.forEach(v=>{const o=document.createElement("option");
+  o.value=v; o.dataset.raw=v; o.textContent=tr?tr(v):v; el.appendChild(o);}); }
+fillSelect($("#fProfile"),GROUPS,tg);
+fillSelect($("#fRaion"),RAIONS,traion);
+fillSelect($("#fTopic"),QTOPICS,ttopic);
 $("#badgeDt").textContent=DATA.meta.date_range[0]+" – "+DATA.meta.date_range[1];
-$("#badgeQ").textContent=DATA.meta.quarter;
 $("#tabFwC").textContent=DATA.framework.length;
 $("#tabVoiceC").textContent=DATA.quotes.length;
-$("#footStats").innerHTML=`${DATA.meta.n_fgds} sessions · ${DATA.meta.n_participants} participants · ${DATA.framework.length} findings · ${DATA.quotes.length} quotes`;
+
+/* apply all static-string translations for the current language */
+function applyI18n(){
+  document.documentElement.lang = state.lang==="uk"?"uk":state.lang;
+  $$("[data-i18n]").forEach(el=>{ el.textContent=t(el.dataset.i18n); });
+  $$("[data-i18n-ph]").forEach(el=>{ el.placeholder=t(el.dataset.i18nPh); });
+  // translated select options (keep the English value, swap the label)
+  const opts=[["#fProfile",tg],["#fRaion",traion],["#fTopic",ttopic]];
+  opts.forEach(([sel,tr])=>$$(sel+" option[data-raw]").forEach(o=>{o.textContent=tr(o.dataset.raw);}));
+  $("#badgeQ").textContent=badgeText(DATA.meta.quarter);
+  $("#footStats").textContent=t("foot_stats",{s:DATA.meta.n_fgds,p:DATA.meta.n_participants,fi:DATA.framework.length,q:DATA.quotes.length});
+  $$("#langSwitch button").forEach(b=>b.setAttribute("aria-pressed", b.dataset.lang===state.lang));
+  const note=$("#quotesLangNote"), nt=t("quotes_uk_note");
+  note.textContent=nt; note.style.display=nt?"":"none";
+}
 
 /* ================= FILTER LOGIC ================= */
+/* flatten a finding across all languages + labels so search works in any language */
+function fwText(f){
+  const parts=[];
+  const add=o=>{ if(o&&typeof o==="object") parts.push(...Object.values(o)); else if(o) parts.push(o); };
+  add(f.finding); (f.recommendations||[]).forEach(add);
+  parts.push(f.profile,tp(f.profile),f.area,ta(f.area));
+  return parts.join(" ").toLowerCase();
+}
 function fwMatch(f){
   if(state.profile){const profs=GROUP_TO_PROFS[state.profile]||[]; if(!profs.includes(f.profile)) return false;}
   if(state.sector && f.area!==state.sector) return false;
-  if(state.q){const t=(f.finding+" "+f.recommendations.join(" ")+" "+f.profile+" "+f.area).toLowerCase();
-    if(!t.includes(state.q)) return false;}
+  if(state.q && !fwText(f).includes(state.q)) return false;
   return true;
 }
 function quoteMatch(qu){
@@ -540,8 +688,8 @@ function quoteMatch(qu){
   if(state.profile && qu.group!==state.profile) return false;
   if(state.sector && qu.topic && qu.topic!==state.sector) return false;
   if(state.qtopic && qu.topic!==state.qtopic) return false;
-  if(state.q){const t=(Object.values(qu.text||{}).join(" ")+" "+qu.group+" "+qu.location+" "+(qu.topic||"")).toLowerCase();
-    if(!t.includes(state.q)) return false;}
+  if(state.q){const s=(Object.values(qu.text||{}).join(" ")+" "+qu.group+" "+tg(qu.group)+" "+qu.location+" "+(qu.topic||"")+" "+(qu.topic?ttopic(qu.topic):"")).toLowerCase();
+    if(!s.includes(state.q)) return false;}
   return true;
 }
 function quotesForCell(profile,area){
@@ -583,10 +731,10 @@ function aggCov(cov,sector){
 }
 function renderKpis(a){
   const cards=[
-    {v:a.fgds,l:"Focus groups",s:"discussions held",c:""},
-    {v:a.participants,l:"Participants",s:`${a.gender.female} female · ${a.gender.male} male`,c:"k2"},
-    {v:a.raions,l:"Geographic areas covered",s:"across Moldova",c:"k3"},
-    {v:a.groups,l:"Profile groups",s:"age · gender · diversity",c:"k4"}
+    {v:a.fgds,l:t("kpi_fgds"),s:t("kpi_fgds_s"),c:""},
+    {v:a.participants,l:t("kpi_part"),s:t("kpi_part_s",{f:a.gender.female,m:a.gender.male}),c:"k2"},
+    {v:a.raions,l:t("kpi_areas"),s:t("kpi_areas_s"),c:"k3"},
+    {v:a.groups,l:t("kpi_groups"),s:t("kpi_groups_s"),c:"k4"}
   ];
   $("#kpis").innerHTML=cards.map(c=>`<div class="card kpi ${c.c}"><div class="v">${c.v}</div><div class="l">${c.l}</div><div class="s">${c.s}</div></div>`).join("");
 }
@@ -596,7 +744,7 @@ function hbars(el,rows,{activeKey=null,pick=null}={}){
     const w=(r.v/max*100).toFixed(1);
     const act=activeKey && r.key===activeKey?"active":(activeKey?"dim":"");
     const clickable=pick && pick.resolve(r.l)!=null ? "clickable" : "";
-    return `<div class="bar-row ${act} ${clickable}" data-i="${i}"><div class="bl">${esc(r.l)}</div>
+    return `<div class="bar-row ${act} ${clickable}" data-i="${i}"><div class="bl">${esc(r.disp!=null?r.disp:r.l)}</div>
       <div class="bar-track"><div class="bar-fill" style="width:${w}%"></div></div>
       <div class="bv">${r.v}</div></div>`;
   }).join("");
@@ -618,12 +766,12 @@ function renderOverview(){
   const rA=aggCov(covSubset("raion"),null);      // raion bars + map: all raions, profile-scoped
   renderKpis(full);
   // profile-group bars — every group is clickable (state.profile holds the group)
-  const grpRows=Object.entries(gA.byGroup).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
+  const grpRows=Object.entries(gA.byGroup).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,disp:tg(k),v,key:k}));
   hbars($("#barsGroup"),grpRows,{activeKey:state.profile||null,pick:{dim:"profile",resolve:l=>l}});
   // raion bars
-  const raionRows=Object.entries(rA.byRaion).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,v,key:k}));
+  const raionRows=Object.entries(rA.byRaion).sort((a,b)=>b[1]-a[1]).map(([k,v])=>({l:k,disp:traion(k),v,key:k}));
   // age
-  const ageRows=DATA.age_labels.map((l,i)=>({l:l+" yrs",v:full.ages[i]})).filter(r=>r.v>0);
+  const ageRows=DATA.age_labels.map((l,i)=>({l:l+" "+t("yrs"),v:full.ages[i]})).filter(r=>r.v>0);
   hbars($("#barsAge"),ageRows);
   // gender — male / female / other, all shown as percentages
   const {female,male,other}=full.gender, tot=(female+male+other)||1;
@@ -633,9 +781,9 @@ function renderOverview(){
     `<span class="gseg-f" style="width:${female/tot*100}%">${female||""}</span>`+
     `<span class="gseg-o" style="width:${other/tot*100}%">${other||""}</span>`;
   $("#genderLegend").innerHTML=
-    `<span><i style="background:var(--blue02)"></i>Male ${pc(male)}%</span>`+
-    `<span><i style="background:var(--blue)"></i>Female ${pc(female)}%</span>`+
-    `<span><i style="background:var(--purple)"></i>Other ${pc(other)}%</span>`;
+    `<span><i style="background:var(--blue02)"></i>${t("g_male")} ${pc(male)}%</span>`+
+    `<span><i style="background:var(--blue)"></i>${t("g_female")} ${pc(female)}%</span>`+
+    `<span><i style="background:var(--purple)"></i>${t("g_other")} ${pc(other)}%</span>`;
   // map (single colour for covered areas; highlights the area selection)
   paintMap(rA);
 }
@@ -644,13 +792,16 @@ function renderOverview(){
 const RAION_CANON={};
 Object.keys(DATA.agg.part_by_raion).forEach(k=>{RAION_CANON[k.toLowerCase()]=k;});
 function mapColor(n){ return n>0 ? "#0072BC" : "#EEF2F5"; }
-const MAP_BUCKETS=[["#0072BC","At least one focus group"],["#EEF2F5","Not covered"]];
 let LMAP=null, MAPLAYER=null, MAP_FITTED=false;
+function renderMapLegend(){
+  const buckets=[["#0072BC",t("cov_yes")],["#EEF2F5",t("cov_no")]];
+  $("#mapLegend").innerHTML="<div class='row' style='font-weight:900;color:var(--grey06);margin-bottom:2px'>"+t("cov_legend")+"</div>"+
+    buckets.map(([c,l])=>`<div class="row"><span class="sw" style="background:${c}"></span>${l}</div>`).join("");
+}
 function buildMap(){
   if(!DATA.geo || typeof L==="undefined"){ $(".map-panel").style.display="none"; return; }
   LMAP=L.map("map",{zoomControl:true,attributionControl:false,scrollWheelZoom:false});
-  $("#mapLegend").innerHTML="<div class='row' style='font-weight:900;color:var(--grey06);margin-bottom:2px'>Coverage</div>"+
-    MAP_BUCKETS.map(([c,l])=>`<div class="row"><span class="sw" style="background:${c}"></span>${l}</div>`).join("");
+  renderMapLegend();
 }
 function paintMap(rA){
   if(!LMAP) return;
@@ -669,8 +820,8 @@ function paintMap(rA){
       const key=f.properties.key, n=cnt[key]||0, fg=fgd[key]||0;
       layer.bindTooltip(
         `<b>${esc(f.properties.name)}</b>`+
-        (n>0 ? `<br><span class="tl">${n} participant${n===1?"":"s"}</span> · <span class="td">${fg} FGD${fg===1?"":"s"}</span>`
-             : `<br><span class="td">No participants in current view</span>`),
+        (n>0 ? `<br><span class="tl">${esc(t("tip_participants",{n}))}</span> · <span class="td">${esc(t("tip_fgds",{n:fg}))}</span>`
+             : `<br><span class="td">${esc(t("tip_none"))}</span>`),
         {className:"raion-tip",sticky:true});
       if(fg>0){
         layer.on("click",()=>{
@@ -701,7 +852,7 @@ function renderMatrix(){
     areas.forEach(a=>{
       const f=lookup[p+"|"+a];
       const dimCol=state.sector && state.sector!==a;
-      const dimSearch=f && state.q && !(f.finding+" "+f.recommendations.join(" ")+" "+f.profile+" "+f.area).toLowerCase().includes(state.q);
+      const dimSearch=f && state.q && !fwText(f).includes(state.q);
       const dim=(dimRow||dimCol||dimSearch)?"dim":"";
       if(!f){ html+=`<td><div class="cell empty ${(dimRow||dimCol)?"dim":""}"></div></td>`; return; }
       const n=f.recommendations.length;
@@ -729,22 +880,22 @@ function renderFramework(){
   $("#fwEmpty").style.display=keys.length?"none":"block";
   wrap.innerHTML=keys.map((p,gi)=>{
     const items=groups[p].map(f=>{
-      const recs=f.recommendations.map(r=>`<li>${esc(r)}</li>`).join("");
+      const recs=f.recommendations.map(r=>`<li>${esc(tf(r))}</li>`).join("");
       return `<div class="fw-item" data-fid="${f.id}">
         <div class="fw-item-head">
           <span class="area-dot" style="background:${AREA_COLORS[f.area]||'var(--blue)'}"></span>
-          <h4>${esc(f.area)}</h4>
-          <span class="nrec">${f.recommendations.length} rec.</span>
+          <h4>${esc(ta(f.area))}</h4>
+          <span class="nrec">${esc(t("fw_rec_n",{n:f.recommendations.length}))}</span>
         </div>
         <div class="fw-item-body">
-          <div class="fw-body-label">Key finding</div>
-          <div class="fw-finding">${esc(f.finding)}</div>
-          ${recs?`<div class="fw-body-label">Recommendations by refugees</div><ul class="rec-list">${recs}</ul>`:""}
+          <div class="fw-body-label">${t("lbl_key_finding")}</div>
+          <div class="fw-finding">${esc(tf(f.finding))}</div>
+          ${recs?`<div class="fw-body-label">${t("lbl_recs")}</div><ul class="rec-list">${recs}</ul>`:""}
         </div>
       </div>`;
     }).join("");
     return `<div class="fw-group ${gi>0?'collapsed':''}">
-      <div class="fw-prof-head"><span class="chev">▾</span><h3>${esc(p)}</h3><span class="cnt">${groups[p].length} finding(s)</span></div>
+      <div class="fw-prof-head"><span class="chev">▾</span><h3>${esc(tp(p))}</h3><span class="cnt">${esc(t("fw_findings_n",{n:groups[p].length}))}</span></div>
       <div class="fw-items">${items}</div>
     </div>`;
   }).join("");
@@ -755,7 +906,6 @@ function renderFramework(){
 
 /* ================= RENDER: VOICES ================= */
 function renderVoices(){
-  $$("#qlangToggle .qlang").forEach(bqu=>bqu.setAttribute("aria-pressed", bqu.dataset.lang===state.qlang));
   const list=DATA.quotes.filter(quoteMatch);
   $("#voicesEmpty").style.display=list.length?"none":"block";
   $("#quotesGrid").innerHTML=list.map(q=>{
@@ -765,24 +915,24 @@ function renderVoices(){
     return `<div class="card quote"${cstyle}>
       <div class="mark">“</div>
       <div class="qt">${esc(txt)}</div>
-      <div class="qmeta"><span class="qg">${esc(q.group||'—')}</span>
+      <div class="qmeta"><span class="qg">${esc(q.group?tg(q.group):'—')}</span>
         ${q.location?`<span class="ql">· ${esc(q.location)}</span>`:""}
-        ${q.topic?`<span class="qtopic">${esc(q.topic)}</span>`:""}</div>
+        ${q.topic?`<span class="qtopic">${esc(ttopic(q.topic))}</span>`:""}</div>
     </div>`;}).join("");
 }
 
 /* ================= DRAWER ================= */
 function openDrawer(fid){
   const f=DATA.framework.find(x=>x.id===fid); if(!f)return;
-  $("#drawerTags").innerHTML=`<span class="tag prof">${esc(f.profile)}</span><span class="tag area">${esc(f.area)}</span>`;
-  $("#drawerTitle").textContent=f.area+" — "+f.profile;
-  const recs=f.recommendations.map(r=>`<li>${esc(r)}</li>`).join("");
+  $("#drawerTags").innerHTML=`<span class="tag prof">${esc(tp(f.profile))}</span><span class="tag area">${esc(ta(f.area))}</span>`;
+  $("#drawerTitle").textContent=ta(f.area)+" — "+tp(f.profile);
+  const recs=f.recommendations.map(r=>`<li>${esc(tf(r))}</li>`).join("");
   const qs=quotesForCell(f.profile,f.area).slice(0,3);
-  const qHtml=qs.length?`<div class="db-label">Related quotes</div>`+qs.map(q=>
-    `<div class="mini-quote">${esc(qtext(q))}<div class="qm">${esc(q.group)}${q.location?" · "+esc(q.location):""}</div></div>`).join(""):"";
+  const qHtml=qs.length?`<div class="db-label">${t("lbl_related_quotes")}</div>`+qs.map(q=>
+    `<div class="mini-quote">${esc(qtext(q))}<div class="qm">${esc(q.group?tg(q.group):"")}${q.location?" · "+esc(q.location):""}</div></div>`).join(""):"";
   $("#drawerBody").innerHTML=
-    `<div class="db-label">Key finding</div><div class="finding-text">${esc(f.finding)}</div>`+
-    (recs?`<div class="db-label">Recommendations by refugees</div><ul class="rec-list">${recs}</ul>`:"")+
+    `<div class="db-label">${t("lbl_key_finding")}</div><div class="finding-text">${esc(tf(f.finding))}</div>`+
+    (recs?`<div class="db-label">${t("lbl_recs")}</div><ul class="rec-list">${recs}</ul>`:"")+
     qHtml;
   $("#overlay").classList.add("open");
   $("#drawer").classList.add("open");
@@ -805,18 +955,25 @@ function switchView(v){
   $("#topicFg").style.display = v==="voices" ? "" : "none";
   window.scrollTo({top:0,behavior:"smooth"});
 }
-$$(".tab").forEach(t=>t.addEventListener("click",()=>switchView(t.dataset.view)));
-$$("#qlangToggle .qlang").forEach(bqu=>bqu.addEventListener("click",()=>{state.qlang=bqu.dataset.lang;renderVoices();}));
+$$(".tab").forEach(tb=>tb.addEventListener("click",()=>switchView(tb.dataset.view)));
+function setLang(lang){
+  if(!LANGS.includes(lang)) lang="en";
+  state.lang=lang;
+  applyI18n();
+  renderMapLegend();
+  applyFilters();
+}
+$$("#langSwitch button").forEach(b=>b.addEventListener("click",()=>setLang(b.dataset.lang)));
 
 /* ================= FILTERS ================= */
 function updateNote(){
   const parts=[];
-  if(state.profile)parts.push(state.profile);
-  if(state.sector)parts.push(state.sector);
-  if(state.qtopic)parts.push(state.qtopic);
-  if(state.raion)parts.push(state.raion);
+  if(state.profile)parts.push(tg(state.profile));
+  if(state.sector)parts.push(ta(state.sector));
+  if(state.qtopic)parts.push(ttopic(state.qtopic));
+  if(state.raion)parts.push(traion(state.raion));
   if(state.q)parts.push(`“${state.q}”`);
-  $("#fNote").textContent=parts.length?"Filtered by: "+parts.join(" · "):"";
+  $("#fNote").textContent=parts.length?t("filtered_by")+parts.join(" · "):"";
 }
 function applyFilters(){
   updateNote();
@@ -834,6 +991,7 @@ $("#fReset").addEventListener("click",()=>{
 
 /* ================= BOOT ================= */
   buildMap();
+  applyI18n();
   applyFilters();
   $("#searchFg").style.display="none"; /* Overview is the default view */
   $("#topicFg").style.display="none"; /* topic filter is quotes-only */
